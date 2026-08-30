@@ -1,291 +1,271 @@
-# APF Human Review Decision Package — Architecture Assets v0.1
+# APF Human Review / Architecture Experiment Package v0.2
 
-**Status:** PROPOSED / HUMAN DECISION REQUIRED  
-**Source candidate set:** `docs/research/ARCHITECTURE_ASSET_CANDIDATES_v0.1.md`  
-**No decision is recorded by this package.** This package prepares decisions for human review.
+**Status:** PROPOSED / HUMAN GOVERNANCE REQUIRED
+
+This package is a decision aid, not a permanent architecture decision. It explicitly supports experimentation and project-specific architecture profiles.
 
 ## 1. Decision Objective
 
-Decide which research-derived abstractions should become APF-owned Architecture Assets, which should remain supporting/reference patterns, and which require further research.
+Do not ask Human Review to pre-classify A01~A13 as the permanent APF architecture.
 
-The decision is explicitly **not**:
+Instead review:
 
-- which OSS to adopt;
-- which runtime to deploy;
-- which framework becomes the APF architecture;
-- whether any contract should be changed immediately.
+1. Which semantic hypotheses are useful enough to keep in APF architecture knowledge.
+2. Which hypotheses need experiments before promotion.
+3. Which semantics are globally stable invariants versus reusable assets.
+4. Which semantics should remain contextual/project-specific.
+5. What evidence threshold is required before creating a stable contract.
+6. Which changes are consequential enough to require explicit human governance.
 
-The decision is:
+## 2. Current Research Position
 
-> Which durable semantics should APF own independently of implementation technology?
+A01~A13 are a research snapshot, not a fixed inventory.
 
-## 2. Current Evidence Baseline
+New candidates may be added. Existing candidates may be refined, split, merged, demoted, deferred, or retired.
 
-Repository evidence confirms that APF already defines a work-centric platform purpose, separates research/asset/decision/implementation states, requires human ownership of consequential decisions, and treats frameworks as references until contracts are established. `CONSTITUTION.md`, the architecture workspace, and the research ledger are therefore the governance baseline for this review.
-
-External evidence reviewed for this package includes:
-
-- Temporal: durable/resumable workflow execution and recovery semantics.
-- LangGraph: checkpoint persistence, interrupts, human approval and resume.
-- OpenFGA: relationship-based authorization checks.
-- OPA: policy decision point separated from policy enforcement, with decision logging.
-- MCP: authorization, consent, and tool safety boundaries.
-- OpenTelemetry: common telemetry semantics and events for operations, state changes, and outcomes.
-- A2A: stateful Task, context, history, and artifact semantics across agent boundaries.
-- Backstage: entity, relation, ownership, and lifecycle modeling.
-- NIST: agent identity, authorization, auditing, and non-repudiation as distinct concerns.
-
-## 3. Review Classification
-
-### Recommended for Human Review as Core
-
-| ID | Candidate | Why it deserves core review | Main risk |
-|---|---|---|---|
-| A01 | Work / Opportunity Model | APF business anchor | Over-modeling |
-| A02 | Automation Decision Model | APF-specific choice/rationale boundary | Process overhead |
-| A03 | Stateful Durable Execution Model | Strong cross-source convergence | Excess durability |
-| A04 | Human Control / Intervention | Human accountability + execution control | Throughput impact |
-| A05 | Capability Boundary | Defines executable surface | Catalog complexity |
-| A06 | Identity / Delegation | Principal and acting-for semantics | IAM complexity |
-| A07 | Authorization / Policy Decision | Separates relation, policy, enforcement | Policy complexity |
-| A08 | Evidence / Provenance | Auditable execution semantics | Cost/privacy |
-| A10 | Business Outcome Linkage | Differentiates APF from agent runtime | Attribution difficulty |
-
-### Recommended as Important / Supporting
-
-| ID | Candidate | Review stance |
-|---|---|---|
-| A09 | Evaluation / Learning Loop | Strong candidate; keep evaluation distinct from outcome |
-| A11 | Work–Execution Identity / Correlation | Supporting cross-cutting asset |
-| A13 | Agent–Workflow Composition | Keep as composition semantics, not a runtime choice |
-
-### Recommended to Defer
-
-| ID | Candidate | Reason |
-|---|---|---|
-| A12 | Context / Lineage Model | Boundary versus state versus provenance remains insufficiently settled |
-
-## 4. Decision Questions
-
-### Gate D1 — APF Ownership
-
-For each candidate:
-
-> Would APF still need this semantic if Temporal, LangGraph, OpenFGA, OPA, MCP, or another technology were replaced tomorrow?
-
-YES → strong APF ownership signal.  
-NO → likely implementation/reference concern.
-
-### Gate D2 — Reuse
-
-> Does the semantic apply to Work, Workflow, Agent, Human-assisted, and non-agent automation where relevant?
-
-Broad applicability increases asset value.
-
-### Gate D3 — Boundary
-
-> Can the candidate be described without importing a framework's object model or execution API?
-
-If not, it should remain a reference/implementation pattern.
-
-### Gate D4 — Failure
-
-> Does the candidate define what happens when the normal path fails?
-
-Candidates without explicit failure/recovery semantics should not be elevated to a contract prematurely.
-
-### Gate D5 — Security
-
-> Is the trust/authority/data/side-effect boundary explicit?
-
-This is mandatory for capability, identity, authorization, and evidence-related assets.
-
-### Gate D6 — Evidence
-
-> Is there enough cross-source evidence to justify abstraction, and what evidence would falsify it?
-
-## 5. High-Priority Human Decisions
-
-### Decision H1 — Make Work the canonical platform anchor?
-
-Candidate: A01  
-Question: Should all automation initiatives be traceable to a Work/Opportunity semantic, including event-driven or highly ephemeral cases?
-
-**Arguments for:** APF identity is business/work-centric; it avoids Agent-centric architecture.  
-**Arguments against:** Some automations may be too ephemeral or infrastructure-level to justify a persistent Work object.
-
-### Decision H2 — Establish Automation Decision as an APF semantic boundary?
-
-Candidate: A02  
-Question: Should APF explicitly represent why a chosen automation mechanism and autonomy level were selected?
-
-**Arguments for:** Makes strategy choice auditable and prevents technology from becoming the decision.  
-**Arguments against:** Low-risk automations may not justify decision records.
-
-### Decision H3 — Define runtime-independent Execution semantics?
-
-Candidate: A03  
-Question: What is the minimum APF guarantee: state, checkpoint, retry, resume, idempotency, interrupt, history?
-
-**Arguments for:** Strong Temporal/LangGraph convergence.  
-**Arguments against:** Not every execution needs maximum durability.
-
-### Decision H4 — Define Human Control as a first-class platform boundary?
-
-Candidate: A04  
-Question: Should approve/edit/reject/escalate/resume/abort become semantic control actions rather than UI features?
-
-**Arguments for:** Directly aligns with HoTL governance and execution safety.  
-**Arguments against:** Fine-grained intervention can create operational bottlenecks.
-
-### Decision H5 — Separate Capability from Authorization?
-
-Candidates: A05 + A07  
-Question: Should APF explicitly model "what can be done" separately from "who may do it" and "whether this action is allowed now"?
-
-**Recommendation rationale:** Strong architectural separation; MCP, OpenFGA, and OPA provide complementary evidence.
-
-### Decision H6 — Separate Identity, Authorization, and Approval?
-
-Candidates: A06 + A07 + A04  
-Question: Should the platform prohibit a single `Actor`/`Auth`/`Approval` object from representing all three semantics?
-
-**Recommendation rationale:** Prevents identity spoofing, permission confusion, and governance ambiguity.
-
-### Decision H7 — Treat Evidence as more than telemetry?
-
-Candidate: A08  
-Question: Should APF define explicit execution/decision/approval/outcome evidence semantics above OTel traces/logs/metrics?
-
-**Recommendation rationale:** OTel standardizes telemetry; OPA provides decision logs; A2A exposes task history/artifacts. These are evidence inputs, not one universal evidence object.
-
-### Decision H8 — Keep Evaluation distinct from Business Outcome?
-
-Candidates: A09 + A10  
-Question: Should APF prohibit treating evaluator score as business success?
-
-**Recommendation rationale:** Evaluation tests quality; Outcome represents actual business effect and acceptance.
-
-## 6. Proposed Core Semantic Stack
-
-This is a synthesis hypothesis, not an approved architecture:
+The preferred lifecycle is:
 
 ```text
-WORK
-  ↓
-AUTOMATION DECISION
-  ↓
-CONTROLLED EXECUTION
-  ├── CAPABILITY
-  ├── IDENTITY / DELEGATION
-  ├── AUTHORIZATION / POLICY
-  └── HUMAN CONTROL
-  ↓
-EXECUTION EVIDENCE / PROVENANCE
-  ↓
-EVALUATION ───────────────┐
-  ↓                       │
-BUSINESS OUTCOME           │
-  ↓                       │
-LEARNING / IMPROVEMENT ───┘
-
-Cross-cutting:
-  CORRELATION / IDENTITY
-  CONTEXT / LINEAGE
+Research Finding
+→ Semantic Hypothesis
+→ Architecture Asset Candidate
+→ Applicability / Experiment Profile
+→ Tool / PoC
+→ Evidence + Counter-Evidence
+→ Asset Refinement
+→ Promotion Candidate
+→ Human Governance when consequential
+→ Contract Candidate
+→ Human Approval
+→ Implementation
+→ Verification
 ```
 
-**PROPOSED / NOT APPROVED**
+## 3. Review Gates
 
-## 7. Explicit Non-Decisions
+### G1 — Semantic Stability
 
-This package does not decide:
+Can the idea be expressed independently of a specific framework/vendor?
 
-- Temporal vs LangGraph vs another runtime;
-- OpenFGA vs OPA vs another authorization implementation;
-- MCP vs another capability protocol;
-- OpenTelemetry vs another observability implementation;
-- database schema;
-- API schema;
-- deployment topology;
-- production security policy;
-- final APF Architecture Contract.
+### G2 — Reusability
 
-## 8. Candidate-to-Contract Impact Map
+Does the semantic recur across multiple tools or workload classes?
 
-| Candidate | Potential contract | Nature of impact |
-|---|---|---|
-| A01 | Domain Contract | Work/Opportunity entities and relationships |
-| A02 | Domain + Decision Contract | Strategy/rationale/lifecycle |
-| A03 | Execution Contract | State, recovery, idempotency, lifecycle |
-| A04 | Execution + Control Contract | Intervention semantics |
-| A05 | Capability Contract | Action/resource/side-effect model |
-| A06 | Identity Contract | Principal/delegation semantics |
-| A07 | Authorization Contract | Relation/policy/decision/enforcement |
-| A08 | Evidence Contract | Evidence/provenance semantics |
-| A09 | Evaluation Contract | Dataset/evaluator/experiment semantics |
-| A10 | Domain/Outcome Contract | Outcome/measurement/acceptance |
-| A11 | Cross-cutting Identity/Correlation | Identifier and linkage semantics |
-| A12 | Context Contract | Context/snapshot/version semantics |
-| A13 | Execution Contract | Agent/workflow composition semantics |
+### G3 — Boundary Stability
 
-**No contract is modified by this document.**
+Can its responsibility be separated cleanly from neighboring semantics?
 
-## 9. Human Review Worksheet
+### G4 — Empirical Fitness
 
-For each candidate, record:
+Does actual tool evidence show meaningful benefit relative to cost/complexity?
+
+### G5 — Counter-Evidence
+
+What observations would make the abstraction unnecessary, harmful, or too broad?
+
+### G6 — Contract Necessity
+
+Is a stable cross-project contract actually needed, or is a project profile sufficient?
+
+### G7 — Consequence
+
+Does promotion/change affect security, authority, platform invariants, interoperability, data integrity, or material operating risk?
+
+Only consequential changes require the strongest human gate.
+
+## 4. Human Role
+
+Human governance is a gate for consequential commitment, not a requirement to manually design every project architecture.
+
+Preferred division:
 
 ```text
-asset_id:
-reviewer:
-decision: ACCEPT | REJECT | DEFER | SPLIT | MERGE
+System
+→ generates hypotheses, options, experiments, evidence, and recommendations
+
+Project
+→ selects applicable semantics/profile for its workload
+
+Human
+→ governs consequential commitments and contract/invariant changes
+```
+
+## 5. Applicability Model
+
+Asset state and project applicability are separate.
+
+### Asset State
+
+```text
+HYPOTHESIS
+CANDIDATE
+PROVISIONAL
+ESTABLISHED
+DEFERRED
+RETIRED
+```
+
+### Applicability
+
+```text
+REQUIRED
+OPTIONAL
+CONTEXT_DEPENDENT
+NOT_APPLICABLE
+EXPERIMENTAL
+```
+
+Example:
+
+```yaml
+architecture_profile:
+  name: engineering-agent-v1
+  assets:
+    stateful_execution: experimental
+    human_control: required
+    capability_boundary: required
+    identity_delegation: required
+    authorization_policy: required
+    evidence_provenance: required
+    evaluation: optional
+    business_outcome: required
+```
+
+A project profile does not redefine the asset and does not imply that every other project must use it.
+
+## 6. Experimentation Model
+
+When applicability or semantic scope is uncertain, compare alternatives rather than forcing a binary decision.
+
+Example:
+
+```text
+Execution Hypothesis
+  ├─ lightweight execution
+  ├─ checkpointed execution
+  └─ durable workflow execution
+          ↓
+  Architecture Fitness Evidence
+          ↓
+   refine / split / merge / retire
+```
+
+Candidate dimensions include:
+
+- reliability
+- recovery success
+- safety
+- human load
+- latency
+- cost
+- auditability
+- portability
+- engineering effort
+- business outcome relevance
+
+## 7. Proposed Architecture Knowledge Stack
+
+```text
+Tier 0 — APF Invariants
+  ↓
+Tier 1 — Semantic Asset Knowledge
+  ↓
+Tier 2 — Project Architecture Profiles
+  ↓
+Tool / PoC / Implementation
+  ↓
+Evidence + Counter-Evidence
+  ↓
+Asset Evolution
+```
+
+This is a governance model, not an approved implementation architecture.
+
+## 8. Human Decision Worksheet
+
+```text
+item:
+type: INVARIANT | ASSET | PROFILE | CONTRACT | TECHNOLOGY
+question:
+evidence:
+counter_evidence:
+alternatives:
+consequence_level: LOW | MEDIUM | HIGH
+human_gate_required: YES | NO
+proposed_action: TEST | REFINE | SPLIT | MERGE | PROMOTE | DEFER | RETIRE | REJECT
 reason:
-required_changes:
-conditions_of_acceptance:
-contract_impact_confirmed: YES | NO
-technology_decision_required: YES | NO
-security_review_required: YES | NO
-business_owner_required: YES | NO
 followup_research:
 ```
 
-## 10. Recommended Decision Sequence
+## 9. Contract Formation Gate
 
-1. Decide the semantic boundaries before selecting technologies.
-2. Approve/reject the Core candidates A01–A08 and A10 as abstractions, not implementations.
-3. Decide whether A09/A11/A13 are standalone assets or supporting primitives.
-4. Keep A12 in research until Context vs State vs Provenance boundaries are clarified.
-5. Only after asset decisions, create Contract Proposals.
-6. Only after contract approval, make technology and implementation decisions.
+A project profile does not automatically produce a platform contract.
 
-## 11. Exit Criteria
-
-Human Review is complete only when:
-
-- each candidate has an explicit decision;
-- any split/merge action is recorded;
-- architecture principles are distinguished from implementation preferences;
-- contract impacts are identified;
-- technology choices remain separate decisions;
-- unresolved questions are classified as research-level or decision-level uncertainty.
-
-## 12. Suggested Outcome States
+Preferred path:
 
 ```text
-RESEARCH_ASSET
-   ↓
-ARCHITECTURE_ASSET_CANDIDATE
-   ↓
-HUMAN_REVIEW
-   ├── REJECTED
-   ├── DEFERRED
-   ├── SPLIT / REFINED
-   └── ACCEPTED_ASSET
-             ↓
-      DECISION RECORD
-             ↓
-      CONTRACT PROPOSAL
-             ↓
-      HUMAN APPROVAL
+Observed Requirement
+→ Repeated Requirement
+→ Stable Semantic Boundary
+→ Contract Candidate
+→ Validation
+→ Human Approval
+→ Stable Contract
 ```
 
-**Current package status:** `HUMAN_REVIEW_REQUIRED`
+A temporary implementation convenience must not become a platform contract merely because it worked once.
+
+## 10. Runtime and OSS Boundary
+
+The experiment may use LangGraph, OpenHands, CrewAI, Temporal, MCP, OpenFGA, OPA, OpenTelemetry, Phoenix, A2A, or other technologies.
+
+Their presence in an experiment does not by itself establish an APF architecture decision.
+
+The evaluation target is the semantic behavior and fitness of the architecture, not vendor loyalty.
+
+## 11. Current Candidate Set
+
+A01~A13 remain available as hypotheses from the current research snapshot. No fixed count is required.
+
+The next tool project may:
+
+- use none of the current candidates;
+- use a subset;
+- combine several candidates;
+- test competing interpretations;
+- introduce a new candidate;
+- identify an overlap requiring a merge;
+- split an overly broad candidate.
+
+## 12. Explicit Non-Decisions
+
+This package does not decide:
+
+- universal adoption of A01~A13;
+- mandatory use of any asset in every tool;
+- Temporal vs LangGraph vs another runtime;
+- OpenFGA vs OPA vs another authorization implementation;
+- MCP vs another capability protocol;
+- production deployment topology;
+- final API/database schemas;
+- final APF Architecture Contract.
+
+## 13. Recommended Operating Principle
+
+> APF should standardize durable semantics only when evidence demonstrates that the semantics are reusable, boundary-stable, and valuable across contexts.
+
+> Project architecture should remain free to choose, combine, test, or omit those semantics according to workload context.
+
+> Human governance should concentrate on consequential commitments, not routine architectural experimentation.
+
+## 14. Exit Condition
+
+A research phase may conclude with:
+
+```text
+RESEARCH_COMPLETE
+→ EXPERIMENTATION_READY
+→ HUMAN_GOVERNANCE_REQUIRED only for consequential commitments
+```
+
+It does not need to conclude with a globally frozen asset catalog.
