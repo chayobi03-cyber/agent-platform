@@ -1,6 +1,6 @@
 # APF Session State
 
-**Session:** Claim Inventory + Falsification Benchmark foundation
+**Session:** Claim Inventory + Research Reconciliation + Falsification Benchmark foundation
 **Status:** Active working state
 
 ## Repository Evidence
@@ -8,7 +8,7 @@
 - Repository: `chayobi03-cyber/agent-platform`
 - Default branch: `main`
 - Foundation bootstrap committed
-- Latest claim/falsification commits are present on `main`
+- Claim inventory, reconciliation protocol, corpus map, cold review, and benchmark cases are committed on `main`
 
 ## Current State
 
@@ -16,8 +16,12 @@
 - Master Session Prompt: v0.3 operating protocol
 - Research Asset Ledger: initialized; no accepted assets yet
 - Claim Inventory: v0.1 established; initial claims CLM-0001 through CLM-0010
-- Falsification Benchmark: v0.1 established; initial benchmarks FB-0001 through FB-0010
-- Research-to-Claim traceability: v0.1 established
+- Claim Reconciliation Protocol: v0.1 established
+- Research Corpus Map: v0.1 established; corpus reconciliation is explicitly partial
+- Claim Cold Review: v0.1 established; wording/causal-overreach issues identified
+- P0 Falsification Benchmark Matrix: v0.1 established
+- P0 Benchmark Cases: v0.1 design-ready, not executed
+- Research-to-Claim traceability: established
 - Domain Model: candidate only
 - Architecture Contract: not established
 - Architecture Decisions: none yet
@@ -62,14 +66,33 @@ A claim that survives one benchmark remains a supported claim within tested scop
 - CLM-0007: human-boundary value
 - CLM-0009: measured automation value
 
+## Cold Review Findings
+
+- CLM-0006 wording was narrowed from necessity toward measurable trust/reproducibility value.
+- CLM-0007 requires matched approval conditions; otherwise safety benefit is confounded with simply reducing autonomy.
+- CLM-0009 must separate empirical net-value measurement from the human governance rule that may require such evidence.
+- CLM-0001, CLM-0002, CLM-0003, CLM-0004, CLM-0005, CLM-0008, and CLM-0010 also require strict scope control during testing.
+
+## Benchmark Execution Order
+
+```text
+BENCH-0004  retrieval ablation
+BENCH-0006  provenance ablation
+BENCH-0002  capture/context reconstruction
+BENCH-0007  approval boundary
+BENCH-0009  automation promotion
+BENCH-0001  work abstraction coverage
+```
+
 ## Immediate Next Tasks
 
-1. Inventory all existing APF research material available across prior sessions/repositories.
-2. Convert each finding into asset candidates and bounded claims.
-3. Record contradictions explicitly rather than resolving by intuition.
-4. Build concrete benchmark cases for the six priority claims.
-5. Run the first falsification experiments before freezing architecture contracts.
-6. Update claims and assets from observed results.
+1. Complete durable reconciliation of prior APF research material.
+2. Recover individual external-source findings into explicit `ASSET-*` records.
+3. Attach every material asset to one or more claims or mark it reference-only/duplicate/out-of-scope/insufficient.
+4. Create benchmark datasets and execution fixtures for BENCH-0004 and BENCH-0006 first.
+5. Record predeclared falsifiers and baseline controls before running experiments.
+6. Execute, preserve raw results, and revise claim scope based on outcomes.
+7. Only then consider architecture candidate promotion.
 
 ## Non-Goals
 
