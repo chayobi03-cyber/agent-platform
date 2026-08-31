@@ -1,0 +1,21 @@
+version: 0.1
+status: hypothesis_validation
+branch: research/architecture-asset-synthesis-v0.1
+last_update: 2026-08-31
+
+maturity:
+  research_assets: forming
+  claims: inventory_started
+  falsification: benchmark_defined
+  object_model: unresolved
+  semantic_layer: unresolved
+  external_capabilities: mapped
+  asset_lifecycle: candidate
+  reference_implementation: not_started
+
+priority_next:
+  - consolidate historical research assets
+  - execute object-model comparison
+  - execute semantic-layer boundary tests
+  - build minimum vertical falsification POC
+  - run second cold audit
