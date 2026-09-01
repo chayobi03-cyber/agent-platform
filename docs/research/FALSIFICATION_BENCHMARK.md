@@ -1,6 +1,9 @@
 # APF Falsification Benchmark v0.1
 
 **Status:** Benchmark design / candidate
+**Track:** A — claim level (`CLM-0001`…`CLM-0010`)
+**Parallel to:** `FALSIFICATION_BENCHMARK_V2.md` (v0.2, architecture hypothesis level). v0.2 does **not** supersede this document; see `CLAIM_HYPOTHESIS_MAP.md`.
+**Executions:** `executions/BENCH-0004_RUN_2026-08-31.md`, `executions/BENCH-0004_R2_2026-08-31.md`, `executions/BENCH-0004_E2_2026-09-01.md`
 **Purpose:** Provide a repeatable method for attempting to disprove APF claims before promoting them into architecture contracts or implementation dependencies.
 
 ## 1. Benchmark principle

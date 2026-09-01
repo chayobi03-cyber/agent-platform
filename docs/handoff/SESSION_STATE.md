@@ -2,6 +2,7 @@
 
 **Session:** Claim Inventory + Research Reconciliation + Falsification Benchmark foundation
 **Status:** Active working state
+**Last update:** 2026-09-01 — BENCH-0004-E2 handoff integrated
 
 ## Repository Evidence
 
@@ -26,6 +27,28 @@
 - Architecture Contract: not established
 - Architecture Decisions: none yet
 - HoTL Governance: initialized
+
+## BENCH-0004-E2 Integration (2026-09-01)
+
+The E2 stage arrived as an out-of-repository handoff bundle and has been brought into the
+evidence chain. Its execution record is `docs/research/executions/BENCH-0004_E2_2026-09-01.md`.
+
+- E2 status: `NOT EXECUTED — blocked at G1`. The handoff contained protocol documents only;
+  `contexts_96.jsonl`, both manifests, the generator contract, and the two original scripts
+  were absent, so the four locked hashes cannot be recomputed and there is no request payload.
+- Verified: cross-document hash consistency (PASS), factorial arithmetic recheck (PASS, all
+  7 effects reproduce from the published cell means). Byte-level verification remains PENDING.
+- Fixture lock v2 corrects a `locked_at_utc` field that carried a `+09:00` offset.
+- Falsification benchmark now runs on two parallel tracks: v0.1 (claim level, `CLM-*`) and
+  v0.2 (architecture hypothesis level, `H01`–`H12`). v0.2 does not supersede v0.1.
+  `docs/research/CLAIM_HYPOTHESIS_MAP.md` holds the bridge and the adjudication boundaries.
+- H07 and H11 had no repository definition before this commit and are **not** adjudicated by
+  E2. They now have their own designs: `benchmarks/T07_ASSET_REUSE.md`,
+  `benchmarks/T11_ASSET_INVALIDATION.md`. Both are blocked on the asset ledger, which holds
+  no accepted assets.
+- Tooling for gates G2/G4/G7 is in `tools/bench0004_e2/`, standard library only.
+
+**CLM-0004 remains INCONCLUSIVE and must not be promoted.**
 
 ## Current Working Model
 
