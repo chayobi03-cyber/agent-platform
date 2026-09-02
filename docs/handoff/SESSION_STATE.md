@@ -115,11 +115,19 @@ BENCH-0001  work abstraction coverage
 - Broad CLM-0004 remains **WEAKENED / INCONCLUSIVE — not promoted**.
 - A narrow subclaim (structured retrieval helps recover multi-document evidence chains) is **provisionally supported within pilot scope only**.
 - Round 2's own first-listed limitation: the corpus is not independent of APF development.
-- Round 3 answered that limitation: 737 third-party documents, ground truth authored by PEP authors, relation graph extracted from body text, 113 chain tasks, falsifiers committed before the run.
-- Round 3 result: relationship propagation +0.117 complete@5 over the semantic baseline, CI [+0.053, +0.195]. Temporal weighting did not separate from the baseline; provenance was marginal. Combining mechanisms added +0.009 over relationship-only while doubling the control cost.
-- Round 3's sharpest finding: the gain is +0.317 on tasks where a relation edge was extracted and exactly 0.000 where it was not. Relation-extraction coverage (36% here), not the propagation rule, determines the effect size.
-- Round 3 contradicted CLM-0011's own stated mechanism: the margin was flat across the topical-similarity split, not concentrated on dissimilar pairs. The effect held; the explanation did not.
-- CLM-0011 is `SUPPORTED` on one corpus and still does not clear DEC-0001 — criterion 3 (wording matches tested scope) and criterion 4 (promotion decision record) are unmet.
+- Round 3 (independent corpus, 113 chain tasks, preregistered): relationship propagation +0.117 complete@5, CI [+0.053, +0.195]. Temporal did not separate from baseline; provenance marginal; combining added +0.009 while doubling the control cost. Effect vanishes at k=10.
+- CLM-0011 is `SUPPORTED` on one corpus and does not clear DEC-0001 (criteria 3 and 4 unmet). Full detail in `BENCH-0004_R3/EXECUTION.md`.
+
+## Cold Review — 2026-09-02
+
+Recommendations from an end-of-session cold review. **None of these is decided.** They are recorded here because they change the queue order, and a recommendation is not an approval.
+
+1. **The benchmark queue is ordered by testability, not by consequence.** All three executions went to BENCH-0004 because documents alone can run it. CLM-0002 — the actual product thesis, P0, testable in a week with three engineers and a shared notes file — has never been touched because it needs people. Falsification exists to kill bad ideas cheaply; testing the easiest claims first systematically tests the ones that matter least.
+2. **Close the retrieval track.** Three rounds is past diminishing returns, and the decision it informs (whether to put a relation graph in the retrieval layer) is cheap to reverse, uncontroversial in the field, and not an architecture invariant. Round 3's value was mostly in what it ruled out.
+3. **Round 3's headline finding is closer to arithmetic than discovery.** "+0.317 where an edge exists, 0.000 where it does not" is what score propagation does by definition. The genuine unknowns were narrower: body-reference recovery of declared relations (36%), baseline headroom (0.586 where edges exist), and the control cost. The queries are also synthetic — nobody types a title plus a relation cue — so the result may be an artifact of task construction.
+4. **The corpus-independence framing was wrong.** It was the highest-value action inside the retrieval track, and the retrieval track was the wrong track. Acquiring CORPUS-0001 took about fifteen minutes.
+5. **Governance mass exceeds what it governs.** Roughly twenty process documents, one tested claim of eleven, no product code, no contact with the EMC/PCB target domain. Suggested budget: a new process document must be one page or retire an existing one. `RESEARCH_CORPUS_MAP`, `RESEARCH_TO_CLAIM_MAP`, `RESEARCH_TO_CLAIM_RECONCILIATION_STATUS`, and `CLAIM_RECONCILIATION` overlap and are merge candidates.
+6. **DEC-0001 may need tiering — open decision candidate.** Requiring all four exit criteria for cheap-to-reverse decisions makes the gate hardest to pass for exactly the claims that matter most, given current testing capacity. A gate that cannot be passed is a stall, not rigor. This is a candidate amendment to DEC-0001, not a change to it; DEC-0001 stands as written until a human decides otherwise.
 
 ## Next Session Entry Points
 
@@ -143,13 +151,15 @@ Recorded as gaps rather than filled by inference, per the Master Session Prompt 
 
 ## Immediate Next Tasks
 
-1. Second independent corpus, different domain, messier structure — the direct test of whether 36% relation-extraction coverage was corpus luck. Benchmark rule B6 replication is not satisfied by one corpus.
-2. Run E2b Stage 2 once model pinning and credentials are in place.
-3. Take the next queued benchmark, complete its claim record as part of preparation (DEC-0002), predeclare falsifiers and baseline controls, then execute and preserve raw results.
-4. Continue recovering individual external-source findings into explicit `ASSET-*` records; mark reference-only / duplicate / out-of-scope / insufficient where applicable.
-5. Keep `docs/research/claims/README.md` current — it is the single index of claim state and record status.
-6. Rewrite CLM-0011 to the scope Round 3 actually tested (k ≤ 5, edge-coverage-bound, control cost), at its next benchmark preparation per DEC-0002.
-7. Only then consider architecture candidate promotion, via a separate decision record per DEC-0001 §4.
+1. Decide on the cold review above before picking up any benchmark — item 1 changes what comes next, and items 2 and 6 may retire work already queued.
+2. If the queue is reordered: CLM-0002 first, which needs engineers and real engineering artifacts, not documents.
+3. If the retrieval track continues instead: second independent corpus, different domain, messier structure — the test of whether 36% extraction coverage was corpus luck. Rule B6 is not satisfied by one corpus.
+4. Run E2b Stage 2 once model pinning and credentials are in place.
+5. Take the next queued benchmark, complete its claim record as part of preparation (DEC-0002), predeclare falsifiers and baseline controls, then execute and preserve raw results.
+6. Continue recovering individual external-source findings into explicit `ASSET-*` records; mark reference-only / duplicate / out-of-scope / insufficient where applicable.
+7. Keep `docs/research/claims/README.md` current — it is the single index of claim state and record status.
+8. Rewrite CLM-0011 to the scope Round 3 actually tested (k ≤ 5, edge-coverage-bound, control cost), only if the retrieval track continues.
+9. Only then consider architecture candidate promotion, via a separate decision record per DEC-0001 §4.
 
 ## Non-Goals
 
