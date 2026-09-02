@@ -4,6 +4,36 @@
 **Prepared:** 2026-09-02
 **Supersedes as the active handoff:** `NEXT_SESSION_PROMPT_ENGINEERING_WORK_UX.md`
 
+## Session opening prompt
+
+Paste this to start the session:
+
+```text
+docs/handoff/NEXT_SESSION_PROMPT_FAILURE_ROOT_CAUSE.md 를 읽고 그 안건대로 진행해줘.
+
+이 저장소에서 반복되는 작업실패의 근본 원인을 찾고, 재발을 막는 솔루션을
+3개 이상 제시해줘.
+
+지켜야 할 것:
+- 핸드오프 §1의 실패 목록을 저장소에서 먼저 검증할 것. 틀린 항목이 있으면
+  고치고, 빠진 실패가 있으면 추가할 것.
+- 핸드오프 §2의 가설 H-A/H-B/H-C/H-D를 확증하지 말고 서로 판별할 것.
+  어떤 증거가 어느 가설을 떨어뜨렸는지 명시할 것.
+- 솔루션은 §4의 4개 기준으로 채점할 것. 4개를 다 만족하지 못하면
+  solution이 아니라 mitigation으로 표시할 것.
+- S5는 일부러 약하게 넣은 후보임. 이게 높은 점수를 받으면 기준이 틀린 것이니
+  그렇게 말할 것.
+- 통과한 솔루션은 실제로 구현할 것. 통과한 솔루션은 정의상 문서가 아니라
+  실행 가능한 것이어야 함.
+- 계약이나 세션 프로토콜을 바꾸면 결정 기록을 남길 것 (DEC-0001이 템플릿).
+
+하지 말 것:
+- BENCH-0006 실행 (이 조사 뒤로 연기됨)
+- docs/research/executions/ 수정 (추가 전용 증거)
+- 청구 상태 변경
+- 근본 원인을 다룬 새 거버넌스 문서를 산출물로 삼는 것
+```
+
 ## Session purpose
 
 Find the root cause of the work failures that keep recurring in this project,
@@ -33,7 +63,7 @@ Every row is drawn from repository state or git history, not from recollection.
 | F8 | `RESEARCH_CORPUS_MAP` declared "only after corpus reconciliation, execute the P0 benchmarks". R1–R3 all ran at `PARTIAL` | recorded `38d59e7` |
 | F9 | `SESSION_STATE` is the most-churned file (5 edits) and was **stale at the start of this session**, predating the R1/R2 execution commits | `2a9d10d` vs `d412e45` |
 | F10 | R2's operator-drawn relationship graph produced a result that R3 reversed once the graph was derived mechanically | `CONTRA-0001` |
-| F11 | `MASTER_SESSION_PROMPT` requires a contradiction audit **every session**. Three contradictions (F2, F3, F4) accumulated across 21 commits undetected | first audited 2026-09-02 |
+| F11 | `MASTER_SESSION_PROMPT` requires a contradiction audit **every session**, and its Session Loop contains an explicit `CONTRADICTION SCAN` stage. Three contradictions (F2, F3, F4) accumulated across 21 commits undetected | first audited 2026-09-02 |
 
 ### The structural fact underneath the table
 
@@ -88,12 +118,23 @@ Not speed, but missing structure: every commit adds an artifact, and no stage
 ever asks whether the new artifact overlaps an existing one.
 
 *Supporting:* the 21-added / 0-removed fact. `MASTER_SESSION_PROMPT`'s Session
-Loop lists `RESEARCH → ASSETIZATION → PROPOSAL → … → RECORD → HANDOFF` — there
-is no consolidation or retirement step anywhere in it.
+Loop lists `BOOTSTRAP → REPOSITORY AUDIT → PREVIOUS STATE VALIDATION →
+CONTRADICTION SCAN → RESEARCH / ANALYSIS → ASSETIZATION → PROPOSAL → HUMAN
+DECISION → IMPLEMENTATION → VERIFICATION → RECORD → HANDOFF` — there is no
+consolidation or retirement step anywhere in it.
 *Discriminating test:* H-B predicts slowing down fixes it; H-C predicts that
 even slow work accumulates duplicates without an explicit integrate step.
 *Would be weakened if:* duplicates were caught and merged in ordinary work
 despite no formal step.
+
+*Complication, recorded during the 2026-09-02 rules inspection:* the loop **does**
+contain a `CONTRADICTION SCAN` stage, and it was not run. So the missing-step
+account cannot explain F2–F4 on its own: for those, a step existed and was
+skipped. H-C survives only for consolidation and retirement, which genuinely have
+no stage. This narrows H-C and correspondingly strengthens H-A and H-D, which
+predict that having a stage changes nothing if nothing executes it. Treat this as
+a lead to test, not as the answer.
+
 
 ### H-D — Asymmetric rigor: the method is applied to the research object, never to itself
 
