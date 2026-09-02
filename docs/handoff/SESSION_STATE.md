@@ -23,6 +23,19 @@ comparisons, so the null is a failure to improve sufficiency rather than inactio
 moves to `WEAKENED`; `CLM-0004b` and `CLM-0004c` record the replication and stay `UNDER_TEST`.
 Nothing promoted.
 
+## Asset ledger and BENCH-0006 (2026-09-02)
+
+**Asset ledger populated** (F2). Six repository-derived assets, `ASSET-0001`–`ASSET-0006`, all
+`ASSET_CANDIDATE` and none accepted. Ten external research tracks are registered as
+`PENDING_RECOVERY` with **no content** — they are conversation-derived and absent from this
+repository, and inventing their findings would defeat the ledger's purpose. This does **not**
+unblock `T07`/`T11`, which need operational assets rather than research findings.
+
+**BENCH-0006 executed** (F4), advancing the benchmark queue past BENCH-0004 for the first time.
+Content-only provenance recovery for full auditability is 0.000 over 50 evidence items, and the
+stale-evidence escape rate under ablation is 0.667. CLM-0006 moves to `SUPPORTED (narrow)` —
+determinability only, with the expert-agreement and reuse-error arms unrun. Not promoted.
+
 ## Repository Evidence
 
 - Repository: `chayobi03-cyber/agent-platform`
