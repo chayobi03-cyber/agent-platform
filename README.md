@@ -42,11 +42,26 @@ Human accountability is a platform invariant. Consequential architecture, contra
 
 - `CONSTITUTION.md` — project invariants and boundaries
 - `docs/governance/MASTER_SESSION_PROMPT.md` — session operating protocol
-- `docs/research/ASSET_LEDGER.md` — research and reusable design assets
-- `docs/architecture/README.md` — architecture workspace and contract boundary
-- `docs/decisions/README.md` — human-approved decision records
 - `docs/governance/` — governance and lifecycle rules
+- `docs/architecture/README.md` — architecture workspace and contract boundary
+- `docs/decisions/` — human-owned decision records
 - `docs/handoff/` — session state and handoff records
+
+Research layer, each subject declared in exactly one place:
+
+- `docs/research/CLAIM_INVENTORY.md` — claims and the claim/result state vocabulary
+- `docs/research/BENCHMARK_REGISTER.md` — which benchmarks exist, their cases, order and state
+- `docs/research/FALSIFICATION_BENCHMARK.md` — how a falsification benchmark is designed and judged
+- `docs/research/RESEARCH_TO_CLAIM_MAP.md` — traceability and reconciliation protocol
+- `docs/research/RESEARCH_CORPUS_MAP.md` — corpus reconciliation status
+- `docs/research/ASSET_LEDGER.md` — research and reusable design assets
+- `docs/research/executions/` — benchmark predeclarations, results and raw evidence (append-only)
+
+Tooling:
+
+- `tools/apfbench/` — reusable benchmark infrastructure (standard library only)
+- `tools/bench/` — per-benchmark definitions
+- `tools/tests/` — reproducibility and document-integrity guards
 
 ## Current Status
 

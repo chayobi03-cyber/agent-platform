@@ -1,8 +1,8 @@
 # APF Session State
 
-**Session:** BENCH-0004 mechanism decomposition — first P0 claim falsified
+**Session:** BENCH-0004 mechanism decomposition, then structure refactor
 **Status:** Active working state
-**Last updated:** 2026-09-02 (Round 3 execution)
+**Last updated:** 2026-09-02 (Round 3 execution + DEC-0001 consolidation)
 
 ## Repository Evidence
 
@@ -10,7 +10,9 @@
 - Default branch: `main`
 - Working branch: `claude/session-start-continue-03cik7`
 - Foundation bootstrap committed
-- Claim inventory, reconciliation protocol, corpus map, cold review, and benchmark cases are committed on `main`
+- Claim inventory, traceability protocol, corpus map, cold review and benchmark
+  register are committed; four superseded documents remain as stubs so that
+  paths cited by execution records stay resolvable
 - BENCH-0004 executed three times; execution records and raw results committed
 - First falsification harness committed at `tools/bench/bench0004_r3.py`
   (standard library only, deterministic, independently replayable)
@@ -21,17 +23,39 @@
 - Master Session Prompt: v0.3 operating protocol
 - Research Asset Ledger: initialized; no accepted assets yet
 - Claim Inventory: v0.1 established; initial claims CLM-0001 through CLM-0010
-- Claim Reconciliation Protocol: v0.1 established
-- Research Corpus Map: v0.1 established; corpus reconciliation is explicitly partial
+- Research Corpus Map: corpus reconciliation is explicitly partial
 - Claim Cold Review: v0.1 established; wording/causal-overreach issues identified
-- P0 Falsification Benchmark Matrix: v0.1 established
-- P0 Benchmark Cases: v0.1 design-ready; **BENCH-0004 executed (3 rounds), remainder not executed**
-- Research-to-Claim traceability: established
+- Benchmark Register: v1.0 canonical; BENCH-0004 executed (3 rounds), remainder untested
+- Research-to-Claim traceability and reconciliation protocol: consolidated into one document
 - CLM-0004: **FALSIFIED at tested scope**; split into CLM-0004a/b/c, none surviving
 - Domain Model: candidate only
 - Architecture Contract: not established
-- Architecture Decisions: none yet
+- Architecture Decisions: **DEC-0001** recorded (identifier unification and document
+  consolidation). It is a records-keeping decision and establishes no architecture contract
 - HoTL Governance: initialized
+
+### Structure refactor (DEC-0001, 2026-09-02)
+
+The research layer previously carried three documents defining benchmarks and four
+covering reconciliation, with three conflicting execution orders, three claim-state
+vocabularies, two identifier schemes and two record templates in force at once.
+Recording CLM-0004's state after Round 3 had required mixing two of those vocabularies.
+
+Each subject is now declared in exactly one place. Emptied documents are retained as
+superseded stubs because execution records cite their paths and are append-only evidence.
+
+The BENCH-0004 harness was split into `tools/apfbench/` (reusable) and
+`tools/bench/bench0004_r3.py` (this benchmark's frozen specification), so BENCH-0006
+inherits the infrastructure rather than copying it.
+
+Two guards were added and both pass:
+
+- `tools/tests/test_reproducibility.py` — recorded R3 evidence reproduces bit-identically.
+  Committed **before** the refactor so it is a real baseline rather than a test fitted
+  to the outcome.
+- `tools/tests/test_docs_integrity.py` — dangling references, citation artifacts,
+  duplicate order declarations and retired identifiers now fail a test instead of
+  surviving unnoticed.
 
 ## Current Working Model
 
@@ -79,16 +103,16 @@ A claim that survives one benchmark remains a supported claim within tested scop
 - CLM-0009 must separate empirical net-value measurement from the human governance rule that may require such evidence.
 - CLM-0001, CLM-0002, CLM-0003, CLM-0004, CLM-0005, CLM-0008, and CLM-0010 also require strict scope control during testing.
 
-## Benchmark Execution Order
+## Benchmark Execution Position
 
-```text
-BENCH-0004  retrieval ablation           DONE — 3 rounds, claim falsified
-BENCH-0006  provenance ablation          NEXT
-BENCH-0002  capture/context reconstruction
-BENCH-0007  approval boundary
-BENCH-0009  automation promotion
-BENCH-0001  work abstraction coverage
-```
+The execution order is declared once, in `docs/research/BENCHMARK_REGISTER.md` §2.
+This section records only where the project currently stands in it — it must not
+restate the order, or the repository regains the multiple-declaration defect that
+`DEC-0001` removed.
+
+- **Completed:** BENCH-0004 (3 rounds; CLM-0004 falsified at tested scope)
+- **Next:** BENCH-0006 provenance ablation
+- **Remaining:** everything after BENCH-0006 in the register's order
 
 ## Executed Benchmarks
 
@@ -146,6 +170,12 @@ Key findings to carry forward:
   eliminate it.
 - Three declared BENCH-0004 primary measures were never measured. A benchmark
   that never measures its own declared primary metrics cannot settle its claim.
+- The DEC-0001 consolidation **changed the corpus topology** that R3 measured:
+  merging overlapping documents removes cross-references that were themselves hub
+  edges. Recorded R1–R3 results are unaffected because the harness reads the frozen
+  commit `0d27769`, but a future round against the current corpus is measuring a
+  different corpus. Pin the same frozen commit or declare a new one and treat the
+  earlier rounds as historical baselines only. See `BENCHMARK_REGISTER.md` §6.
 
 ## Non-Goals
 
