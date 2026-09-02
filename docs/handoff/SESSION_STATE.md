@@ -1,14 +1,14 @@
 # APF Session State
 
-**Session:** BENCH-0004 mechanism decomposition, then structure refactor
+**Session:** recurring work-failure root cause, then cross-ref guards
 **Status:** Active working state
-**Last updated:** 2026-09-02 (Round 3 execution + DEC-0001 consolidation)
+**Last updated:** 2026-09-02 (root-cause investigation + DEC-0003 guards)
 
 ## Repository Evidence
 
 - Repository: `chayobi03-cyber/agent-platform`
 - Default branch: `main`
-- Working branch: `claude/session-start-continue-03cik7`
+- Working branch: `claude/task-failure-root-cause-no3f85`
 - Foundation bootstrap committed
 - Claim inventory, traceability protocol, corpus map, cold review and benchmark
   register are committed; four superseded documents remain as stubs so that
@@ -16,6 +16,10 @@
 - BENCH-0004 executed three times; execution records and raw results committed
 - First falsification harness committed at `tools/bench/bench0004_r3.py`
   (standard library only, deterministic, independently replayable)
+- **Five refs carry 40 commits that never reached `main`**, four of them behind
+  open pull requests. `tools/apfguard/divergence_ledger.json` records each with a
+  pinned head SHA and a disposition; the guard suite fails on any divergence not
+  recorded there
 
 ## Current State
 
@@ -33,6 +37,22 @@
 - Architecture Decisions: **DEC-0001** recorded (identifier unification and document
   consolidation). It is a records-keeping decision and establishes no architecture contract
 - HoTL Governance: initialized
+
+### Root-cause investigation and cross-ref guards (DEC-0003, 2026-09-02)
+
+The repository's checks all read one working tree at one moment. The failures it
+keeps repeating are disagreements between trees or between moments, so nothing
+could see them. `test_docs_integrity.py` was green on `main` while three
+different decisions carried the identifier `DEC-0001`, two different experiments
+carried the name `BENCH-0004 Round 3` with opposite results, and `BENCH-0006`
+sat recorded `UNTESTED` after another ref had executed it.
+
+Three guards now read every ref rather than the filesystem, and two triggers run
+them without anyone remembering to: `.claude/hooks/session-start.sh` reports into
+session context, `.github/workflows/apf-guards.yml` refuses a push or pull
+request. Before this there was no CI and no hook on any ref.
+
+Detail is in `docs/decisions/DEC-0003-cross-ref-guards-and-session-gate.md`.
 
 ### Structure refactor (DEC-0001, 2026-09-02)
 
@@ -111,7 +131,12 @@ restate the order, or the repository regains the multiple-declaration defect tha
 `DEC-0001` removed.
 
 - **Completed:** BENCH-0004 (3 rounds; CLM-0004 falsified at tested scope)
-- **Next:** BENCH-0006 provenance ablation
+- **Next:** BENCH-0006 provenance ablation — but see the divergence ledger first.
+  An execution dated 2026-09-02 with a harness and raw results exists on
+  `claude/handover-eu02yk` (PR #3), and a `BENCH-0001` execution exists on
+  `claude/session-governance-decisions-6fi9vf` (PR #4). Both are recorded
+  `UNTESTED` here. Running BENCH-0006 before the owner accepts or rejects the
+  existing one would be a third parallel execution, not the next benchmark
 - **Remaining:** everything after BENCH-0006 in the register's order
 
 ## Executed Benchmarks
@@ -170,6 +195,17 @@ Key findings to carry forward:
   eliminate it.
 - Three declared BENCH-0004 primary measures were never measured. A benchmark
   that never measures its own declared primary metrics cannot settle its claim.
+- The repository is divergent in ways no single branch can show. Three decisions
+  are numbered `DEC-0001` and two are numbered `DEC-0002`, across unmerged refs.
+  Two different experiments are named `BENCH-0004 Round 3`: `main`'s 21-document
+  APF corpus giving D4 −0.135, and PR #4's 737-document third-party corpus giving
+  D4 +0.124 with CI [+0.044, +0.204]. They test different claims (CLM-0004 vs
+  CLM-0011) on different metrics, so they are not a direct contradiction — but
+  the independent corpus that the risk below calls for already exists, and one
+  identifier cannot name both experiments. The owner decides; the ledger records.
+- Five of BENCH-0004's six declared primary measures are unmeasured after three
+  rounds, not the three previously recorded. Relevant-case precision and
+  false-positive rate were unmeasured and unmentioned in every record.
 - The DEC-0001 consolidation **changed the corpus topology** that R3 measured:
   merging overlapping documents removes cross-references that were themselves hub
   edges. Recorded R1–R3 results are unaffected because the harness reads the frozen
