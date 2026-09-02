@@ -295,6 +295,17 @@ coexist at different metric levels and must not be collapsed.
 
 **Benchmark direction:** Blind provenance ablation versus full-provenance condition; assess expert agreement and reuse error.
 
+**Evidence:** `executions/BENCH-0006_2026-09-02.md` — provenance ablation over 50 evidence items.
+Content-only recovery for full auditability is **0.000**: not one item survives ablation with
+attribution, dating and currency all determinable. Stale-evidence escape rate under ablation is
+**0.667** — eight of twelve superseded items carry no in-content signal that they are stale. The
+falsifier was not met.
+
+**Current state:** `SUPPORTED (narrow)`. Two limitations travel with this result and must not be
+dropped: it measures *determinability*, not decision reliability, and the expert-agreement and
+reuse-error arms the benchmark direction calls for were not run. Undeterminable provenance is a
+necessary condition for reduced trustworthiness, not a demonstration of it. **Not promoted.**
+
 ### CLM-0007 — Human approval belongs at consequential boundaries
 
 **Statement:** Explicit human ownership/approval at architecture, permission, policy exception, release, and business-acceptance boundaries reduces unacceptable autonomous outcomes relative to unrestricted execution.
