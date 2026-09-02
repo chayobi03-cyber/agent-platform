@@ -227,3 +227,77 @@ The change was directed by the project owner in session, but no decision record 
    provenance ablation shares mechanism structure with the P factor already measured.
 
 Nothing in this audit changes any claim state. **CLM-0004 remains INCONCLUSIVE and unpromoted.**
+
+---
+
+# Closing re-audit — 2026-09-02
+
+Same checks, re-run after the session's work. Findings are addressed in the recommended order.
+
+## Finding disposition
+
+| Finding | Opening | Closing |
+|---|---|---|
+| F1 claim→evidence linkage broken | HIGH, open | **CLOSED** — `CLM-0004a/b/c` entered, factorial attached, and E2b evidence attached on top |
+| F2 asset ledger empty | HIGH, open | **PARTIALLY CLOSED** — 6 repository-derived assets recorded; 10 external tracks registered as `PENDING_RECOVERY` with no content, because their sources are absent from this repository |
+| F3 no claim meets the §5 gate | MEDIUM, open | **RAISED** — `DEC-0002`, awaiting decision; 3 of 13 claims now meet all six conditions and are the reference form |
+| F4 coverage 1/10 and 0/12 | MEDIUM, open | **IMPROVED** — 5 of 13 claims now carry executions; queue advanced past BENCH-0004 for the first time |
+| F5 E2 blocked at G1 | MEDIUM, open | **OPEN, routed around** — E2 still blocked; E2b built, committed and G2-verified |
+| F6 same-name scripts | LOW | **CLOSED** |
+| F7 date skew | LOW | **CLOSED** |
+| F8 no decision records | LOW, open | **RAISED** — `DEC-0001`, awaiting decision |
+
+## State at close
+
+| | Opening | Closing |
+|---|---|---|
+| Claims | 10 | 13 |
+| Claims with executions | 1 | 5 |
+| Claim states recorded | 1 | 5 |
+| Benchmark executions | 3 | 5 |
+| Benchmarks past BENCH-0004 | 0 | 1 |
+| Asset records | 0 | 6 candidate + 10 pending |
+| Decision records | 0 | 2 proposed |
+| Accepted assets | 0 | **0** |
+| Promoted claims | 0 | **0** |
+
+Claim states: `CLM-0004` INCONCLUSIVE · `CLM-0004a` **WEAKENED** · `CLM-0004b` UNDER_TEST ·
+`CLM-0004c` UNDER_TEST · `CLM-0006` **SUPPORTED (narrow)**. Eight claims remain unstated and
+untested.
+
+## Integrity re-checks
+
+| Check | Result |
+|---|---|
+| Cross-references | 99 resolvable; 6 unresolved, all runtime artifacts not yet created plus the handoff bundle's own filename |
+| CLM-0004 status consistency | **PASS** — no document asserts promotion |
+| Documents claiming E2 executed | **NONE** |
+| Tooling regression, all four tools | **PASS** |
+| E2b determinism | **PASS** — rebuild at `a0bc5a6` reproduces `6455879e…` |
+
+## What the session actually established
+
+Two results, both narrow, both reported as measured.
+
+**Provenance replicates; temporal does not.** Across two independently constructed factorials, P
+is the largest retrieval mechanism and R is significant; T failed to replicate (p=0.438 against
+p=0.023) despite changing the retrieved set in 92% of comparisons. `CLM-0004a` is `WEAKENED` on
+that basis, bounded by the shallow version depth of the E2b corpus.
+
+**Provenance cannot be recovered from content.** Zero of fifty evidence items survive ablation
+with attribution, dating and currency all determinable, and two-thirds of superseded evidence
+gives a reader no signal it is stale. `CLM-0006` is `SUPPORTED` only for determinability; the
+expert-agreement and reuse-error arms its own benchmark direction calls for were not run.
+
+## What remains
+
+1. `DEC-0001` and `DEC-0002` need a human decision. Neither may be self-approved.
+2. E2 Stage 2 and E2b Stage 2 both need a pinned model and a credential — nothing else blocks them.
+3. Eight claims remain untested, including four P0 claims.
+4. `T07` and `T11` remain blocked: no accepted assets exist, and the six candidates are research
+   findings rather than operational assets.
+5. The corpus-independence limitation is now load-bearing across every result the project holds.
+   Both BENCH-0004 and BENCH-0006 run on APF's own documentation. No finding here should be
+   generalized beyond that until one is reproduced on an independent engineering corpus.
+
+**No claim is promoted. No asset is accepted. No architecture is derived.**
