@@ -85,7 +85,8 @@ DEC-0002 selected **option C**: claim records are not completed as a batch up fr
 
 | Benchmark | Claim | State |
 |---|---|---|
-| BENCH-0004 | CLM-0004 | Executed — Round 1 (`BENCH-0004_RUN_2026-08-31.md`) and Round 2 (`BENCH-0004_R2_2026-08-31.md`) |
+| BENCH-0004 | CLM-0004 | Executed — Rounds 1, 2, and 3. Round 3 is the first run on an independent corpus |
+| BENCH-0004 R3 | CLM-0011 | Executed — `BENCH-0004_R3/EXECUTION.md`; all four predeclared falsifiers survived |
 | BENCH-0002 | CLM-0002 | Not executed — queued |
 | BENCH-0007 | CLM-0007 | Not executed — queued |
 | BENCH-0009 | CLM-0009 | Not executed — queued |
@@ -101,6 +102,12 @@ BENCH-0009  automation promotion
 BENCH-0001  work abstraction coverage
 ```
 
+### Corpora
+
+| ID | Source | Role |
+|---|---|---|
+| CORPUS-0001 | `python/peps` @ `a4f4971` | First independent corpus; satisfies DEC-0001 exit criterion 1 |
+
 ### BENCH-0004 outcome as recorded
 
 - Round 1 falsified the weaker proposition: added structure did not improve document-level recall over a semantic baseline.
@@ -108,6 +115,11 @@ BENCH-0001  work abstraction coverage
 - Broad CLM-0004 remains **WEAKENED / INCONCLUSIVE — not promoted**.
 - A narrow subclaim (structured retrieval helps recover multi-document evidence chains) is **provisionally supported within pilot scope only**.
 - Round 2's own first-listed limitation: the corpus is not independent of APF development.
+- Round 3 answered that limitation: 737 third-party documents, ground truth authored by PEP authors, relation graph extracted from body text, 113 chain tasks, falsifiers committed before the run.
+- Round 3 result: relationship propagation +0.117 complete@5 over the semantic baseline, CI [+0.053, +0.195]. Temporal weighting did not separate from the baseline; provenance was marginal. Combining mechanisms added +0.009 over relationship-only while doubling the control cost.
+- Round 3's sharpest finding: the gain is +0.317 on tasks where a relation edge was extracted and exactly 0.000 where it was not. Relation-extraction coverage (36% here), not the propagation rule, determines the effect size.
+- Round 3 contradicted CLM-0011's own stated mechanism: the margin was flat across the topical-similarity split, not concentrated on dissimilar pairs. The effect held; the explanation did not.
+- CLM-0011 is `SUPPORTED` on one corpus and still does not clear DEC-0001 — criterion 3 (wording matches tested scope) and criterion 4 (promotion decision record) are unmet.
 
 ## Next Session Entry Points
 
@@ -131,12 +143,13 @@ Recorded as gaps rather than filled by inference, per the Master Session Prompt 
 
 ## Immediate Next Tasks
 
-1. Acquire or construct an independent engineering corpus (real revision / configuration / evidence transitions, outside APF's own history). This is DEC-0001 exit criterion 1 and no claim clears the gate without it.
+1. Second independent corpus, different domain, messier structure — the direct test of whether 36% relation-extraction coverage was corpus luck. Benchmark rule B6 replication is not satisfied by one corpus.
 2. Run E2b Stage 2 once model pinning and credentials are in place.
 3. Take the next queued benchmark, complete its claim record as part of preparation (DEC-0002), predeclare falsifiers and baseline controls, then execute and preserve raw results.
 4. Continue recovering individual external-source findings into explicit `ASSET-*` records; mark reference-only / duplicate / out-of-scope / insufficient where applicable.
 5. Mark CLM-0003, CLM-0005, CLM-0008, and CLM-0010 as `INSUFFICIENT` rather than leaving their records blank (DEC-0002 §5).
-6. Only then consider architecture candidate promotion, via a separate decision record per DEC-0001 §4.
+6. Rewrite CLM-0011 to the scope Round 3 actually tested (k ≤ 5, edge-coverage-bound, control cost), at its next benchmark preparation per DEC-0002.
+7. Only then consider architecture candidate promotion, via a separate decision record per DEC-0001 §4.
 
 ## Non-Goals
 
