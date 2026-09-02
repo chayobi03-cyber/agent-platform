@@ -1,7 +1,13 @@
 # APF Falsification Benchmark v0.1
 
-**Status:** Benchmark design / candidate
+**Status:** Canonical benchmark method
 **Purpose:** Provide a repeatable method for attempting to disprove APF claims before promoting them into architecture contracts or implementation dependencies.
+
+**Scope boundary.** This document defines *how* a falsification benchmark is
+designed and judged. Which benchmarks exist, what each tests and what state each
+is in are declared in `BENCHMARK_REGISTER.md`. Claim wording and claim state are
+declared in `CLAIM_INVENTORY.md`. See
+`docs/decisions/DEC-0001-benchmark-id-and-doc-consolidation.md`.
 
 ## 1. Benchmark principle
 
@@ -35,27 +41,39 @@ CLAIM STATE UPDATE
 
 ## 2. Benchmark record
 
+This is the single benchmark record template. It merges the fields formerly
+split between this document and `P0_FALSIFICATION_BENCHMARK_MATRIX`.
+
 ```yaml
-benchmark_id: FB-0001
+benchmark_id: BENCH-0001
 title:
 claim_refs: []
 objective:
 workload_class:
+task_population:
+minimum_sample:
+sample_size:
 baseline:
 candidate:
 controls: []
 variables: []
+operator_profile:
 scenarios: []
 adversarial_cases: []
+inputs:
 primary_metrics: []
 secondary_metrics: []
 acceptance_rule:
-falsification_rule:
-minimum_sample:
+predeclared_falsifier:
 evidence_type: RUNTIME_EVIDENCE | EVALUATION_EVIDENCE | HUMAN_DECISION_EVIDENCE
 artifacts: []
 result:
+counter_observations:
+limitations:
+reproducibility:
+conclusion:
 claim_update:
+next_action:
 reviewer:
 review_date:
 ```
@@ -137,18 +155,13 @@ Use task-specific metrics rather than a single aggregate score.
 
 ## 5. APF benchmark matrix
 
-| Benchmark | Claim | Baseline | Candidate | Primary falsification question |
-|---|---|---|---|---|
-| FB-0001 | CLM-0001 | Agent-centric core | Work-centric core | Does work-centric modeling lose essential information or materially increase complexity? |
-| FB-0002 | CLM-0002 | Manual notes / no structured capture | Capture + auto-structuring | Does lower capture friction increase reusable project memory without intolerable noise? |
-| FB-0003 | CLM-0003 | Evidence-dense UI | Progressive disclosure | Does progressive disclosure reduce usability cost without increasing judgment/evidence errors? |
-| FB-0004 | CLM-0004 | Flat semantic retrieval | Provenance/temporal/relation-aware retrieval | Is structure genuinely useful beyond semantic similarity? |
-| FB-0005 | CLM-0005 | Current-record-only workflow | Failure-aware history | Does retaining failed attempts measurably reduce repeated work or error? |
-| FB-0006 | CLM-0006 | Evidence without full provenance | Provenance-rich evidence | Does provenance improve expert trust/reuse accuracy enough to justify collection cost? |
-| FB-0007 | CLM-0007 | Unrestricted automation | Explicit human boundary | Do human gates reduce consequential errors without making the workflow unusable? |
-| FB-0008 | CLM-0008 | Framework-specific adoption | Primitive extraction | Does framework neutrality preserve required capabilities with lower coupling? |
-| FB-0009 | CLM-0009 | Manual/baseline automation | Augmented automation | Is measured engineer effort reduction real and durable at required quality? |
-| FB-0010 | CLM-0010 | Generic agent-builder thesis | Engineering-work augmentation | Which framing produces stronger validated work reduction across representative workloads? |
+The register of which benchmarks exist, what each tests, and what state each is
+in now lives in `BENCHMARK_REGISTER.md`. It is maintained there so that a
+benchmark's identity, its concrete case and its current result state cannot
+drift apart across documents.
+
+This document defines *how* to build and judge a falsification benchmark. It
+does not enumerate them.
 
 ## 6. Adversarial test categories
 
@@ -284,16 +297,44 @@ TESTABLE
 
 For high-risk claims, require multiple independent evidence classes where practical.
 
-## 12. Initial execution order
+## 12. Execution order
 
-The first benchmark wave should prioritize claims that can invalidate the broader product thesis:
+Declared once, in `BENCHMARK_REGISTER.md` §2.
 
-```text
-FB-0002  Capture value
-FB-0004  Structured retrieval value
-FB-0006  Provenance value
-FB-0009  Measured automation value
-FB-0007  Human boundary value
-```
+This document previously carried a third, conflicting order. Three documents
+each declaring a different execution order is exactly the contradiction the
+contradiction audit in `MASTER_SESSION_PROMPT` exists to catch, and it went
+uncaught. The register is now the only place an order may be declared.
 
-Only after those have credible evidence should deeper implementation choices become binding.
+## 13. Benchmark design rules
+
+Absorbed from `P0_FALSIFICATION_BENCHMARK_MATRIX`.
+
+### B1 — Architecture independence
+
+The benchmark must be executable with a simple baseline. It must not require the
+APF architecture being tested.
+
+### B2 — Matched tasks
+
+Compare systems on the same underlying tasks, evidence corpus, user role, and
+information availability.
+
+### B3 — Predeclared falsifiers
+
+The failure condition must be written before looking at the result.
+
+### B4 — Human cost counts
+
+Capture, correction, approval, verification, and recovery effort are part of the
+outcome, not overhead to be ignored.
+
+### B5 — Quality and speed are joint outcomes
+
+A faster workflow that increases wrong or ungrounded decisions is not a positive
+result.
+
+### B6 — Independent replication
+
+Where practical, repeat tests with different projects, task types, users, or
+evidence sets to avoid overfitting to APF dogfood data.
