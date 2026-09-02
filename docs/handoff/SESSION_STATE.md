@@ -2,6 +2,58 @@
 
 **Session:** Claim Inventory + Research Reconciliation + Falsification Benchmark foundation
 **Status:** Active working state
+**Last update:** 2026-09-02 — session closed
+**Lessons learned:** `docs/governance/LESSONS_LEARNED_2026-09-02-bench0004-e2-handoff.md`
+**Latest audit:** `docs/research/APF_PROJECT_AUDIT_2026-09-02.md` — governance holding;
+coverage thin. F1 closed (CLM-0004a/b/c entered with the factorial attached); F3 and F8 raised
+as decision records awaiting human approval; F2/F4/F5 open.
+**Open decisions:** `docs/decisions/DEC-0001` (parallel benchmark tracks),
+`DEC-0002` (claim record completeness). Neither may be self-approved.
+
+## BENCH-0004-E2b (2026-09-02)
+
+E2 is blocked at G1 and its fixture bytes were verified to have never existed in this
+repository, so git rollback cannot recover them. E2b was built instead: a new 96-context
+factorial over the repository's own committed history, pinned at `a0bc5a6`, deterministic, and
+**committed to the repository** — which is what E2 lacked. G2 byte-level verification passes and
+the G4 dry run is clean; only G3 (pinned model + credential) blocks Stage 2.
+
+Stage 1 executed. **P and R replicate the original factorial; T does not** (+0.0191, p=0.438
+against the original +0.1683, p=0.023). Temporal filtering changed the retrieved set in 92% of
+comparisons, so the null is a failure to improve sufficiency rather than inaction. `CLM-0004a`
+moves to `WEAKENED`; `CLM-0004b` and `CLM-0004c` record the replication and stay `UNDER_TEST`.
+Nothing promoted.
+
+## Asset ledger and BENCH-0006 (2026-09-02)
+
+**Asset ledger populated** (F2). Six repository-derived assets, `ASSET-0001`–`ASSET-0006`, all
+`ASSET_CANDIDATE` and none accepted. Ten external research tracks are registered as
+`PENDING_RECOVERY` with **no content** — they are conversation-derived and absent from this
+repository, and inventing their findings would defeat the ledger's purpose. This does **not**
+unblock `T07`/`T11`, which need operational assets rather than research findings.
+
+**BENCH-0006 executed** (F4), advancing the benchmark queue past BENCH-0004 for the first time.
+Content-only provenance recovery for full auditability is 0.000 over 50 evidence items, and the
+stale-evidence escape rate under ablation is 0.667. CLM-0006 moves to `SUPPORTED (narrow)` —
+determinability only, with the expert-agreement and reuse-error arms unrun. Not promoted.
+
+## Next Session Entry Point
+
+Ordered, with the reason each is where it is.
+
+1. **Decide `DEC-0001` and `DEC-0002`.** Both `PROPOSED`, neither self-approvable. They block
+   nothing mechanically and everything governance-wise.
+2. **Acquire an independent engineering corpus.** Highest-value action available. Every result
+   this project holds runs on APF's own documentation — a correlated weakness across the whole
+   evidence base that no further APF-corpus work can relax.
+3. **Run Stage 2 for E2b.** Needs only a pinned immutable model and a credential; fixture,
+   protocol, runner and analysis are ready and dry-run clean.
+4. **Continue the queue.** `BENCH-0002`, `BENCH-0007`, `BENCH-0009`, `BENCH-0001` are at zero
+   executions, covering four untested P0 claims.
+5. **Complete claim records per benchmark as it is prepared**, per `DEC-0002` option C.
+
+Do not: promote any claim, accept any asset, compare E2b hashes to the E2 lock, run T07/T11
+without accepted assets, or derive architecture from any current result.
 
 ## Repository Evidence
 
@@ -26,6 +78,28 @@
 - Architecture Contract: not established
 - Architecture Decisions: none yet
 - HoTL Governance: initialized
+
+## BENCH-0004-E2 Integration (2026-09-01)
+
+The E2 stage arrived as an out-of-repository handoff bundle and has been brought into the
+evidence chain. Its execution record is `docs/research/executions/BENCH-0004_E2_2026-09-01.md`.
+
+- E2 status: `NOT EXECUTED — blocked at G1`. The handoff contained protocol documents only;
+  `contexts_96.jsonl`, both manifests, the generator contract, and the two original scripts
+  were absent, so the four locked hashes cannot be recomputed and there is no request payload.
+- Verified: cross-document hash consistency (PASS), factorial arithmetic recheck (PASS, all
+  7 effects reproduce from the published cell means). Byte-level verification remains PENDING.
+- Fixture lock v2 corrects a `locked_at_utc` field that carried a `+09:00` offset.
+- Falsification benchmark now runs on two parallel tracks: v0.1 (claim level, `CLM-*`) and
+  v0.2 (architecture hypothesis level, `H01`–`H12`). v0.2 does not supersede v0.1.
+  `docs/research/CLAIM_HYPOTHESIS_MAP.md` holds the bridge and the adjudication boundaries.
+- H07 and H11 had no repository definition before this commit and are **not** adjudicated by
+  E2. They now have their own designs: `benchmarks/T07_ASSET_REUSE.md`,
+  `benchmarks/T11_ASSET_INVALIDATION.md`. Both are blocked on the asset ledger, which holds
+  no accepted assets.
+- Tooling for gates G2/G4/G7 is in `tools/bench0004_e2/`, standard library only.
+
+**CLM-0004 remains INCONCLUSIVE and must not be promoted.**
 
 ## Current Working Model
 

@@ -141,6 +141,144 @@ These are intentionally hypotheses, not accepted APF invariants.
 
 **Benchmark direction:** Same corpus and questions; compare flat semantic retrieval with relationship/provenance-aware retrieval.
 
+**Split:** This broad claim is decomposed into `CLM-0004a` (temporal), `CLM-0004b` (provenance)
+and `CLM-0004c` (relationship) below, per §9 of `FALSIFICATION_BENCHMARK.md` and the
+decomposition required by `executions/BENCH-0004_R2_2026-08-31.md` §10. The broad claim is
+retained as the parent; evidence attaches to the mechanism claims.
+
+**Current state:** `INCONCLUSIVE`. R1 produced a negative result at document-recall level; R2
+showed conditional advantage on cross-document chain coverage; the downstream transfer to LLM
+answer quality is untested (BENCH-0004-E2 blocked at G1). **Not promoted.**
+
+---
+
+The three mechanism claims below were entered on 2026-09-02 to close the linkage gap recorded
+as F1 in `APF_PROJECT_AUDIT_2026-09-02.md`: the BENCH-0004-E2 factorial had already measured
+these three mechanisms separately, but no claim record existed for the result to attach to.
+
+They share a scope, a non-scope, and an evidence base, stated once here rather than repeated
+three times.
+
+**Shared scope.** Context-sufficiency score in the BENCH-0004-E2 2^3 factorial: 8 cells x 12
+cases, n=96, case-blocked. The artifact is an explicitly **controlled reconstruction**, not the
+historical CLM-0004 fixture.
+
+**Shared non-scope.** These claims say nothing about: LLM answer quality (that is E2, not yet
+executed); independent non-APF engineering corpora; production graph or vector retrieval
+implementations; latency, indexing cost, or maintenance burden; and any interaction between the
+three mechanisms — the factorial found no interaction term reaching significance.
+
+**Shared evidence — `BENCH-0004-E2` factorial, case-blocked OLS `context_score ~ C(case) + T*R*P`:**
+
+| Mechanism | Factor | Coefficient | p | Raw main effect |
+|---|---|---:|---:|---:|
+| CLM-0004a temporal | T | +0.1683 | 0.023 | +0.1429 |
+| CLM-0004c relationship | R | +0.1675 | 0.024 | +0.1282 |
+| CLM-0004b provenance | P | +0.2433 | 0.001 | +0.2040 |
+
+Case block p < 1e-13; model R² = 0.733. All interaction terms p > 0.66.
+
+**Shared evidence limitation — why no state advances past `UNDER_TEST`.** The underlying 96
+observations are not available in this repository; only the cell means and the OLS output were
+transmitted in the 2026-09-02 handoff. The factorial arithmetic was independently rechecked and
+reproduces exactly from the published cell means (all 7 effects, deviation < 5e-5), but that
+verifies internal consistency, not the observations. Until the fixture bytes are delivered and
+`tools/bench0004_e2/verify_fixture.py` passes, no mechanism claim may transition to `SUPPORTED`.
+
+### CLM-0004a — Temporal validity filtering improves retrieval context sufficiency
+
+**Statement:** Filtering retrieval by temporal validity and version currency increases the
+sufficiency of the retrieved context for engineering questions whose answer depends on which
+state was current at a given time.
+
+**Scope / Non-scope:** shared, above.
+
+**Observable prediction:** Enabling temporal filtering raises the context-sufficiency score
+relative to the same configuration without it, after blocking on case.
+
+**Falsifier:** Temporal filtering produces no measurable context-sufficiency gain after case
+blocking, or its gain disappears once relationship and provenance mechanisms are present.
+
+**Minimum evidence:** One case-blocked factorial showing a positive main effect. **Met at
+context level** by the shared evidence above.
+
+**Preferred evidence:** The same effect on answer quality across evaluator replacement (E2), on
+a corpus independent of APF.
+
+**Counter-evidence:** `executions/BENCH-0004_E2b_2026-09-02.md` — on an independently
+constructed 96-context factorial over the repository's own committed history, temporal
+filtering produced **+0.0191 at p=0.438**, indistinguishable from zero, against the original
+factorial's +0.1683 at p=0.023. The falsifier stated above was observed. Temporal filtering was
+not inert: it changed the retrieved set in 92% of comparisons and in all eight temporally
+dependent cases, so the null is a failure to improve sufficiency rather than a failure to act.
+Bounding limitation: ten of sixteen corpus paths carry a single committed version, capping how
+much sufficiency temporal filtering could add.
+
+**Current state:** `WEAKENED`. One non-replication on a corpus with shallow version depth does
+not falsify, and the original factorial's observations remain unavailable, so neither result can
+adjudicate the other. Promotion is out of the question until at least one of the two is
+reproducible.
+
+### CLM-0004b — Provenance-aware ranking improves retrieval context sufficiency
+
+**Statement:** Ranking retrieval by provenance and supplying authority/locator context increases
+the sufficiency of the retrieved context for engineering questions whose answer depends on where
+evidence came from and under what configuration it was produced.
+
+**Scope / Non-scope:** shared, above.
+
+**Observable prediction:** Enabling provenance-aware ranking raises the context-sufficiency score
+relative to the same configuration without it, after blocking on case.
+
+**Falsifier:** Provenance-aware ranking produces no measurable context-sufficiency gain after
+case blocking, or the gain is explained by the authority/locator text acting as generic
+additional context rather than by provenance.
+
+**Minimum evidence:** One case-blocked factorial showing a positive main effect. **Met at
+context level** by the shared evidence above, where P is the largest of the three main effects.
+
+**Preferred evidence:** As CLM-0004a, plus an arm that supplies length-matched non-provenance
+context to rule out the generic-context explanation named in the falsifier.
+
+**Replication:** `executions/BENCH-0004_E2b_2026-09-02.md` — +0.1406 at p<0.0001 on an
+independently constructed case set, again the largest of the three main effects. The direction
+and the ranking both replicate.
+
+**Current state:** `UNDER_TEST`. Replicated at context level, but the generic-context
+alternative explanation is still not excluded by any executed run, and context-level gain is not
+answer-quality gain until Stage 2 runs.
+
+### CLM-0004c — Relationship expansion improves retrieval context sufficiency
+
+**Statement:** Expanding retrieval across declared relationships increases the sufficiency of the
+retrieved context for engineering questions whose answer spans more than one document.
+
+**Scope / Non-scope:** shared, above.
+
+**Observable prediction:** Enabling one-hop relationship expansion raises the context-sufficiency
+score relative to the same configuration without it, after blocking on case.
+
+**Falsifier:** Relationship expansion produces no measurable context-sufficiency gain after case
+blocking, or the gain is an artifact of the hand-specified relationship graph rather than of
+relationship structure in the corpus.
+
+**Minimum evidence:** One case-blocked factorial showing a positive main effect. **Met at
+context level** by the shared evidence above.
+
+**Supporting evidence:** `executions/BENCH-0004_R2_2026-08-31.md` — chain coverage@2 rose from
+0.4792 to 0.6875 and complete chains from 1/8 to 3/8. That run used a hand-specified graph and
+therefore illustrates rather than excludes the artifact explanation in the falsifier.
+
+**Counter-evidence:** `executions/BENCH-0004_RUN_2026-08-31.md` — at document-recall level,
+adding structure to a competent semantic+metadata retriever produced **no** gain (B/C/D all 90%
+top-1, 100% top-2). This is retained as a linked negative result, per §7.
+
+**Replication:** `executions/BENCH-0004_E2b_2026-09-02.md` — +0.0990 at p=0.0001 on an
+independently constructed case set.
+
+**Current state:** `UNDER_TEST`. Replicated at context level. Supporting and counter-evidence
+coexist at different metric levels and must not be collapsed.
+
 ### CLM-0005 — Failed attempts are first-class engineering evidence
 
 **Statement:** Preserving rejected hypotheses, failed experiments, and superseded decisions improves future engineering decisions by preventing repeated dead ends and clarifying decision history.
@@ -156,6 +294,17 @@ These are intentionally hypotheses, not accepted APF invariants.
 **Falsifier:** Target decisions remain equally reliable without provenance, or provenance collection imposes disproportionate burden without measurable benefit.
 
 **Benchmark direction:** Blind provenance ablation versus full-provenance condition; assess expert agreement and reuse error.
+
+**Evidence:** `executions/BENCH-0006_2026-09-02.md` — provenance ablation over 50 evidence items.
+Content-only recovery for full auditability is **0.000**: not one item survives ablation with
+attribution, dating and currency all determinable. Stale-evidence escape rate under ablation is
+**0.667** — eight of twelve superseded items carry no in-content signal that they are stale. The
+falsifier was not met.
+
+**Current state:** `SUPPORTED (narrow)`. Two limitations travel with this result and must not be
+dropped: it measures *determinability*, not decision reliability, and the expert-agreement and
+reuse-error arms the benchmark direction calls for were not run. Undeterminable provenance is a
+necessary condition for reduced trustworthiness, not a demonstration of it. **Not promoted.**
 
 ### CLM-0007 — Human approval belongs at consequential boundaries
 
@@ -230,10 +379,25 @@ P0 claims should be tested first where failure would invalidate broad portions o
 ```text
 CLM-0001  Work-centric generality
 CLM-0002  Capture value
-CLM-0004  Structured retrieval value
+CLM-0004  Structured retrieval value   → split into 0004a/b/c, evidence attaches to the children
 CLM-0006  Provenance trust
 CLM-0007  Human boundary value
 CLM-0009  Measured automation value
 ```
 
 The inventory should remain editable. New evidence may split one claim into narrower claims rather than forcing a single broad claim to survive.
+
+## 10. Record-completeness status
+
+`CLM-0004a`, `CLM-0004b` and `CLM-0004c` are the only claims currently satisfying all six §5
+conditions, and they are the reference form for the rest. The remaining ten carry a statement
+and a falsifier but no explicit scope, non-scope, observable prediction, or minimum evidence,
+and the §4 record template is unpopulated throughout.
+
+This gap between §5 as written and the inventory as practised is recorded as finding F3 in
+`APF_PROJECT_AUDIT_2026-09-02.md` and is pending an owner decision — see
+`../decisions/DEC-0002_claim_record_completeness.md`. It is not closed by filling the five
+remaining P0 claims speculatively: scope, prediction, and minimum evidence are claim
+definitions, and inventing them for claims that have no evidence would put untested
+assertions into the inventory under the appearance of rigour. `CLM-0004a/b/c` could be
+completed only because an executed factorial defined what was actually measured.
