@@ -27,7 +27,7 @@
 - Research-to-Claim traceability: established
 - Domain Model: candidate only
 - Architecture Contract: not established
-- Architecture Decisions: DEC-0001 and DEC-0002 taken (see Governance Gate); no decision record files committed yet
+- Architecture Decisions: DEC-0001 (evidence gate) and DEC-0002 (claim record completion timing) recorded and in force
 - HoTL Governance: initialized
 
 ## Current Working Model
@@ -62,6 +62,11 @@ A claim that survives one benchmark remains a supported claim within tested scop
 
 ## Governance Gate — DEC-0001 / DEC-0002
 
+Records:
+
+- `docs/decisions/DEC-0001-evidence-gate.md` — evidence gate on architecture promotion and implementation start
+- `docs/decisions/DEC-0002-claim-record-completion-timing.md` — claim records completed per benchmark, option C
+
 **DEC-0001 and DEC-0002 block nothing mechanically and everything in governance terms.**
 
 There is no CI check, hook, or tooling that enforces them. Enforcement is normative: the absence of a mechanical block is not permission. A later session must not read "the repository let me do it" as evidence that the gate was cleared. This is the same rule the Constitution already states — a commit is not a decision.
@@ -71,6 +76,8 @@ Practical consequence for the next session:
 - No architecture contract may be promoted from the current claim set.
 - No implementation may be started on the strength of benchmark results alone.
 - Benchmark execution, claim scoping, and corpus work remain open; consequential promotion does not.
+
+DEC-0001 §4 states the four exit criteria a claim must meet to leave the gate: an independent corpus, a predeclared falsifier that was not met, a claim scope matching what the run tested, and a separate decision record authorizing the promotion. DEC-0001 §3 lists what the gate does and does not block — it blocks promotion, not investigation.
 
 DEC-0002 selected **option C**: claim records are not completed as a batch up front. Each claim record is completed individually, at the point its benchmark is being prepared. Preparing a benchmark is therefore the trigger for finishing the corresponding claim record, not a separate later cleanup pass.
 
@@ -118,18 +125,18 @@ BENCH-0001  work abstraction coverage
 
 Recorded as gaps rather than filled by inference, per the Master Session Prompt ("never infer missing state"):
 
-- **DEC-0001 / DEC-0002 record files do not exist in `docs/decisions/`.** The decisions are in force per this handoff, but no record matching the Minimum Decision Record template has been committed. DEC-0001's subject is not recoverable from repository evidence. Writing both records is a prerequisite before either decision is cited as governance authority in a later artifact.
-- **"L9" is ambiguous against repository evidence.** `docs/governance/LESSONS_LEARNED_2026-08-30-engineering-work-mvp.md` §L9 is "Internal history and external knowledge must remain distinguishable." The corpus-independence problem referenced in entry point 2 matches BENCH-0004 Round 2 limitation #1 rather than that lesson text. Confirm which label is intended before citing L9 in a decision record.
+- **DEC-0002's rejected alternatives are a reconstruction.** Only the selection of option C was recoverable from the handoff. The option A / option B wording in the record is derived from repository evidence, not from a transcript of the original deliberation, and is marked as such in DEC-0002 §6.
+- **"L9" is ambiguous against repository evidence.** `docs/governance/LESSONS_LEARNED_2026-08-30-engineering-work-mvp.md` §L9 is "Internal history and external knowledge must remain distinguishable." The corpus-independence problem referenced in entry point 2 matches BENCH-0004 Round 2 limitation #1 rather than that lesson text. DEC-0001 §6 sidesteps the label by citing the Round 2 limitation directly; confirm which label is intended before L9 is cited as authority elsewhere.
 - **BENCH-0006 (CLM-0006, provenance ablation) has no execution record.** It sat second in the original execution order and is absent from the remaining queue. Either its execution record was never committed or it was deliberately dropped; establish which before treating CLM-0006 as anything other than untested.
 
 ## Immediate Next Tasks
 
-1. Write the DEC-0001 and DEC-0002 decision records so the governance gate has a citable record.
-2. Acquire or construct an independent engineering corpus (real revision / configuration / evidence transitions, outside APF's own history).
-3. Run E2b Stage 2 once model pinning and credentials are in place.
-4. Take the next queued benchmark, complete its claim record as part of preparation, predeclare falsifiers and baseline controls, then execute and preserve raw results.
-5. Continue recovering individual external-source findings into explicit `ASSET-*` records; mark reference-only / duplicate / out-of-scope / insufficient where applicable.
-6. Only then consider architecture candidate promotion.
+1. Acquire or construct an independent engineering corpus (real revision / configuration / evidence transitions, outside APF's own history). This is DEC-0001 exit criterion 1 and no claim clears the gate without it.
+2. Run E2b Stage 2 once model pinning and credentials are in place.
+3. Take the next queued benchmark, complete its claim record as part of preparation (DEC-0002), predeclare falsifiers and baseline controls, then execute and preserve raw results.
+4. Continue recovering individual external-source findings into explicit `ASSET-*` records; mark reference-only / duplicate / out-of-scope / insufficient where applicable.
+5. Mark CLM-0003, CLM-0005, CLM-0008, and CLM-0010 as `INSUFFICIENT` rather than leaving their records blank (DEC-0002 §5).
+6. Only then consider architecture candidate promotion, via a separate decision record per DEC-0001 §4.
 
 ## Non-Goals
 
