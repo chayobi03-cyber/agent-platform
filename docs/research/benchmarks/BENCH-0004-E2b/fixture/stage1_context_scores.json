@@ -1,0 +1,866 @@
+[
+  {
+    "context_id": "T0R0P0-case00",
+    "cell": "T0R0P0",
+    "case_id": "case00",
+    "T": 0,
+    "R": 0,
+    "P": 0,
+    "context_score": 1.0
+  },
+  {
+    "context_id": "T0R0P0-case01",
+    "cell": "T0R0P0",
+    "case_id": "case01",
+    "T": 0,
+    "R": 0,
+    "P": 0,
+    "context_score": 0.5
+  },
+  {
+    "context_id": "T0R0P0-case02",
+    "cell": "T0R0P0",
+    "case_id": "case02",
+    "T": 0,
+    "R": 0,
+    "P": 0,
+    "context_score": 0.3333
+  },
+  {
+    "context_id": "T0R0P0-case03",
+    "cell": "T0R0P0",
+    "case_id": "case03",
+    "T": 0,
+    "R": 0,
+    "P": 0,
+    "context_score": 0.0
+  },
+  {
+    "context_id": "T0R0P0-case04",
+    "cell": "T0R0P0",
+    "case_id": "case04",
+    "T": 0,
+    "R": 0,
+    "P": 0,
+    "context_score": 0.0
+  },
+  {
+    "context_id": "T0R0P0-case05",
+    "cell": "T0R0P0",
+    "case_id": "case05",
+    "T": 0,
+    "R": 0,
+    "P": 0,
+    "context_score": 0.0
+  },
+  {
+    "context_id": "T0R0P0-case06",
+    "cell": "T0R0P0",
+    "case_id": "case06",
+    "T": 0,
+    "R": 0,
+    "P": 0,
+    "context_score": 1.0
+  },
+  {
+    "context_id": "T0R0P0-case07",
+    "cell": "T0R0P0",
+    "case_id": "case07",
+    "T": 0,
+    "R": 0,
+    "P": 0,
+    "context_score": 0.3333
+  },
+  {
+    "context_id": "T0R0P0-case08",
+    "cell": "T0R0P0",
+    "case_id": "case08",
+    "T": 0,
+    "R": 0,
+    "P": 0,
+    "context_score": 0.0
+  },
+  {
+    "context_id": "T0R0P0-case09",
+    "cell": "T0R0P0",
+    "case_id": "case09",
+    "T": 0,
+    "R": 0,
+    "P": 0,
+    "context_score": 0.0
+  },
+  {
+    "context_id": "T0R0P0-case10",
+    "cell": "T0R0P0",
+    "case_id": "case10",
+    "T": 0,
+    "R": 0,
+    "P": 0,
+    "context_score": 0.0
+  },
+  {
+    "context_id": "T0R0P0-case11",
+    "cell": "T0R0P0",
+    "case_id": "case11",
+    "T": 0,
+    "R": 0,
+    "P": 0,
+    "context_score": 0.0
+  },
+  {
+    "context_id": "T0R0P1-case00",
+    "cell": "T0R0P1",
+    "case_id": "case00",
+    "T": 0,
+    "R": 0,
+    "P": 1,
+    "context_score": 1.0
+  },
+  {
+    "context_id": "T0R0P1-case01",
+    "cell": "T0R0P1",
+    "case_id": "case01",
+    "T": 0,
+    "R": 0,
+    "P": 1,
+    "context_score": 0.5
+  },
+  {
+    "context_id": "T0R0P1-case02",
+    "cell": "T0R0P1",
+    "case_id": "case02",
+    "T": 0,
+    "R": 0,
+    "P": 1,
+    "context_score": 0.3333
+  },
+  {
+    "context_id": "T0R0P1-case03",
+    "cell": "T0R0P1",
+    "case_id": "case03",
+    "T": 0,
+    "R": 0,
+    "P": 1,
+    "context_score": 0.5
+  },
+  {
+    "context_id": "T0R0P1-case04",
+    "cell": "T0R0P1",
+    "case_id": "case04",
+    "T": 0,
+    "R": 0,
+    "P": 1,
+    "context_score": 0.5
+  },
+  {
+    "context_id": "T0R0P1-case05",
+    "cell": "T0R0P1",
+    "case_id": "case05",
+    "T": 0,
+    "R": 0,
+    "P": 1,
+    "context_score": 0.0
+  },
+  {
+    "context_id": "T0R0P1-case06",
+    "cell": "T0R0P1",
+    "case_id": "case06",
+    "T": 0,
+    "R": 0,
+    "P": 1,
+    "context_score": 1.0
+  },
+  {
+    "context_id": "T0R0P1-case07",
+    "cell": "T0R0P1",
+    "case_id": "case07",
+    "T": 0,
+    "R": 0,
+    "P": 1,
+    "context_score": 0.3333
+  },
+  {
+    "context_id": "T0R0P1-case08",
+    "cell": "T0R0P1",
+    "case_id": "case08",
+    "T": 0,
+    "R": 0,
+    "P": 1,
+    "context_score": 0.5
+  },
+  {
+    "context_id": "T0R0P1-case09",
+    "cell": "T0R0P1",
+    "case_id": "case09",
+    "T": 0,
+    "R": 0,
+    "P": 1,
+    "context_score": 0.5
+  },
+  {
+    "context_id": "T0R0P1-case10",
+    "cell": "T0R0P1",
+    "case_id": "case10",
+    "T": 0,
+    "R": 0,
+    "P": 1,
+    "context_score": 0.5
+  },
+  {
+    "context_id": "T0R0P1-case11",
+    "cell": "T0R0P1",
+    "case_id": "case11",
+    "T": 0,
+    "R": 0,
+    "P": 1,
+    "context_score": 0.0
+  },
+  {
+    "context_id": "T0R1P0-case00",
+    "cell": "T0R1P0",
+    "case_id": "case00",
+    "T": 0,
+    "R": 1,
+    "P": 0,
+    "context_score": 1.0
+  },
+  {
+    "context_id": "T0R1P0-case01",
+    "cell": "T0R1P0",
+    "case_id": "case01",
+    "T": 0,
+    "R": 1,
+    "P": 0,
+    "context_score": 1.0
+  },
+  {
+    "context_id": "T0R1P0-case02",
+    "cell": "T0R1P0",
+    "case_id": "case02",
+    "T": 0,
+    "R": 1,
+    "P": 0,
+    "context_score": 1.0
+  },
+  {
+    "context_id": "T0R1P0-case03",
+    "cell": "T0R1P0",
+    "case_id": "case03",
+    "T": 0,
+    "R": 1,
+    "P": 0,
+    "context_score": 0.0
+  },
+  {
+    "context_id": "T0R1P0-case04",
+    "cell": "T0R1P0",
+    "case_id": "case04",
+    "T": 0,
+    "R": 1,
+    "P": 0,
+    "context_score": 0.0
+  },
+  {
+    "context_id": "T0R1P0-case05",
+    "cell": "T0R1P0",
+    "case_id": "case05",
+    "T": 0,
+    "R": 1,
+    "P": 0,
+    "context_score": 0.0
+  },
+  {
+    "context_id": "T0R1P0-case06",
+    "cell": "T0R1P0",
+    "case_id": "case06",
+    "T": 0,
+    "R": 1,
+    "P": 0,
+    "context_score": 1.0
+  },
+  {
+    "context_id": "T0R1P0-case07",
+    "cell": "T0R1P0",
+    "case_id": "case07",
+    "T": 0,
+    "R": 1,
+    "P": 0,
+    "context_score": 1.0
+  },
+  {
+    "context_id": "T0R1P0-case08",
+    "cell": "T0R1P0",
+    "case_id": "case08",
+    "T": 0,
+    "R": 1,
+    "P": 0,
+    "context_score": 0.0
+  },
+  {
+    "context_id": "T0R1P0-case09",
+    "cell": "T0R1P0",
+    "case_id": "case09",
+    "T": 0,
+    "R": 1,
+    "P": 0,
+    "context_score": 0.0
+  },
+  {
+    "context_id": "T0R1P0-case10",
+    "cell": "T0R1P0",
+    "case_id": "case10",
+    "T": 0,
+    "R": 1,
+    "P": 0,
+    "context_score": 0.0
+  },
+  {
+    "context_id": "T0R1P0-case11",
+    "cell": "T0R1P0",
+    "case_id": "case11",
+    "T": 0,
+    "R": 1,
+    "P": 0,
+    "context_score": 0.5
+  },
+  {
+    "context_id": "T0R1P1-case00",
+    "cell": "T0R1P1",
+    "case_id": "case00",
+    "T": 0,
+    "R": 1,
+    "P": 1,
+    "context_score": 1.0
+  },
+  {
+    "context_id": "T0R1P1-case01",
+    "cell": "T0R1P1",
+    "case_id": "case01",
+    "T": 0,
+    "R": 1,
+    "P": 1,
+    "context_score": 1.0
+  },
+  {
+    "context_id": "T0R1P1-case02",
+    "cell": "T0R1P1",
+    "case_id": "case02",
+    "T": 0,
+    "R": 1,
+    "P": 1,
+    "context_score": 1.0
+  },
+  {
+    "context_id": "T0R1P1-case03",
+    "cell": "T0R1P1",
+    "case_id": "case03",
+    "T": 0,
+    "R": 1,
+    "P": 1,
+    "context_score": 1.0
+  },
+  {
+    "context_id": "T0R1P1-case04",
+    "cell": "T0R1P1",
+    "case_id": "case04",
+    "T": 0,
+    "R": 1,
+    "P": 1,
+    "context_score": 0.5
+  },
+  {
+    "context_id": "T0R1P1-case05",
+    "cell": "T0R1P1",
+    "case_id": "case05",
+    "T": 0,
+    "R": 1,
+    "P": 1,
+    "context_score": 0.0
+  },
+  {
+    "context_id": "T0R1P1-case06",
+    "cell": "T0R1P1",
+    "case_id": "case06",
+    "T": 0,
+    "R": 1,
+    "P": 1,
+    "context_score": 1.0
+  },
+  {
+    "context_id": "T0R1P1-case07",
+    "cell": "T0R1P1",
+    "case_id": "case07",
+    "T": 0,
+    "R": 1,
+    "P": 1,
+    "context_score": 1.0
+  },
+  {
+    "context_id": "T0R1P1-case08",
+    "cell": "T0R1P1",
+    "case_id": "case08",
+    "T": 0,
+    "R": 1,
+    "P": 1,
+    "context_score": 0.5
+  },
+  {
+    "context_id": "T0R1P1-case09",
+    "cell": "T0R1P1",
+    "case_id": "case09",
+    "T": 0,
+    "R": 1,
+    "P": 1,
+    "context_score": 0.5
+  },
+  {
+    "context_id": "T0R1P1-case10",
+    "cell": "T0R1P1",
+    "case_id": "case10",
+    "T": 0,
+    "R": 1,
+    "P": 1,
+    "context_score": 1.0
+  },
+  {
+    "context_id": "T0R1P1-case11",
+    "cell": "T0R1P1",
+    "case_id": "case11",
+    "T": 0,
+    "R": 1,
+    "P": 1,
+    "context_score": 0.5
+  },
+  {
+    "context_id": "T1R0P0-case00",
+    "cell": "T1R0P0",
+    "case_id": "case00",
+    "T": 1,
+    "R": 0,
+    "P": 0,
+    "context_score": 1.0
+  },
+  {
+    "context_id": "T1R0P0-case01",
+    "cell": "T1R0P0",
+    "case_id": "case01",
+    "T": 1,
+    "R": 0,
+    "P": 0,
+    "context_score": 0.5
+  },
+  {
+    "context_id": "T1R0P0-case02",
+    "cell": "T1R0P0",
+    "case_id": "case02",
+    "T": 1,
+    "R": 0,
+    "P": 0,
+    "context_score": 0.6667
+  },
+  {
+    "context_id": "T1R0P0-case03",
+    "cell": "T1R0P0",
+    "case_id": "case03",
+    "T": 1,
+    "R": 0,
+    "P": 0,
+    "context_score": 0.0
+  },
+  {
+    "context_id": "T1R0P0-case04",
+    "cell": "T1R0P0",
+    "case_id": "case04",
+    "T": 1,
+    "R": 0,
+    "P": 0,
+    "context_score": 0.0
+  },
+  {
+    "context_id": "T1R0P0-case05",
+    "cell": "T1R0P0",
+    "case_id": "case05",
+    "T": 1,
+    "R": 0,
+    "P": 0,
+    "context_score": 0.0
+  },
+  {
+    "context_id": "T1R0P0-case06",
+    "cell": "T1R0P0",
+    "case_id": "case06",
+    "T": 1,
+    "R": 0,
+    "P": 0,
+    "context_score": 1.0
+  },
+  {
+    "context_id": "T1R0P0-case07",
+    "cell": "T1R0P0",
+    "case_id": "case07",
+    "T": 1,
+    "R": 0,
+    "P": 0,
+    "context_score": 0.6667
+  },
+  {
+    "context_id": "T1R0P0-case08",
+    "cell": "T1R0P0",
+    "case_id": "case08",
+    "T": 1,
+    "R": 0,
+    "P": 0,
+    "context_score": 0.0
+  },
+  {
+    "context_id": "T1R0P0-case09",
+    "cell": "T1R0P0",
+    "case_id": "case09",
+    "T": 1,
+    "R": 0,
+    "P": 0,
+    "context_score": 0.0
+  },
+  {
+    "context_id": "T1R0P0-case10",
+    "cell": "T1R0P0",
+    "case_id": "case10",
+    "T": 1,
+    "R": 0,
+    "P": 0,
+    "context_score": 0.0
+  },
+  {
+    "context_id": "T1R0P0-case11",
+    "cell": "T1R0P0",
+    "case_id": "case11",
+    "T": 1,
+    "R": 0,
+    "P": 0,
+    "context_score": 0.0
+  },
+  {
+    "context_id": "T1R0P1-case00",
+    "cell": "T1R0P1",
+    "case_id": "case00",
+    "T": 1,
+    "R": 0,
+    "P": 1,
+    "context_score": 1.0
+  },
+  {
+    "context_id": "T1R0P1-case01",
+    "cell": "T1R0P1",
+    "case_id": "case01",
+    "T": 1,
+    "R": 0,
+    "P": 1,
+    "context_score": 0.5
+  },
+  {
+    "context_id": "T1R0P1-case02",
+    "cell": "T1R0P1",
+    "case_id": "case02",
+    "T": 1,
+    "R": 0,
+    "P": 1,
+    "context_score": 0.6667
+  },
+  {
+    "context_id": "T1R0P1-case03",
+    "cell": "T1R0P1",
+    "case_id": "case03",
+    "T": 1,
+    "R": 0,
+    "P": 1,
+    "context_score": 0.5
+  },
+  {
+    "context_id": "T1R0P1-case04",
+    "cell": "T1R0P1",
+    "case_id": "case04",
+    "T": 1,
+    "R": 0,
+    "P": 1,
+    "context_score": 0.5
+  },
+  {
+    "context_id": "T1R0P1-case05",
+    "cell": "T1R0P1",
+    "case_id": "case05",
+    "T": 1,
+    "R": 0,
+    "P": 1,
+    "context_score": 0.0
+  },
+  {
+    "context_id": "T1R0P1-case06",
+    "cell": "T1R0P1",
+    "case_id": "case06",
+    "T": 1,
+    "R": 0,
+    "P": 1,
+    "context_score": 1.0
+  },
+  {
+    "context_id": "T1R0P1-case07",
+    "cell": "T1R0P1",
+    "case_id": "case07",
+    "T": 1,
+    "R": 0,
+    "P": 1,
+    "context_score": 0.6667
+  },
+  {
+    "context_id": "T1R0P1-case08",
+    "cell": "T1R0P1",
+    "case_id": "case08",
+    "T": 1,
+    "R": 0,
+    "P": 1,
+    "context_score": 1.0
+  },
+  {
+    "context_id": "T1R0P1-case09",
+    "cell": "T1R0P1",
+    "case_id": "case09",
+    "T": 1,
+    "R": 0,
+    "P": 1,
+    "context_score": 0.5
+  },
+  {
+    "context_id": "T1R0P1-case10",
+    "cell": "T1R0P1",
+    "case_id": "case10",
+    "T": 1,
+    "R": 0,
+    "P": 1,
+    "context_score": 0.5
+  },
+  {
+    "context_id": "T1R0P1-case11",
+    "cell": "T1R0P1",
+    "case_id": "case11",
+    "T": 1,
+    "R": 0,
+    "P": 1,
+    "context_score": 0.0
+  },
+  {
+    "context_id": "T1R1P0-case00",
+    "cell": "T1R1P0",
+    "case_id": "case00",
+    "T": 1,
+    "R": 1,
+    "P": 0,
+    "context_score": 1.0
+  },
+  {
+    "context_id": "T1R1P0-case01",
+    "cell": "T1R1P0",
+    "case_id": "case01",
+    "T": 1,
+    "R": 1,
+    "P": 0,
+    "context_score": 1.0
+  },
+  {
+    "context_id": "T1R1P0-case02",
+    "cell": "T1R1P0",
+    "case_id": "case02",
+    "T": 1,
+    "R": 1,
+    "P": 0,
+    "context_score": 1.0
+  },
+  {
+    "context_id": "T1R1P0-case03",
+    "cell": "T1R1P0",
+    "case_id": "case03",
+    "T": 1,
+    "R": 1,
+    "P": 0,
+    "context_score": 0.0
+  },
+  {
+    "context_id": "T1R1P0-case04",
+    "cell": "T1R1P0",
+    "case_id": "case04",
+    "T": 1,
+    "R": 1,
+    "P": 0,
+    "context_score": 0.0
+  },
+  {
+    "context_id": "T1R1P0-case05",
+    "cell": "T1R1P0",
+    "case_id": "case05",
+    "T": 1,
+    "R": 1,
+    "P": 0,
+    "context_score": 0.0
+  },
+  {
+    "context_id": "T1R1P0-case06",
+    "cell": "T1R1P0",
+    "case_id": "case06",
+    "T": 1,
+    "R": 1,
+    "P": 0,
+    "context_score": 1.0
+  },
+  {
+    "context_id": "T1R1P0-case07",
+    "cell": "T1R1P0",
+    "case_id": "case07",
+    "T": 1,
+    "R": 1,
+    "P": 0,
+    "context_score": 1.0
+  },
+  {
+    "context_id": "T1R1P0-case08",
+    "cell": "T1R1P0",
+    "case_id": "case08",
+    "T": 1,
+    "R": 1,
+    "P": 0,
+    "context_score": 0.0
+  },
+  {
+    "context_id": "T1R1P0-case09",
+    "cell": "T1R1P0",
+    "case_id": "case09",
+    "T": 1,
+    "R": 1,
+    "P": 0,
+    "context_score": 0.0
+  },
+  {
+    "context_id": "T1R1P0-case10",
+    "cell": "T1R1P0",
+    "case_id": "case10",
+    "T": 1,
+    "R": 1,
+    "P": 0,
+    "context_score": 0.0
+  },
+  {
+    "context_id": "T1R1P0-case11",
+    "cell": "T1R1P0",
+    "case_id": "case11",
+    "T": 1,
+    "R": 1,
+    "P": 0,
+    "context_score": 0.0
+  },
+  {
+    "context_id": "T1R1P1-case00",
+    "cell": "T1R1P1",
+    "case_id": "case00",
+    "T": 1,
+    "R": 1,
+    "P": 1,
+    "context_score": 1.0
+  },
+  {
+    "context_id": "T1R1P1-case01",
+    "cell": "T1R1P1",
+    "case_id": "case01",
+    "T": 1,
+    "R": 1,
+    "P": 1,
+    "context_score": 1.0
+  },
+  {
+    "context_id": "T1R1P1-case02",
+    "cell": "T1R1P1",
+    "case_id": "case02",
+    "T": 1,
+    "R": 1,
+    "P": 1,
+    "context_score": 1.0
+  },
+  {
+    "context_id": "T1R1P1-case03",
+    "cell": "T1R1P1",
+    "case_id": "case03",
+    "T": 1,
+    "R": 1,
+    "P": 1,
+    "context_score": 1.0
+  },
+  {
+    "context_id": "T1R1P1-case04",
+    "cell": "T1R1P1",
+    "case_id": "case04",
+    "T": 1,
+    "R": 1,
+    "P": 1,
+    "context_score": 0.5
+  },
+  {
+    "context_id": "T1R1P1-case05",
+    "cell": "T1R1P1",
+    "case_id": "case05",
+    "T": 1,
+    "R": 1,
+    "P": 1,
+    "context_score": 0.5
+  },
+  {
+    "context_id": "T1R1P1-case06",
+    "cell": "T1R1P1",
+    "case_id": "case06",
+    "T": 1,
+    "R": 1,
+    "P": 1,
+    "context_score": 1.0
+  },
+  {
+    "context_id": "T1R1P1-case07",
+    "cell": "T1R1P1",
+    "case_id": "case07",
+    "T": 1,
+    "R": 1,
+    "P": 1,
+    "context_score": 1.0
+  },
+  {
+    "context_id": "T1R1P1-case08",
+    "cell": "T1R1P1",
+    "case_id": "case08",
+    "T": 1,
+    "R": 1,
+    "P": 1,
+    "context_score": 1.0
+  },
+  {
+    "context_id": "T1R1P1-case09",
+    "cell": "T1R1P1",
+    "case_id": "case09",
+    "T": 1,
+    "R": 1,
+    "P": 1,
+    "context_score": 0.5
+  },
+  {
+    "context_id": "T1R1P1-case10",
+    "cell": "T1R1P1",
+    "case_id": "case10",
+    "T": 1,
+    "R": 1,
+    "P": 1,
+    "context_score": 1.0
+  },
+  {
+    "context_id": "T1R1P1-case11",
+    "cell": "T1R1P1",
+    "case_id": "case11",
+    "T": 1,
+    "R": 1,
+    "P": 1,
+    "context_score": 0.0
+  }
+]

@@ -9,6 +9,20 @@ as decision records awaiting human approval; F2/F4/F5 open.
 **Open decisions:** `docs/decisions/DEC-0001` (parallel benchmark tracks),
 `DEC-0002` (claim record completeness). Neither may be self-approved.
 
+## BENCH-0004-E2b (2026-09-02)
+
+E2 is blocked at G1 and its fixture bytes were verified to have never existed in this
+repository, so git rollback cannot recover them. E2b was built instead: a new 96-context
+factorial over the repository's own committed history, pinned at `a0bc5a6`, deterministic, and
+**committed to the repository** — which is what E2 lacked. G2 byte-level verification passes and
+the G4 dry run is clean; only G3 (pinned model + credential) blocks Stage 2.
+
+Stage 1 executed. **P and R replicate the original factorial; T does not** (+0.0191, p=0.438
+against the original +0.1683, p=0.023). Temporal filtering changed the retrieved set in 92% of
+comparisons, so the null is a failure to improve sufficiency rather than inaction. `CLM-0004a`
+moves to `WEAKENED`; `CLM-0004b` and `CLM-0004c` record the replication and stay `UNDER_TEST`.
+Nothing promoted.
+
 ## Repository Evidence
 
 - Repository: `chayobi03-cyber/agent-platform`

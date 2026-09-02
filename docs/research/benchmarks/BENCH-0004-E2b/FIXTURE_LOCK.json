@@ -1,0 +1,83 @@
+{
+  "benchmark": "BENCH-0004-E2b",
+  "artifact": "96-context generator input fixture",
+  "status": "FROZEN",
+  "lock_schema_version": 2,
+  "locked_at": "2026-09-02T00:26:38Z",
+  "relationship_to_BENCH-0004-E2": "E2b is a NEW benchmark, not a recovery of the E2 fixture. The E2 fixture bytes were never in this repository and no commit, stash or dangling object contains them; git rollback cannot recover them. E2b answers the same question over a corpus that is present and verifiable. Its hashes are its own and must never be compared to the E2 lock.",
+  "corpus": {
+    "source": "APF repository committed history",
+    "pinned_at_commit": "a0bc5a6e43efdc9815adace9eb1cfe3aa7630b36",
+    "document_versions": 26,
+    "paths": 16,
+    "paths_with_revision_history": 6,
+    "builder": "tools/bench0004_e2b/build_fixture.py",
+    "reproducible": "deterministic: rebuilding at the pinned commit reproduces these bytes"
+  },
+  "context_count": 96,
+  "unique_context_ids": 96,
+  "unique_context_sha256": 96,
+  "cells": {
+    "T0R0P0": 12,
+    "T0R0P1": 12,
+    "T0R1P0": 12,
+    "T0R1P1": 12,
+    "T1R0P0": 12,
+    "T1R0P1": 12,
+    "T1R1P0": 12,
+    "T1R1P1": 12
+  },
+  "per_context_sha256_recheck_mismatches": [],
+  "expected_sha256": {
+    "contexts_jsonl": "6455879e2cf0333f9b5647acc6fed4ca4f5a5ce247d235670b6278500d9daf3e",
+    "canonical_context_manifest": "bc15ae854ff8f9f4493a3a47f58d284cb920d612f0f9ca2de7dbb980897ffc37",
+    "declared_bundle_manifest": "14c489c2a2f833defc8679b4f7e7f2f9bf160b661703000219145a2b6024f9be",
+    "generator_contract": "da07602fd96a32793f8dccbb8e3dd23997b7bfb03e6fa6b2028afebd2a22af6f"
+  },
+  "verification_status": {
+    "as_of": "2026-09-02",
+    "byte_level_recheck": "PASS",
+    "note": "Unlike BENCH-0004-E2, the fixture bytes are committed to this repository, so every hash here was recomputed from source and verify_fixture.py passes gate G2."
+  },
+  "generator_model": "UNSET",
+  "generator_provider": "UNSET",
+  "generation_policy": {
+    "one_pass_only": true,
+    "one_frozen_context_per_request": true,
+    "no_external_information": true,
+    "no_hidden_gold_access": true,
+    "no_regeneration_after_first_answer": true,
+    "no_posthoc_mutation": true,
+    "tools_enabled": false,
+    "answer_sha256_required": true,
+    "response_id_required_when_available": true
+  },
+  "required_record_fields": [
+    "context_id",
+    "context_sha256",
+    "model_provider",
+    "model_version",
+    "system_prompt_sha256",
+    "user_prompt_template_sha256",
+    "temperature",
+    "top_p",
+    "max_tokens",
+    "seed",
+    "tools_enabled",
+    "generated_at_utc",
+    "response_id",
+    "answer_sha256",
+    "answer"
+  ],
+  "e2b_gate": "G2 passed. Remaining gate is G3/G4: pin an immutable model and run one pass.",
+  "adjudicates": [
+    "CLM-0004",
+    "CLM-0004a",
+    "CLM-0004b",
+    "CLM-0004c"
+  ],
+  "does_not_adjudicate": [
+    "H07",
+    "H11"
+  ]
+}

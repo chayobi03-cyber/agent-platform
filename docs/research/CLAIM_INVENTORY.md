@@ -205,8 +205,19 @@ context level** by the shared evidence above.
 **Preferred evidence:** The same effect on answer quality across evaluator replacement (E2), on
 a corpus independent of APF.
 
-**Current state:** `UNDER_TEST`. Consistent with the claim within the shared scope; not
-`SUPPORTED`, for the evidence limitation stated above.
+**Counter-evidence:** `executions/BENCH-0004_E2b_2026-09-02.md` — on an independently
+constructed 96-context factorial over the repository's own committed history, temporal
+filtering produced **+0.0191 at p=0.438**, indistinguishable from zero, against the original
+factorial's +0.1683 at p=0.023. The falsifier stated above was observed. Temporal filtering was
+not inert: it changed the retrieved set in 92% of comparisons and in all eight temporally
+dependent cases, so the null is a failure to improve sufficiency rather than a failure to act.
+Bounding limitation: ten of sixteen corpus paths carry a single committed version, capping how
+much sufficiency temporal filtering could add.
+
+**Current state:** `WEAKENED`. One non-replication on a corpus with shallow version depth does
+not falsify, and the original factorial's observations remain unavailable, so neither result can
+adjudicate the other. Promotion is out of the question until at least one of the two is
+reproducible.
 
 ### CLM-0004b — Provenance-aware ranking improves retrieval context sufficiency
 
@@ -229,8 +240,13 @@ context level** by the shared evidence above, where P is the largest of the thre
 **Preferred evidence:** As CLM-0004a, plus an arm that supplies length-matched non-provenance
 context to rule out the generic-context explanation named in the falsifier.
 
-**Current state:** `UNDER_TEST`. The generic-context alternative explanation is not yet
-excluded by any executed run.
+**Replication:** `executions/BENCH-0004_E2b_2026-09-02.md` — +0.1406 at p<0.0001 on an
+independently constructed case set, again the largest of the three main effects. The direction
+and the ranking both replicate.
+
+**Current state:** `UNDER_TEST`. Replicated at context level, but the generic-context
+alternative explanation is still not excluded by any executed run, and context-level gain is not
+answer-quality gain until Stage 2 runs.
 
 ### CLM-0004c — Relationship expansion improves retrieval context sufficiency
 
@@ -257,8 +273,11 @@ therefore illustrates rather than excludes the artifact explanation in the falsi
 adding structure to a competent semantic+metadata retriever produced **no** gain (B/C/D all 90%
 top-1, 100% top-2). This is retained as a linked negative result, per §7.
 
-**Current state:** `UNDER_TEST`. Supporting and counter-evidence coexist at different metric
-levels and must not be collapsed.
+**Replication:** `executions/BENCH-0004_E2b_2026-09-02.md` — +0.0990 at p=0.0001 on an
+independently constructed case set.
+
+**Current state:** `UNDER_TEST`. Replicated at context level. Supporting and counter-evidence
+coexist at different metric levels and must not be collapsed.
 
 ### CLM-0005 — Failed attempts are first-class engineering evidence
 

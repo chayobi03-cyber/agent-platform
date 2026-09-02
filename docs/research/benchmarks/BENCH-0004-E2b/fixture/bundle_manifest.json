@@ -1,0 +1,22 @@
+{
+  "benchmark": "BENCH-0004-E2b",
+  "case_set_version": "1.0",
+  "cells": {
+    "T0R0P0": 12,
+    "T0R0P1": 12,
+    "T0R1P0": 12,
+    "T0R1P1": 12,
+    "T1R0P0": 12,
+    "T1R0P1": 12,
+    "T1R1P0": 12,
+    "T1R1P1": 12
+  },
+  "contents": {
+    "canonical_context_manifest.json": "bc15ae854ff8f9f4493a3a47f58d284cb920d612f0f9ca2de7dbb980897ffc37",
+    "contexts_96.jsonl": "6455879e2cf0333f9b5647acc6fed4ca4f5a5ce247d235670b6278500d9daf3e",
+    "generator_contract.json": "da07602fd96a32793f8dccbb8e3dd23997b7bfb03e6fa6b2028afebd2a22af6f"
+  },
+  "context_count": 96,
+  "corpus_pinned_at_commit": "a0bc5a6e43efdc9815adace9eb1cfe3aa7630b36",
+  "corpus_versions": 26
+}

@@ -1,0 +1,37 @@
+{
+  "benchmark": "BENCH-0004-E2b",
+  "generation_policy": {
+    "answer_sha256_required": true,
+    "no_external_information": true,
+    "no_hidden_gold_access": true,
+    "no_posthoc_mutation": true,
+    "no_regeneration_after_first_answer": true,
+    "one_frozen_context_per_request": true,
+    "one_pass_only": true,
+    "response_id_required_when_available": true,
+    "tools_enabled": false
+  },
+  "prompt_construction": {
+    "context_field": "context",
+    "note": "The context is passed verbatim. The question is embedded in the context record and must not be re-supplied separately.",
+    "system_prompt": "supplied at run time as a file; its SHA-256 is recorded per answer",
+    "user_template": "supplied at run time; must contain the {context} placeholder"
+  },
+  "required_record_fields": [
+    "context_id",
+    "context_sha256",
+    "model_provider",
+    "model_version",
+    "system_prompt_sha256",
+    "user_prompt_template_sha256",
+    "temperature",
+    "top_p",
+    "max_tokens",
+    "seed",
+    "tools_enabled",
+    "generated_at_utc",
+    "response_id",
+    "answer_sha256",
+    "answer"
+  ]
+}

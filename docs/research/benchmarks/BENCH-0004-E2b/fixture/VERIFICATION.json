@@ -1,0 +1,57 @@
+{
+  "benchmark": "BENCH-0004-E2",
+  "gate": "G2",
+  "verified_at_utc": "2026-09-02T00:26:38Z",
+  "lock_file": "docs/research/benchmarks/BENCH-0004-E2b/FIXTURE_LOCK.json",
+  "bundle": "docs/research/benchmarks/BENCH-0004-E2b/fixture",
+  "all_pass": true,
+  "failures": [],
+  "tier1": {
+    "contexts_jsonl": {
+      "path": "docs/research/benchmarks/BENCH-0004-E2b/fixture/contexts_96.jsonl",
+      "expected": "6455879e2cf0333f9b5647acc6fed4ca4f5a5ce247d235670b6278500d9daf3e",
+      "actual": "6455879e2cf0333f9b5647acc6fed4ca4f5a5ce247d235670b6278500d9daf3e",
+      "pass": true
+    },
+    "canonical_context_manifest": {
+      "path": "docs/research/benchmarks/BENCH-0004-E2b/fixture/canonical_context_manifest.json",
+      "expected": "bc15ae854ff8f9f4493a3a47f58d284cb920d612f0f9ca2de7dbb980897ffc37",
+      "actual": "bc15ae854ff8f9f4493a3a47f58d284cb920d612f0f9ca2de7dbb980897ffc37",
+      "pass": true
+    },
+    "declared_bundle_manifest": {
+      "path": "docs/research/benchmarks/BENCH-0004-E2b/fixture/bundle_manifest.json",
+      "expected": "14c489c2a2f833defc8679b4f7e7f2f9bf160b661703000219145a2b6024f9be",
+      "actual": "14c489c2a2f833defc8679b4f7e7f2f9bf160b661703000219145a2b6024f9be",
+      "pass": true
+    },
+    "generator_contract": {
+      "path": "docs/research/benchmarks/BENCH-0004-E2b/fixture/generator_contract.json",
+      "expected": "da07602fd96a32793f8dccbb8e3dd23997b7bfb03e6fa6b2028afebd2a22af6f",
+      "actual": "da07602fd96a32793f8dccbb8e3dd23997b7bfb03e6fa6b2028afebd2a22af6f",
+      "pass": true
+    }
+  },
+  "tier2": {
+    "per_context_sha256_recheck_mismatches": [],
+    "rebuilt_canonical_manifest_sha256": "bc15ae854ff8f9f4493a3a47f58d284cb920d612f0f9ca2de7dbb980897ffc37",
+    "rebuilt_matches_lock": true
+  },
+  "field_mapping": {
+    "id": "context_id",
+    "sha": "context_sha256",
+    "text": "context",
+    "cell": "cell"
+  },
+  "cell_counts": {
+    "T0R0P0": 12,
+    "T0R0P1": 12,
+    "T0R1P0": 12,
+    "T0R1P1": 12,
+    "T1R0P0": 12,
+    "T1R0P1": 12,
+    "T1R1P0": 12,
+    "T1R1P1": 12
+  },
+  "contexts_jsonl_sha256": "6455879e2cf0333f9b5647acc6fed4ca4f5a5ce247d235670b6278500d9daf3e"
+}
