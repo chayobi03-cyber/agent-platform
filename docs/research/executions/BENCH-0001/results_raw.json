@@ -1,0 +1,307 @@
+{
+  "by_class": {
+    "C1_deterministic": {
+      "A_coverage": 0.5,
+      "A_violations": 3.5,
+      "B_coverage": 0.9444444444444444,
+      "B_violations": 0.5,
+      "n": 2
+    },
+    "C2_agentic": {
+      "A_coverage": 0.9,
+      "A_violations": 0.5,
+      "B_coverage": 0.6642857142857143,
+      "B_violations": 1.75,
+      "n": 4
+    },
+    "C3_human_in_the_loop": {
+      "A_coverage": 0.6818181818181818,
+      "A_violations": 2.3333333333333335,
+      "B_coverage": 0.8030303030303031,
+      "B_violations": 1.0,
+      "n": 3
+    },
+    "C4_scheduled": {
+      "A_coverage": 0.6071428571428572,
+      "A_violations": 1.5,
+      "B_coverage": 1.0,
+      "B_violations": 0.0,
+      "n": 2
+    },
+    "C5_external_orchestration": {
+      "A_coverage": 0.5833333333333333,
+      "A_violations": 2.0,
+      "B_coverage": 0.75,
+      "B_violations": 1.5,
+      "n": 2
+    },
+    "C6_validation": {
+      "A_coverage": 0.5972222222222222,
+      "A_violations": 3.3333333333333335,
+      "B_coverage": 0.8796296296296297,
+      "B_violations": 1.0,
+      "n": 3
+    }
+  },
+  "n_workflows": 16,
+  "overall": {
+    "A_coverage": 0.6761295995670995,
+    "A_violations": 2.0625,
+    "B_coverage": 0.8183757215007215,
+    "B_violations": 1.0625,
+    "delta_coverage_B_minus_A": 0.14224612193362196
+  },
+  "per_workflow": [
+    {
+      "A_coverage": 0.6666666666666666,
+      "A_escaped": [
+        "CONCURRENCY_CONTROL",
+        "CONFIGURATION",
+        "PERMISSION_SCOPE"
+      ],
+      "A_violations": 3,
+      "B_coverage": 0.8888888888888888,
+      "B_escaped": [
+        "CONCURRENCY_CONTROL"
+      ],
+      "B_violations": 1,
+      "class": "C1_deterministic",
+      "id": "W01",
+      "n": 9
+    },
+    {
+      "A_coverage": 0.3333333333333333,
+      "A_escaped": [
+        "CLASSIFICATION",
+        "CONFIGURATION",
+        "DOCUMENTATION",
+        "SCHEDULE"
+      ],
+      "A_violations": 4,
+      "B_coverage": 1.0,
+      "B_escaped": [],
+      "B_violations": 0,
+      "class": "C1_deterministic",
+      "id": "W02",
+      "n": 6
+    },
+    {
+      "A_coverage": 0.6,
+      "A_escaped": [
+        "HUMAN_APPROVAL",
+        "TIMEOUT"
+      ],
+      "A_violations": 2,
+      "B_coverage": 0.6,
+      "B_escaped": [
+        "EVENT_SIGNAL",
+        "TIMEOUT"
+      ],
+      "B_violations": 2,
+      "class": "C2_agentic",
+      "id": "W03",
+      "n": 5
+    },
+    {
+      "A_coverage": 1.0,
+      "A_escaped": [],
+      "A_violations": 0,
+      "B_coverage": 0.7,
+      "B_escaped": [
+        "EVENT_SIGNAL",
+        "PROMPT_CONTENT",
+        "STATE_SCHEMA"
+      ],
+      "B_violations": 3,
+      "class": "C2_agentic",
+      "id": "W04",
+      "n": 10
+    },
+    {
+      "A_coverage": 1.0,
+      "A_escaped": [],
+      "A_violations": 0,
+      "B_coverage": 0.8571428571428571,
+      "B_escaped": [
+        "STATE_SCHEMA"
+      ],
+      "B_violations": 1,
+      "class": "C2_agentic",
+      "id": "W15",
+      "n": 7
+    },
+    {
+      "A_coverage": 1.0,
+      "A_escaped": [],
+      "A_violations": 0,
+      "B_coverage": 0.5,
+      "B_escaped": [
+        "STATE_SCHEMA"
+      ],
+      "B_violations": 1,
+      "class": "C2_agentic",
+      "id": "W16",
+      "n": 2
+    },
+    {
+      "A_coverage": 0.75,
+      "A_escaped": [
+        "HUMAN_APPROVAL"
+      ],
+      "A_violations": 1,
+      "B_coverage": 0.75,
+      "B_escaped": [
+        "EVENT_SIGNAL"
+      ],
+      "B_violations": 1,
+      "class": "C3_human_in_the_loop",
+      "id": "W05",
+      "n": 4
+    },
+    {
+      "A_coverage": 0.75,
+      "A_escaped": [
+        "HUMAN_APPROVAL"
+      ],
+      "A_violations": 1,
+      "B_coverage": 0.75,
+      "B_escaped": [
+        "EVENT_SIGNAL"
+      ],
+      "B_violations": 1,
+      "class": "C3_human_in_the_loop",
+      "id": "W06",
+      "n": 4
+    },
+    {
+      "A_coverage": 0.5454545454545454,
+      "A_escaped": [
+        "ARTIFACT_OUTPUT",
+        "CONCURRENCY_CONTROL",
+        "CONFIGURATION",
+        "HUMAN_APPROVAL",
+        "PERMISSION_SCOPE"
+      ],
+      "A_violations": 5,
+      "B_coverage": 0.9090909090909091,
+      "B_escaped": [
+        "CONCURRENCY_CONTROL"
+      ],
+      "B_violations": 1,
+      "class": "C3_human_in_the_loop",
+      "id": "W07",
+      "n": 11
+    },
+    {
+      "A_coverage": 0.5,
+      "A_escaped": [
+        "SCHEDULE"
+      ],
+      "A_violations": 1,
+      "B_coverage": 1.0,
+      "B_escaped": [],
+      "B_violations": 0,
+      "class": "C4_scheduled",
+      "id": "W08",
+      "n": 2
+    },
+    {
+      "A_coverage": 0.7142857142857143,
+      "A_escaped": [
+        "CONFIGURATION",
+        "PERMISSION_SCOPE"
+      ],
+      "A_violations": 2,
+      "B_coverage": 1.0,
+      "B_escaped": [],
+      "B_violations": 0,
+      "class": "C4_scheduled",
+      "id": "W09",
+      "n": 7
+    },
+    {
+      "A_coverage": 0.5,
+      "A_escaped": [
+        "CLASSIFICATION",
+        "SCHEDULE"
+      ],
+      "A_violations": 2,
+      "B_coverage": 1.0,
+      "B_escaped": [],
+      "B_violations": 0,
+      "class": "C5_external_orchestration",
+      "id": "W10",
+      "n": 4
+    },
+    {
+      "A_coverage": 0.6666666666666666,
+      "A_escaped": [
+        "RETRY_POLICY",
+        "TIMEOUT"
+      ],
+      "A_violations": 2,
+      "B_coverage": 0.5,
+      "B_escaped": [
+        "RETRY_POLICY",
+        "STATE_PERSISTENCE",
+        "TIMEOUT"
+      ],
+      "B_violations": 3,
+      "class": "C5_external_orchestration",
+      "id": "W11",
+      "n": 6
+    },
+    {
+      "A_coverage": 0.5,
+      "A_escaped": [
+        "CONCURRENCY_CONTROL",
+        "CONFIGURATION",
+        "FAILURE_HANDLER",
+        "PERMISSION_SCOPE"
+      ],
+      "A_violations": 4,
+      "B_coverage": 0.875,
+      "B_escaped": [
+        "CONCURRENCY_CONTROL"
+      ],
+      "B_violations": 1,
+      "class": "C6_validation",
+      "id": "W12",
+      "n": 8
+    },
+    {
+      "A_coverage": 0.625,
+      "A_escaped": [
+        "CONCURRENCY_CONTROL",
+        "CONFIGURATION",
+        "PERMISSION_SCOPE"
+      ],
+      "A_violations": 3,
+      "B_coverage": 0.875,
+      "B_escaped": [
+        "CONCURRENCY_CONTROL"
+      ],
+      "B_violations": 1,
+      "class": "C6_validation",
+      "id": "W13",
+      "n": 8
+    },
+    {
+      "A_coverage": 0.6666666666666666,
+      "A_escaped": [
+        "CONFIGURATION",
+        "PERMISSION_SCOPE",
+        "TIMEOUT"
+      ],
+      "A_violations": 3,
+      "B_coverage": 0.8888888888888888,
+      "B_escaped": [
+        "TIMEOUT"
+      ],
+      "B_violations": 1,
+      "class": "C6_validation",
+      "id": "W14",
+      "n": 9
+    }
+  ]
+}

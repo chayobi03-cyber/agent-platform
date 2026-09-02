@@ -1,0 +1,296 @@
+{
+  "n_distinct_concepts": 26,
+  "n_workflows": 16,
+  "vocabulary": {
+    "ARTIFACT_OUTPUT": 1,
+    "BRANCH_CONDITION": 6,
+    "CLASSIFICATION": 2,
+    "CONCURRENCY_CONTROL": 4,
+    "CONFIGURATION": 7,
+    "DEPENDENCY_RELATION": 3,
+    "DOCUMENTATION": 1,
+    "DYNAMIC_FANOUT": 3,
+    "EVENT_SIGNAL": 4,
+    "EXECUTION_TARGET": 9,
+    "EXTERNAL_SYSTEM_CALL": 7,
+    "FAILURE_HANDLER": 1,
+    "HUMAN_APPROVAL": 4,
+    "INPUT_PARAMETER": 6,
+    "LLM_INVOCATION": 2,
+    "PERMISSION_SCOPE": 6,
+    "PROMPT_CONTENT": 1,
+    "RETRY_POLICY": 1,
+    "SCHEDULE": 3,
+    "STATE_INSPECTION": 2,
+    "STATE_PERSISTENCE": 1,
+    "STATE_SCHEMA": 3,
+    "STEP_SEQUENCE": 11,
+    "TIMEOUT": 3,
+    "TOOL_BINDING": 2,
+    "WORKFLOW_DEFINITION": 9
+  },
+  "workflows": [
+    {
+      "class": "C1_deterministic",
+      "concepts": [
+        "BRANCH_CONDITION",
+        "CONCURRENCY_CONTROL",
+        "CONFIGURATION",
+        "DYNAMIC_FANOUT",
+        "EXECUTION_TARGET",
+        "EXTERNAL_SYSTEM_CALL",
+        "INPUT_PARAMETER",
+        "PERMISSION_SCOPE",
+        "STEP_SEQUENCE"
+      ],
+      "id": "W01",
+      "kind": "gha",
+      "n_concepts": 9,
+      "path": ".github/workflows/render.yml",
+      "source": "peps"
+    },
+    {
+      "class": "C1_deterministic",
+      "concepts": [
+        "CLASSIFICATION",
+        "CONFIGURATION",
+        "DOCUMENTATION",
+        "SCHEDULE",
+        "STEP_SEQUENCE",
+        "WORKFLOW_DEFINITION"
+      ],
+      "id": "W02",
+      "kind": "airflow",
+      "n_concepts": 6,
+      "path": "airflow-core/src/airflow/example_dags/tutorial_dag.py",
+      "source": "airflow"
+    },
+    {
+      "class": "C2_agentic",
+      "concepts": [
+        "EVENT_SIGNAL",
+        "HUMAN_APPROVAL",
+        "STATE_INSPECTION",
+        "TIMEOUT",
+        "WORKFLOW_DEFINITION"
+      ],
+      "id": "W03",
+      "kind": "temporal",
+      "n_concepts": 5,
+      "path": "bedrock/signals_and_queries/workflows.py",
+      "source": "temporal"
+    },
+    {
+      "class": "C2_agentic",
+      "concepts": [
+        "BRANCH_CONDITION",
+        "DEPENDENCY_RELATION",
+        "EVENT_SIGNAL",
+        "LLM_INVOCATION",
+        "PROMPT_CONTENT",
+        "STATE_INSPECTION",
+        "STATE_SCHEMA",
+        "STEP_SEQUENCE",
+        "TOOL_BINDING",
+        "WORKFLOW_DEFINITION"
+      ],
+      "id": "W04",
+      "kind": "langgraph",
+      "n_concepts": 10,
+      "path": "libs/cli/examples/graphs/storm.py",
+      "source": "langgraph"
+    },
+    {
+      "class": "C2_agentic",
+      "concepts": [
+        "BRANCH_CONDITION",
+        "DEPENDENCY_RELATION",
+        "LLM_INVOCATION",
+        "STATE_SCHEMA",
+        "STEP_SEQUENCE",
+        "TOOL_BINDING",
+        "WORKFLOW_DEFINITION"
+      ],
+      "id": "W15",
+      "kind": "langgraph",
+      "n_concepts": 7,
+      "path": "libs/cli/examples/graphs/agent.py",
+      "source": "langgraph"
+    },
+    {
+      "class": "C2_agentic",
+      "concepts": [
+        "STATE_SCHEMA",
+        "WORKFLOW_DEFINITION"
+      ],
+      "id": "W16",
+      "kind": "temporal",
+      "n_concepts": 2,
+      "path": "openai_agents/customer_service/customer_service.py",
+      "source": "temporal"
+    },
+    {
+      "class": "C3_human_in_the_loop",
+      "concepts": [
+        "EVENT_SIGNAL",
+        "EXECUTION_TARGET",
+        "HUMAN_APPROVAL",
+        "WORKFLOW_DEFINITION"
+      ],
+      "id": "W05",
+      "kind": "temporal",
+      "n_concepts": 4,
+      "path": "hello/hello_signal.py",
+      "source": "temporal"
+    },
+    {
+      "class": "C3_human_in_the_loop",
+      "concepts": [
+        "EVENT_SIGNAL",
+        "EXECUTION_TARGET",
+        "HUMAN_APPROVAL",
+        "WORKFLOW_DEFINITION"
+      ],
+      "id": "W06",
+      "kind": "temporal",
+      "n_concepts": 4,
+      "path": "hello/hello_update.py",
+      "source": "temporal"
+    },
+    {
+      "class": "C3_human_in_the_loop",
+      "concepts": [
+        "ARTIFACT_OUTPUT",
+        "BRANCH_CONDITION",
+        "CONCURRENCY_CONTROL",
+        "CONFIGURATION",
+        "DEPENDENCY_RELATION",
+        "EXECUTION_TARGET",
+        "EXTERNAL_SYSTEM_CALL",
+        "HUMAN_APPROVAL",
+        "INPUT_PARAMETER",
+        "PERMISSION_SCOPE",
+        "STEP_SEQUENCE"
+      ],
+      "id": "W07",
+      "kind": "gha",
+      "n_concepts": 11,
+      "path": ".github/workflows/ts-sdk-release.yml",
+      "source": "airflow"
+    },
+    {
+      "class": "C4_scheduled",
+      "concepts": [
+        "EXECUTION_TARGET",
+        "SCHEDULE"
+      ],
+      "id": "W08",
+      "kind": "temporal",
+      "n_concepts": 2,
+      "path": "schedules/start_schedule.py",
+      "source": "temporal"
+    },
+    {
+      "class": "C4_scheduled",
+      "concepts": [
+        "BRANCH_CONDITION",
+        "CONFIGURATION",
+        "EXECUTION_TARGET",
+        "EXTERNAL_SYSTEM_CALL",
+        "INPUT_PARAMETER",
+        "PERMISSION_SCOPE",
+        "STEP_SEQUENCE"
+      ],
+      "id": "W09",
+      "kind": "gha",
+      "n_concepts": 7,
+      "path": ".github/workflows/ci-duration-monitor.yml",
+      "source": "airflow"
+    },
+    {
+      "class": "C5_external_orchestration",
+      "concepts": [
+        "CLASSIFICATION",
+        "SCHEDULE",
+        "STEP_SEQUENCE",
+        "WORKFLOW_DEFINITION"
+      ],
+      "id": "W10",
+      "kind": "airflow",
+      "n_concepts": 4,
+      "path": "airflow-core/src/airflow/example_dags/example_trigger_target_dag.py",
+      "source": "airflow"
+    },
+    {
+      "class": "C5_external_orchestration",
+      "concepts": [
+        "EXTERNAL_SYSTEM_CALL",
+        "RETRY_POLICY",
+        "STATE_PERSISTENCE",
+        "STEP_SEQUENCE",
+        "TIMEOUT",
+        "WORKFLOW_DEFINITION"
+      ],
+      "id": "W11",
+      "kind": "temporal",
+      "n_concepts": 6,
+      "path": "polling/periodic_sequence/workflows.py",
+      "source": "temporal"
+    },
+    {
+      "class": "C6_validation",
+      "concepts": [
+        "CONCURRENCY_CONTROL",
+        "CONFIGURATION",
+        "EXECUTION_TARGET",
+        "EXTERNAL_SYSTEM_CALL",
+        "FAILURE_HANDLER",
+        "INPUT_PARAMETER",
+        "PERMISSION_SCOPE",
+        "STEP_SEQUENCE"
+      ],
+      "id": "W12",
+      "kind": "gha",
+      "n_concepts": 8,
+      "path": ".github/workflows/lint.yml",
+      "source": "peps"
+    },
+    {
+      "class": "C6_validation",
+      "concepts": [
+        "CONCURRENCY_CONTROL",
+        "CONFIGURATION",
+        "DYNAMIC_FANOUT",
+        "EXECUTION_TARGET",
+        "EXTERNAL_SYSTEM_CALL",
+        "INPUT_PARAMETER",
+        "PERMISSION_SCOPE",
+        "STEP_SEQUENCE"
+      ],
+      "id": "W13",
+      "kind": "gha",
+      "n_concepts": 8,
+      "path": ".github/workflows/test.yml",
+      "source": "peps"
+    },
+    {
+      "class": "C6_validation",
+      "concepts": [
+        "BRANCH_CONDITION",
+        "CONFIGURATION",
+        "DYNAMIC_FANOUT",
+        "EXECUTION_TARGET",
+        "EXTERNAL_SYSTEM_CALL",
+        "INPUT_PARAMETER",
+        "PERMISSION_SCOPE",
+        "STEP_SEQUENCE",
+        "TIMEOUT"
+      ],
+      "id": "W14",
+      "kind": "gha",
+      "n_concepts": 9,
+      "path": ".github/workflows/basic-tests.yml",
+      "source": "airflow"
+    }
+  ]
+}

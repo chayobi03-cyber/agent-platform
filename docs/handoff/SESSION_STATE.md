@@ -1,106 +1,88 @@
 # APF Session State
 
-**Session:** Claim Inventory + Research Reconciliation + Falsification Benchmark foundation
-**Status:** Active working state
+**Last updated:** 2026-09-02
+**Branch:** `claude/session-governance-decisions-6fi9vf` · **PR:** #4 open
 
-## Repository Evidence
+## Start Here
 
-- Repository: `chayobi03-cyber/agent-platform`
-- Default branch: `main`
-- Foundation bootstrap committed
-- Claim inventory, reconciliation protocol, corpus map, cold review, and benchmark cases are committed on `main`
+**The tool exists. The trial is running. Do not start anything else until it concludes.**
 
-## Current State
+`tools/apf/` — capture and find, single file, stdlib only, plain-file storage. Built 2026-09-02. It is a trial instrument, not APF implementation; it commits to no architecture and carries no claim.
 
-- Constitution: v0.1 candidate/foundation
-- Master Session Prompt: v0.3 operating protocol
-- Research Asset Ledger: initialized; no accepted assets yet
-- Claim Inventory: v0.1 established; initial claims CLM-0001 through CLM-0010
-- Claim Reconciliation Protocol: v0.1 established
-- Research Corpus Map: v0.1 established; corpus reconciliation is explicitly partial
-- Claim Cold Review: v0.1 established; wording/causal-overreach issues identified
-- P0 Falsification Benchmark Matrix: v0.1 established
-- P0 Benchmark Cases: v0.1 design-ready, not executed
-- Research-to-Claim traceability: established
-- Domain Model: candidate only
-- Architecture Contract: not established
-- Architecture Decisions: none yet
-- HoTL Governance: initialized
+### The self-falsifier
 
-## Current Working Model
+This project attached a predeclared falsifier to eleven claims and none to itself. It has one now:
 
-```text
-Research Finding
-    ↓
-Research Asset Candidate
-    ↓
-Claim Inventory
-    ↓
-Evidence + Counter-evidence
-    ↓
-Falsification Benchmark
-    ↓
-Scoped Claim State
-    ↓
-Human Decision
-    ↓
-Architecture / Implementation
-    ↓
-Verification
-```
+> Use `apf` on real engineering work for two weeks. **If you did not reach for it unprompted, stop the project.**
+> Evidence is `apf stats` — active-day rate and searches run. "It was fine" is not a pass.
 
-## Key Boundary
+Threshold is use frequency, not satisfaction. Nothing about this is a benchmark and it must not be turned into one.
 
-```text
-Research ≠ Asset ≠ Claim ≠ Evidence ≠ Decision ≠ Implementation
-```
+### One thing before the trial means anything
 
-A claim that survives one benchmark remains a supported claim within tested scope; it is not automatically a universal rule or architecture invariant.
+Nobody has established that context reconstruction is actually the largest cost in the owner's week. L1 and CLM-0002 are research inferences, not observations. **One hour** of honest accounting of where last month's engineering time went settles it. If context reconstruction is not in the top three, the target changes and the tool is aimed wrong.
 
-## Initial Priority Claims
+One hour. It must not become a project.
 
-- CLM-0001: work-centric abstraction generality
-- CLM-0002: zero-ceremony capture value
-- CLM-0004: structured retrieval value
-- CLM-0006: provenance value
-- CLM-0007: human-boundary value
-- CLM-0009: measured automation value
+### Still not a session task
 
-## Cold Review Findings
+Engineers for BENCH-0002 (a week, three people) and E2b Stage 2 credentials. Owner only.
 
-- CLM-0006 wording was narrowed from necessity toward measurable trust/reproducibility value.
-- CLM-0007 requires matched approval conditions; otherwise safety benefit is confounded with simply reducing autonomy.
-- CLM-0009 must separate empirical net-value measurement from the human governance rule that may require such evidence.
-- CLM-0001, CLM-0002, CLM-0003, CLM-0004, CLM-0005, CLM-0008, and CLM-0010 also require strict scope control during testing.
+**Do not, without an explicit reason:** run another benchmark round, add another process document, acquire another corpus, extend the claim inventory, or add a feature to `apf` that two weeks of use has not asked for. Those are the moves this project reaches for when the useful work needs someone else's time.
 
-## Benchmark Execution Order
+## Where This Stands
 
-```text
-BENCH-0004  retrieval ablation
-BENCH-0006  provenance ablation
-BENCH-0002  capture/context reconstruction
-BENCH-0007  approval boundary
-BENCH-0009  automation promotion
-BENCH-0001  work abstraction coverage
-```
+| | |
+|---|---|
+| Constitution | v0.1, with a standing contradiction against section 2 |
+| Architecture contract | none — nothing has cleared DEC-0001 |
+| Product code | `tools/apf/` — trial instrument, on trial |
+| Claims | 11; 1 contradicted, 1 supported-and-narrow, 9 untested |
+| Benchmarks executed | BENCH-0004 (3 rounds), BENCH-0001 |
+| Corpus reconciliation | PARTIAL |
 
-## Immediate Next Tasks
+## Standing Contradiction — CONSTITUTION.md section 2
 
-1. Complete durable reconciliation of prior APF research material.
-2. Recover individual external-source findings into explicit `ASSET-*` records.
-3. Attach every material asset to one or more claims or mark it reference-only/duplicate/out-of-scope/insufficient.
-4. Create benchmark datasets and execution fixtures for BENCH-0004 and BENCH-0006 first.
-5. Record predeclared falsifiers and baseline controls before running experiments.
-6. Execute, preserve raw results, and revise claim scope based on outcomes.
-7. Only then consider architecture candidate promotion.
+BENCH-0001 fired falsifier F4 against CLM-0001, the claim the work-centric boundary rests on. Work-centric core coverage on agentic workloads is 0.664 against the agent-centric core's 0.900; it escapes on in-flight state, inbound signals, and prompt content. It still wins overall (+0.142) and on the other five workload classes.
+
+What is contradicted is the generality — the word "both" — not the direction. **Not amended:** Constitution section 9 requires explicit review for invariant changes, and DEC-0001 puts that with a human. Until decided, section 2 carries a known exception for agentic workloads.
+
+Detail: `docs/research/executions/BENCH-0001/EXECUTION.md`.
+
+## Closed
+
+- **Retrieval track (CLM-0004 / CLM-0011).** Three rounds. Bounded to a top-of-ranking effect proportional to relation-extraction coverage, on a cheap-to-reverse indexing decision. A fourth round buys less than anything else available. CLM-0011 is `SUPPORTED` on one corpus and does not clear DEC-0001.
+- **Governance foundation.** DEC-0001 and DEC-0002 are recorded and in force. The skeleton is done; further process work is subtraction, not addition.
+
+## State Records
+
+- Claim states and record status: `docs/research/claims/README.md`
+- Decisions: `docs/decisions/` (DEC-0001 evidence gate, DEC-0002 claim record timing)
+- Corpora: `docs/research/corpora/` (CORPUS-0001 PEPs, CORPUS-0002 workflow specs)
+- Executions: `docs/research/executions/`
+- Method and structural lessons: `docs/governance/LESSONS_LEARNED_2026-09-02-benchmark-program.md`
+
+## Governance In Force
+
+DEC-0001 blocks nothing mechanically and everything consequential in governance terms: no architecture contract, no implementation justified by a benchmark result, until four exit criteria hold for that claim. The absence of a mechanical block is not permission. Benchmark, corpus, and claim work are not blocked; **a small tool the owner uses is not an architecture contract and is not blocked either.**
+
+DEC-0002: claim records are completed when their benchmark is prepared, not batched.
+
+Open decision candidate, not decided: tiering DEC-0001 so cheap-to-reverse decisions do not need all four criteria. As written, the gate is hardest to pass for exactly the claims that matter most.
+
+## Unresolved References
+
+Recorded as gaps rather than filled by inference.
+
+- **CLM-0001's binding table was authored by someone not neutral between the two schemas.** The falsifier firing against the author's own platform is weak evidence against bias in one direction, not evidence of neutrality. The fix is an independent second annotator re-binding the 26 concepts blind.
+- **DEC-0002's rejected alternatives are a reconstruction**, marked as such in the record.
+- **"L9" is ambiguous.** The lessons-learned L9 is about authority levels; the corpus-independence problem is BENCH-0004 R2 limitation 1. Records cite the limitation directly.
+- **BENCH-0006 has no execution record.** CLM-0006 stays untested until it is established whether the run happened.
 
 ## Non-Goals
 
 - Do not freeze architecture from the current claim list.
-- Do not select a graph DB or agent runtime as an APF contract merely because the research mentions it.
+- Do not select a runtime, graph DB, or vector store as an APF contract because research mentions it.
 - Do not treat repeated source agreement as proof.
-- Do not build a broad implementation before high-leverage claims have been tested.
-
-## Repository Independence
-
-This repository remains independent from `chayobi03-cyber/agent-factory`. No AgentFactory architecture, governance, or code is inherited automatically.
+- Do not run further benchmarks as a substitute for building something used on real work.
+- Do not add a process document that neither fits one page nor retires an existing one.
