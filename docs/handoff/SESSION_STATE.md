@@ -2,7 +2,10 @@
 
 **Session:** Claim Inventory + Research Reconciliation + Falsification Benchmark foundation
 **Status:** Active working state
-**Last update:** 2026-09-01 — BENCH-0004-E2 handoff integrated
+**Last update:** 2026-09-02 — full project audit
+**Latest audit:** `docs/research/APF_PROJECT_AUDIT_2026-09-02.md` — governance holding;
+coverage 1/10 claims and 0/12 hypotheses; one HIGH linkage gap (CLM-0004a/b/c absent) and one
+HIGH blocker (asset ledger empty).
 
 ## Repository Evidence
 

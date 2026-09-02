@@ -30,8 +30,10 @@ Verified 2026-09-01 against the repository:
 - `docs/research/CLAIM_INVENTORY.md` contains `CLM-0001`…`CLM-0010` only.
 - Repository-wide search for `H07`, `H11`, or any `H0*` hypothesis identifier returned
   **zero matches** before this commit.
-- H07 and H11 existed solely inside the handoff copy of `FALSIFICATION_BENCHMARK_v0.2.md`,
-  which was outside the repository evidence chain.
+- H07 and H11 existed solely inside the handoff bundle's own copy of the v0.2 benchmark
+  (filename `FALSIFICATION_BENCHMARK_v0.2.md` in the bundle, not a repository path), which
+  was outside the repository evidence chain. Its content is now committed here as
+  `FALSIFICATION_BENCHMARK_V2.md`.
 
 The H series enters the repository with this commit. Until then, any statement of the form
 "assess CLM-0004 / H07 / H11" was not executable, because two of its three targets had no
