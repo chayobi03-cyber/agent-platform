@@ -1,5 +1,7 @@
 # APF — Next Session Prompt: Engineering Work UX / Capture-first MVP
 
+> **SUPERSEDED as a next-session prompt — 2026-09-02.** `docs/handoff/SESSION_STATE.md` is the live handoff. This file is retained for the product constraints in "Current Decisions / Constraints" (desktop-first, mobile deferred, HyperLynx baseline, Python extension layer), which are recorded nowhere else. Do not read it as the current session plan.
+
 ## Session Purpose
 
 Continue the APF Engineering Work Augmentation experimental workload.
