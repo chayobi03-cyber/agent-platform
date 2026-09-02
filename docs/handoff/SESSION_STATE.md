@@ -87,6 +87,7 @@ DEC-0002 selected **option C**: claim records are not completed as a batch up fr
 |---|---|---|
 | BENCH-0004 | CLM-0004 | Executed — Rounds 1, 2, and 3. Round 3 is the first run on an independent corpus |
 | BENCH-0004 R3 | CLM-0011 | Executed — `BENCH-0004_R3/EXECUTION.md`; all four predeclared falsifiers survived |
+| BENCH-0001 | CLM-0001 | Executed — falsifier F4 fired; CLM-0001 `CONTRADICTED` as worded |
 | BENCH-0002 | CLM-0002 | Not executed — queued |
 | BENCH-0007 | CLM-0007 | Not executed — queued |
 | BENCH-0009 | CLM-0009 | Not executed — queued |
@@ -107,6 +108,7 @@ BENCH-0001  work abstraction coverage
 | ID | Source | Role |
 |---|---|---|
 | CORPUS-0001 | `python/peps` @ `a4f4971` | First independent corpus; satisfies DEC-0001 exit criterion 1 |
+| CORPUS-0002 | 16 workflows, 4 pinned third-party repos | BENCH-0001; six workload classes |
 
 ### BENCH-0004 outcome as recorded
 
@@ -117,6 +119,14 @@ BENCH-0001  work abstraction coverage
 - Round 2's own first-listed limitation: the corpus is not independent of APF development.
 - Round 3 (independent corpus, 113 chain tasks, preregistered): relationship propagation +0.117 complete@5, CI [+0.053, +0.195]. Temporal did not separate from baseline; provenance marginal; combining added +0.009 while doubling the control cost. Effect vanishes at k=10.
 - CLM-0011 is `SUPPORTED` on one corpus and does not clear DEC-0001 (criteria 3 and 4 unmet). Full detail in `BENCH-0004_R3/EXECUTION.md`.
+
+## Standing Contradiction — CONSTITUTION.md section 2
+
+BENCH-0001 fired falsifier F4 against CLM-0001, the claim the Constitution's work-centric boundary rests on. The work-centric core covers 0.664 of agentic-workload concepts against the agent-centric core's 0.900, escaping on in-flight state, inbound signals, and prompt content. It wins overall (+0.142) and on the other five classes.
+
+What is contradicted is the generality — the word "both" — not the direction. The contradiction is recorded and unresolved: amending a Constitution invariant requires explicit review under section 9, and the decision belongs to a human under DEC-0001. Until decided, section 2 carries a known exception for agentic workloads.
+
+Detail: `docs/research/executions/BENCH-0001/EXECUTION.md`.
 
 ## Cold Review — 2026-09-02
 

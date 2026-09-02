@@ -20,7 +20,7 @@ DISCOVERED | FORMULATED | TESTABLE | UNDER_TEST | SUPPORTED | WEAKENED | CONTRAD
 
 | Claim | P0 | current_state | record_status | Benchmark | Record |
 |---|:--:|---|---|---|---|
-| CLM-0001 Work-centric generality | ● | FORMULATED | PENDING | BENCH-0001 queued | — |
+| CLM-0001 Work-centric generality | ● | **CONTRADICTED** (F4 fired) | COMPLETE | BENCH-0001 executed | [CLM-0001.md](CLM-0001.md) |
 | CLM-0002 Capture value | ● | FORMULATED | PENDING | BENCH-0002 queued | — |
 | CLM-0003 Progressive disclosure | | FORMULATED | **INSUFFICIENT** | none queued | — |
 | CLM-0004 Structured retrieval (broad) | ● | WEAKENED / INCONCLUSIVE | PENDING | BENCH-0004 R1, R2 | — |
@@ -50,3 +50,7 @@ It is applied here to `record_status` instead, which is what DEC-0002 was actual
 - Record completion timing: `../../decisions/DEC-0002-claim-record-completion-timing.md`
 - Promotion gate: `../../decisions/DEC-0001-evidence-gate.md`
 - Corpora: `../corpora/`
+
+## Standing contradiction
+
+CLM-0001 is `CONTRADICTED` as worded, and `CONSTITUTION.md` section 2 rests on it. The contradiction is recorded, not resolved: amending a Constitution invariant requires explicit review under its own section 9, and the decision belongs to a human under DEC-0001. Until then, section 2 should be read as carrying a known exception for agentic workloads rather than as an established generality.
