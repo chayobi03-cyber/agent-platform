@@ -35,6 +35,9 @@ A claim does **not** become an APF invariant merely because it is repeated acros
 
 ## 2. Claim state model
 
+This is the **single canonical state vocabulary** for claims and benchmark
+results. It is declared here and nowhere else.
+
 ```text
 DISCOVERED
   ↓
@@ -42,15 +45,47 @@ FORMULATED
   ↓
 TESTABLE
   ↓
+UNTESTED          ← testable, no falsification attempt run yet
+  ↓
 UNDER_TEST
   ├── SUPPORTED
   ├── WEAKENED
   ├── CONTRADICTED
   ├── FALSIFIED
-  └── INCONCLUSIVE
+  ├── INCONCLUSIVE
+  └── SPLIT        ← claim contained multiple mechanisms; replaced by narrower claims
 ```
 
 A state transition requires an evidence reference. `SUPPORTED` does not mean `PROVEN`; it means the current evidence has not defeated the claim and supports the stated scope.
+
+Distinctions that matter and are easy to blur:
+
+- `UNTESTED` means no attempt has been made. It is not doubt about the claim.
+- `INCONCLUSIVE` means an attempt was made and settled nothing.
+- `WEAKENED` means the claim survives only in a narrower scope.
+- `CONTRADICTED` means evidence runs *against* the claim, which is stronger than
+  merely failing to support it.
+- `FALSIFIED` means a declared failure condition was reproduced and the claim
+  does not hold at its stated scope.
+- `SPLIT` is a structural outcome, not a result: the claim is replaced by
+  narrower mechanism claims, each of which then carries its own state.
+
+Every state is scoped. `FALSIFIED at tested scope` is the honest form; a bare
+`FALSIFIED` overclaims exactly as much as a bare `SUPPORTED` would.
+
+### Superseded vocabularies
+
+Two other state lists previously existed in the repository. They are retired,
+and mapped here so older references remain readable:
+
+| Retired term | Source | Canonical equivalent |
+|---|---|---|
+| `RUNNING` | `P0_FALSIFICATION_BENCHMARK_MATRIX` | `UNDER_TEST` |
+| `REJECTED` | `P0_FALSIFICATION_BENCHMARK_MATRIX` | `CONTRADICTED` or `FALSIFIED`, depending on whether evidence ran against the claim or reproduced its declared failure condition |
+| `UNTESTED` | `P0_FALSIFICATION_BENCHMARK_MATRIX` | adopted into the model above |
+| `SPLIT` | `P0_FALSIFICATION_BENCHMARK_MATRIX` | adopted into the model above |
+
+Benchmark result states in `BENCHMARK_REGISTER.md` use this vocabulary.
 
 ## 3. Claim taxonomy
 
