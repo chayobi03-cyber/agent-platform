@@ -205,7 +205,17 @@ The change was directed by the project owner in session, but no decision record 
 | §7 change governance | Sequence followed up to Human Decision, which is unrecorded (F8) |
 | §8 repository independence | Holding — no AgentFactory inheritance observed |
 
-## 8. Recommended order
+## 8. Action taken on this audit (2026-09-02)
+
+| Finding | Status |
+|---|---|
+| F1 | **CLOSED.** `CLM-0004a/b/c` entered in `CLAIM_INVENTORY.md` with the factorial attached as scoped retrieval-level evidence. All three carry `UNDER_TEST`, not `SUPPORTED`: the underlying 96 observations are unavailable, so only internal consistency is verified. |
+| F3 | **RAISED for decision** — `decisions/DEC-0002_claim_record_completeness.md`. `CLM-0004a/b/c` are the first claims in the project to satisfy all six §5 conditions and serve as the reference form. |
+| F6, F7 | **CLOSED** — corrected in the documents concerned. |
+| F8 | **RAISED for decision** — `decisions/DEC-0001_parallel_benchmark_tracks.md`. Drafted, not self-approved. |
+| F2, F4, F5 | **OPEN.** F2 is partially blocked: the material listed as still requiring asset records is conversation-derived and not present in this repository, so it cannot be recovered here without fabrication. |
+
+## 9. Recommended order
 
 1. **F1** — enter `CLM-0004a/b/c` and attach the factorial result as scoped retrieval-level
    evidence. Cheapest high-value fix; closes the linkage failure.

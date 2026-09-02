@@ -4,8 +4,10 @@
 **Status:** Active working state
 **Last update:** 2026-09-02 — full project audit
 **Latest audit:** `docs/research/APF_PROJECT_AUDIT_2026-09-02.md` — governance holding;
-coverage 1/10 claims and 0/12 hypotheses; one HIGH linkage gap (CLM-0004a/b/c absent) and one
-HIGH blocker (asset ledger empty).
+coverage thin. F1 closed (CLM-0004a/b/c entered with the factorial attached); F3 and F8 raised
+as decision records awaiting human approval; F2/F4/F5 open.
+**Open decisions:** `docs/decisions/DEC-0001` (parallel benchmark tracks),
+`DEC-0002` (claim record completeness). Neither may be self-approved.
 
 ## Repository Evidence
 
