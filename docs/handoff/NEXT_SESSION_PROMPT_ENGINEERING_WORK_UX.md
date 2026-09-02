@@ -1,5 +1,19 @@
 # APF — Next Session Prompt: Engineering Work UX / Capture-first MVP
 
+**Status:** Not the active handoff. Retained as the standing capture-first UX
+specification, which is still current and unsuperseded in substance.
+
+The active session agenda is
+`docs/handoff/NEXT_SESSION_PROMPT_FAILURE_ROOT_CAUSE.md`. Two handoff documents
+with no declared ordering is the same single-source-of-truth defect recorded in
+`DEC-0001`, so the ordering is stated here rather than left implicit.
+
+This document was written 2026-08-30, before the claim inventory and the
+BENCH-0004 rounds existed. Its H0/H1/H2 experiment design (§5) predates the
+benchmark register and should be reconciled with `BENCHMARK_REGISTER.md` before
+being executed — H2 "relationship-aware retrieval" overlaps CLM-0004c, which
+BENCH-0004 R3 found contradicted at its tested scope.
+
 ## Session Purpose
 
 Continue the APF Engineering Work Augmentation experimental workload.

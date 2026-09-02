@@ -147,9 +147,17 @@ Key findings to carry forward:
 
 ## Immediate Next Tasks
 
-1. Execute BENCH-0006 (provenance for evidence reuse/reproduction). This is a
-   different claim from CLM-0004b, which concerned provenance for retrieval
-   ranking only — Round 3 says nothing about it.
+**Next session agenda:** `docs/handoff/NEXT_SESSION_PROMPT_FAILURE_ROOT_CAUSE.md`
+— find the root cause of the recurring work failures and produce at least three
+solutions that prevent recurrence. Evidence is assembled there; the root cause is
+deliberately left unnamed so the session attacks it rather than confirms it.
+
+BENCH-0006 is explicitly deferred behind that work: mixing a benchmark execution
+with a governance investigation confounds both.
+
+1. Execute BENCH-0006 (provenance for evidence reuse/reproduction) **after** the
+   root-cause session. This is a different claim from CLM-0004b, which concerned
+   provenance for retrieval ranking only — Round 3 says nothing about it.
 2. Complete durable reconciliation of prior APF research material.
 3. Recover individual external-source findings into explicit `ASSET-*` records.
 4. Attach every material asset to one or more claims or mark it
