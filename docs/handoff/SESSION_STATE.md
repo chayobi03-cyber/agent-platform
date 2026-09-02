@@ -1,19 +1,34 @@
 # APF Session State
 
 **Last updated:** 2026-09-02
-**Branch:** `claude/session-governance-decisions-6fi9vf` · **HEAD:** `51b1ebc` · **PR:** #4 open
+**Branch:** `claude/session-governance-decisions-6fi9vf` · **PR:** #4 open
 
 ## Start Here
 
-**The research program stops leading. Build something the owner uses on real work.**
+**The tool exists. The trial is running. Do not start anything else until it concludes.**
 
-Four sessions have produced two benchmark results, two decision records, and about twenty process documents. Zero product code. Zero contact with the EMC/PCB workload the platform exists to serve. Every corpus used so far has been a substitute for that workload — Python governance documents, then CI and agent-framework configuration files.
+`tools/apf/` — capture and find, single file, stdlib only, plain-file storage. Built 2026-09-02. It is a trial instrument, not APF implementation; it commits to no architecture and carries no claim.
 
-The next useful thing is the smallest capture-and-retrieve tool the owner can run against their own engineering work for two weeks. Not a platform, not an architecture — a tool that is used. It produces three things at once: actual value, the real corpus every benchmark so far has been standing in for, and CLM-0002 evidence at n=1, which beats the n=0 the queue has been sitting at since the beginning.
+### The self-falsifier
 
-**Do not, without an explicit reason:** run another benchmark round, add another process document, acquire another corpus, or extend the claim inventory. Those are the moves this project reaches for when the useful work needs someone else's time.
+This project attached a predeclared falsifier to eleven claims and none to itself. It has one now:
 
-**Two things only the owner can unblock:** engineers for BENCH-0002 (about a week, three people), and E2b Stage 2 credentials. Neither is a session task.
+> Use `apf` on real engineering work for two weeks. **If you did not reach for it unprompted, stop the project.**
+> Evidence is `apf stats` — active-day rate and searches run. "It was fine" is not a pass.
+
+Threshold is use frequency, not satisfaction. Nothing about this is a benchmark and it must not be turned into one.
+
+### One thing before the trial means anything
+
+Nobody has established that context reconstruction is actually the largest cost in the owner's week. L1 and CLM-0002 are research inferences, not observations. **One hour** of honest accounting of where last month's engineering time went settles it. If context reconstruction is not in the top three, the target changes and the tool is aimed wrong.
+
+One hour. It must not become a project.
+
+### Still not a session task
+
+Engineers for BENCH-0002 (a week, three people) and E2b Stage 2 credentials. Owner only.
+
+**Do not, without an explicit reason:** run another benchmark round, add another process document, acquire another corpus, extend the claim inventory, or add a feature to `apf` that two weeks of use has not asked for. Those are the moves this project reaches for when the useful work needs someone else's time.
 
 ## Where This Stands
 
@@ -21,7 +36,7 @@ The next useful thing is the smallest capture-and-retrieve tool the owner can ru
 |---|---|
 | Constitution | v0.1, with a standing contradiction against section 2 |
 | Architecture contract | none — nothing has cleared DEC-0001 |
-| Product code | none |
+| Product code | `tools/apf/` — trial instrument, on trial |
 | Claims | 11; 1 contradicted, 1 supported-and-narrow, 9 untested |
 | Benchmarks executed | BENCH-0004 (3 rounds), BENCH-0001 |
 | Corpus reconciliation | PARTIAL |
