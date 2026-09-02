@@ -1,7 +1,7 @@
 {
   "benchmark": "BENCH-0004-E2",
   "gate": "G2",
-  "verified_at_utc": "2026-09-02T05:22:51Z",
+  "verified_at_utc": "2026-09-02T06:46:39Z",
   "lock_file": "docs/research/benchmarks/BENCH-0004-E2b/FIXTURE_LOCK.json",
   "bundle": "docs/research/benchmarks/BENCH-0004-E2b/fixture",
   "all_pass": true,

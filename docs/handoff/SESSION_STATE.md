@@ -2,7 +2,8 @@
 
 **Session:** Claim Inventory + Research Reconciliation + Falsification Benchmark foundation
 **Status:** Active working state
-**Last update:** 2026-09-02 — full project audit
+**Last update:** 2026-09-02 — session closed
+**Lessons learned:** `docs/governance/LESSONS_LEARNED_2026-09-02-bench0004-e2-handoff.md`
 **Latest audit:** `docs/research/APF_PROJECT_AUDIT_2026-09-02.md` — governance holding;
 coverage thin. F1 closed (CLM-0004a/b/c entered with the factorial attached); F3 and F8 raised
 as decision records awaiting human approval; F2/F4/F5 open.
@@ -35,6 +36,24 @@ unblock `T07`/`T11`, which need operational assets rather than research findings
 Content-only provenance recovery for full auditability is 0.000 over 50 evidence items, and the
 stale-evidence escape rate under ablation is 0.667. CLM-0006 moves to `SUPPORTED (narrow)` —
 determinability only, with the expert-agreement and reuse-error arms unrun. Not promoted.
+
+## Next Session Entry Point
+
+Ordered, with the reason each is where it is.
+
+1. **Decide `DEC-0001` and `DEC-0002`.** Both `PROPOSED`, neither self-approvable. They block
+   nothing mechanically and everything governance-wise.
+2. **Acquire an independent engineering corpus.** Highest-value action available. Every result
+   this project holds runs on APF's own documentation — a correlated weakness across the whole
+   evidence base that no further APF-corpus work can relax.
+3. **Run Stage 2 for E2b.** Needs only a pinned immutable model and a credential; fixture,
+   protocol, runner and analysis are ready and dry-run clean.
+4. **Continue the queue.** `BENCH-0002`, `BENCH-0007`, `BENCH-0009`, `BENCH-0001` are at zero
+   executions, covering four untested P0 claims.
+5. **Complete claim records per benchmark as it is prepared**, per `DEC-0002` option C.
+
+Do not: promote any claim, accept any asset, compare E2b hashes to the E2 lock, run T07/T11
+without accepted assets, or derive architecture from any current result.
 
 ## Repository Evidence
 
