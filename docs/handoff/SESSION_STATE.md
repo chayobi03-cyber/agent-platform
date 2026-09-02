@@ -57,6 +57,33 @@ Two guards were added and both pass:
   duplicate order declarations and retired identifiers now fail a test instead of
   surviving unnoticed.
 
+## Session Closeout — 2026-09-02
+
+Recorded per the `Session Closeout` checklist in `MASTER_SESSION_PROMPT`. Earlier
+sessions did not execute this checklist, which is how this session found the
+state document stale at its start.
+
+| Field | Value |
+|---|---|
+| Repository HEAD | `69175f8` at closeout drafting; the closeout commit follows |
+| Branch | `claude/session-start-continue-03cik7` (pushed, tracking origin) |
+| Commits | 13 ahead of `origin/main` |
+| Changed files | 28 changed — 17 added, 11 modified — +6847 / −467 |
+| New assets | `tools/apfbench/` framework · `tools/tests/` guards · `BENCHMARK_REGISTER.md` · R3 predeclaration, execution record and raw results |
+| Decisions | `DEC-0001` — DECIDED. Identifier unification and document consolidation. Records-keeping only; establishes no architecture contract |
+| Decision candidates | None. No claim was promoted and no architecture contract proposed |
+| Contradictions | `CONTRA-0001` — R2 vs R3, resolution `TESTED` in favour of R3 on control quality. R2 retained as linked counter-evidence |
+| Claim state changes | CLM-0004 FALSIFIED at tested scope and SPLIT into CLM-0004a UNSUPPORTED, CLM-0004b UNSUPPORTED, CLM-0004c CONTRADICTED |
+| Validation results | 10 tests pass. Recorded R3 evidence reproduces bit-identically across the framework extraction, both document consolidations and a corpus edit |
+| PR status | None. No pull request was requested or opened |
+| Open questions / risks | See `Open Questions / Risks` below — not duplicated here |
+| Next-session objective | `docs/handoff/NEXT_SESSION_PROMPT_FAILURE_ROOT_CAUSE.md` — recurring work-failure root cause and at least three non-recurring solutions |
+
+Lessons learned: `docs/governance/LESSONS_LEARNED_2026-09-02-falsification-and-consolidation.md`,
+which also carries the 2026-09-02 rules inspection. No rule text was changed; the
+inspection found the governance layer intact and the gaps to be in execution
+rather than drafting.
+
 ## Current Working Model
 
 ```text
