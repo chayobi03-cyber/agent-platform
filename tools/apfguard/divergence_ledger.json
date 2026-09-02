@@ -1,0 +1,137 @@
+{
+  "_readme": "Machine-checked by tools/tests/test_cross_ref_integrity.py. Read tools/apfguard/ledger.py before editing. Every SHA is verified against git: a branch that moves invalidates its row.",
+  "_dispositions": {
+    "AWAITING_HUMAN_DECISION": "Recorded, unresolved, and not the guard's to decide.",
+    "PR_OPEN": "Divergence tracked by an open pull request.",
+    "PUSHED_AFTER_MERGE": "Commits exist on a branch whose pull request already merged.",
+    "RESOLVED": "Do not use — remove the row instead. The ledger retires its own rows."
+  },
+  "decision_id_collisions": {
+    "DEC-0001": {
+      "refs": {
+        "claude/handover-eu02yk": "9bacd7055d6744a42c78ff676f7a7a113f484ddf",
+        "claude/session-governance-decisions-6fi9vf": "4da49dfa249b16ce9d63a3d5611f98bc39448c71",
+        "claude/session-start-continue-03cik7": "c23f78869d34d8789c4b90335bfe9e286780ea28",
+        "main": "5b95c0b9f4e04c3cf6f29526a3af6f2f9b3c8f8d"
+      },
+      "claimants": [
+        "Evidence gate on architecture contract promotion and implementation start",
+        "Run falsification benchmark v0.1 and v0.2 as parallel tracks",
+        "Unify benchmark identifiers on BENCH-* and consolidate the research document set"
+      ],
+      "disposition": "AWAITING_HUMAN_DECISION",
+      "note": "Three different decisions carry this id: doc consolidation (main), evidence gate (PR #4), parallel benchmark tracks (PR #3). Two are marked DECIDED. Renumbering is not a records fix — it changes which decision every citation of DEC-0001 resolves to. The owner must pick the surviving DEC-0001 and reissue the others."
+    },
+    "DEC-0002": {
+      "refs": {
+        "claude/handover-eu02yk": "9bacd7055d6744a42c78ff676f7a7a113f484ddf",
+        "claude/session-governance-decisions-6fi9vf": "4da49dfa249b16ce9d63a3d5611f98bc39448c71"
+      },
+      "claimants": [
+        "Claim records are completed individually at benchmark preparation time",
+        "Resolve the gap between the claim quality gate and inventory practice"
+      ],
+      "disposition": "AWAITING_HUMAN_DECISION",
+      "note": "Two decisions on claim-record completeness, PR #3 and PR #4, same id, neither on main. Resolve together with DEC-0001."
+    }
+  },
+  "untested_but_executed": {
+    "BENCH-0001": {
+      "refs": {
+        "claude/session-governance-decisions-6fi9vf": "4da49dfa249b16ce9d63a3d5611f98bc39448c71"
+      },
+      "claimants": [
+        "claude/session-governance-decisions-6fi9vf:docs/research/executions/BENCH-0001/EXECUTION.md"
+      ],
+      "disposition": "AWAITING_HUMAN_DECISION",
+      "note": "BENCHMARK_REGISTER on main says UNTESTED. PR #4 holds a preregistered execution (preregistration e3dd94c, execution 51b1ebc) reporting CLM-0001 falsifier F4 fired. Claim states are not changed by this guard; the register is wrong or the execution is not accepted, and only the owner can say which."
+    },
+    "BENCH-0006": {
+      "refs": {
+        "claude/handover-eu02yk": "9bacd7055d6744a42c78ff676f7a7a113f484ddf"
+      },
+      "claimants": [
+        "claude/handover-eu02yk:docs/research/executions/BENCH-0006_2026-09-02.md"
+      ],
+      "disposition": "AWAITING_HUMAN_DECISION",
+      "note": "BENCHMARK_REGISTER on main says UNTESTED and SESSION_STATE lists BENCH-0006 as the next action. PR #3 holds an execution dated 2026-09-02 with a harness and raw results. The next action recorded on main has already been done elsewhere."
+    }
+  },
+  "execution_collisions": {
+    "BENCH-0004 R3": {
+      "refs": {
+        "claude/session-governance-decisions-6fi9vf": "4da49dfa249b16ce9d63a3d5611f98bc39448c71",
+        "claude/session-start-continue-03cik7": "c23f78869d34d8789c4b90335bfe9e286780ea28",
+        "main": "5b95c0b9f4e04c3cf6f29526a3af6f2f9b3c8f8d"
+      },
+      "claimants": [
+        "990f1b402774",
+        "bd3f178c8acf"
+      ],
+      "disposition": "AWAITING_HUMAN_DECISION",
+      "note": "Two different experiments are both named BENCH-0004 Round 3, run about an hour apart on 2026-09-02, reaching opposite conclusions. main: 21-doc APF corpus, CLM-0004, D4 -0.135, 'broad claim falsified'. PR #4: 737 third-party PEPs, CLM-0011, D4 +0.124 CI [+0.044,+0.204]. main's own risk register asks for the independent corpus that PR #4 already used. Distinct claims and metrics, so not a direct contradiction — but one identifier cannot name both."
+    }
+  },
+  "divergent_refs": {
+    "claude/handover-eu02yk": {
+      "refs": {
+        "claude/handover-eu02yk": "9bacd7055d6744a42c78ff676f7a7a113f484ddf"
+      },
+      "claimants": [
+        "claude/handover-eu02yk"
+      ],
+      "commits_ahead": 8,
+      "last_commit": "2026-09-02T06:47:00+00:00",
+      "disposition": "PR_OPEN",
+      "note": "PR #3, open since 2026-09-02. Carries the BENCH-0006 execution, BENCH-0004 E2/E2b, a project audit, and a colliding DEC-0001/DEC-0002."
+    },
+    "claude/session-governance-decisions-6fi9vf": {
+      "refs": {
+        "claude/session-governance-decisions-6fi9vf": "4da49dfa249b16ce9d63a3d5611f98bc39448c71"
+      },
+      "claimants": [
+        "claude/session-governance-decisions-6fi9vf"
+      ],
+      "commits_ahead": 11,
+      "last_commit": "2026-09-02T14:18:29+00:00",
+      "disposition": "PR_OPEN",
+      "note": "PR #4, open since 2026-09-02. Carries the independent-corpus BENCH-0004 R3, the BENCH-0001 execution, CLM-0011, and a colliding DEC-0001/DEC-0002."
+    },
+    "claude/session-start-continue-03cik7": {
+      "refs": {
+        "claude/session-start-continue-03cik7": "c23f78869d34d8789c4b90335bfe9e286780ea28"
+      },
+      "claimants": [
+        "claude/session-start-continue-03cik7"
+      ],
+      "commits_ahead": 3,
+      "last_commit": "2026-09-02T23:26:04+00:00",
+      "disposition": "PUSHED_AFTER_MERGE",
+      "note": "PR #5 merged b08a7c7 on 2026-09-02; three commits were pushed to the branch afterwards and no PR tracks them. They include this investigation's own handoff, docs/handoff/NEXT_SESSION_PROMPT_FAILURE_ROOT_CAUSE.md, which is therefore not on main."
+    },
+    "feat/engineering-work-augmentation-spec": {
+      "refs": {
+        "feat/engineering-work-augmentation-spec": "bf341046759fe55d9ec67f39d45358bdc0347842"
+      },
+      "claimants": [
+        "feat/engineering-work-augmentation-spec"
+      ],
+      "commits_ahead": 5,
+      "last_commit": "2026-08-30T12:57:36+09:00",
+      "disposition": "PR_OPEN",
+      "note": "PR #2, open since 2026-08-30, 27 commits behind main. Carries ADR-001 and the engineering-work augmentation spec."
+    },
+    "research/architecture-asset-synthesis-v0.1": {
+      "refs": {
+        "research/architecture-asset-synthesis-v0.1": "8e60bd6ef618b6ddebde2bd0f67ac6d9f138efcd"
+      },
+      "claimants": [
+        "research/architecture-asset-synthesis-v0.1"
+      ],
+      "commits_ahead": 13,
+      "last_commit": "2026-08-31T11:48:06+09:00",
+      "disposition": "PR_OPEN",
+      "note": "PR #1, open since 2026-08-30, 27 commits behind main. Carries the apf-living-spec-vnext-0.1 set and the architecture asset candidates."
+    }
+  }
+}

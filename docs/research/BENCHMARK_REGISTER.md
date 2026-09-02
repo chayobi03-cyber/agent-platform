@@ -148,9 +148,29 @@ controlling for indexing/metadata quality.
 Predeclaration: `executions/BENCH-0004_R3_PREDECLARATION.md`.
 Harness: `tools/bench/bench0004_r3.py`. Raw results: `executions/raw/`.
 
-Unmeasured after three rounds: unsupported-claim rate, answer utility, and
-answer-level grounding. A benchmark that has never measured its own declared
-primary metrics cannot settle its claim.
+**Measurement status:** one line per declared measure. `measured:` must name a
+key in committed raw results; `unmeasured` is a declaration, not a defect, but
+it must be made here. Checked by `tools/tests/test_declared_measures.py`.
+
+```text
+evidence-grounded recall = unmeasured
+relevant-case precision  = unmeasured
+false-positive rate      = unmeasured
+unsupported-claim rate   = unmeasured
+answer utility           = unmeasured
+retrieval latency        = measured:latency_ms_per_query
+```
+
+Five of six declared primary measures are unmeasured after three rounds. The
+prose here previously named three — unsupported-claim rate, answer utility and
+answer-level grounding — and omitted relevant-case precision and false-positive
+rate, which no round measured and no record mentioned. What the three rounds
+did measure is document-level chain coverage, which is a proxy for
+evidence-grounded recall and not the declared measure itself; R3 §11 raises
+that as an open question rather than settling it.
+
+A benchmark that has never measured its own declared primary metrics cannot
+settle its claim.
 
 ### BENCH-0006 — Provenance ablation
 

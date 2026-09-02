@@ -1,0 +1,47 @@
+name: APF guards
+
+# The hard gate. The session-start hook reports; this refuses.
+#
+# Two of the guards compare refs against each other, so a normal single-branch
+# checkout would make them pass by seeing nothing. `fetch-depth: 0` plus an
+# explicit refspec is what gives them something to compare.
+
+on:
+  push:
+    branches: ['**']
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  guards:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Fetch every branch so the cross-ref guards can see them
+        run: git fetch --quiet origin '+refs/heads/*:refs/remotes/origin/*'
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Run the guard suite
+        run: python3 -m unittest discover -s tools/tests -v
+
+      - name: Report the divergence ledger
+        if: always()
+        run: |
+          python3 - <<'PY' >> "$GITHUB_STEP_SUMMARY"
+          import json, pathlib
+          d = json.loads(pathlib.Path("tools/apfguard/divergence_ledger.json").read_text())
+          print("## Divergence ledger\n")
+          for section in ("decision_id_collisions", "untested_but_executed",
+                          "execution_collisions", "divergent_refs"):
+              rows = d.get(section, {})
+              print(f"### {section.replace('_', ' ')} ({len(rows)})\n")
+              for key, body in sorted(rows.items()):
+                  print(f"- `{key}` — **{body.get('disposition')}** — {body.get('note', '')}")
+              print()
+          PY
