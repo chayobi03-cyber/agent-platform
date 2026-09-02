@@ -1,0 +1,40 @@
+{
+  "_note": "Preregistered. Written before any scoring existed. Both schemas are taken from their own sources, not invented for this benchmark: A from agent-framework core vocabularies, B from CONSTITUTION.md section 1. The binding table is authored by the benchmark author and is this instrument's primary limitation; see CLM-0001.md.",
+  "schema_A_agent_centric": {
+    "source": "agent framework core vocabularies (agent, tool, prompt, memory, plan, run, message)",
+    "slots": ["AGENT", "TOOL", "PROMPT", "MEMORY", "PLAN", "STEP", "RUN", "MESSAGE"]
+  },
+  "schema_B_work_centric": {
+    "source": "CONSTITUTION.md section 1 chain: Work, Opportunity, Automation Decision, Engineering, Control, Execution, Evidence, Evaluation, Outcome",
+    "slots": ["WORK", "OPPORTUNITY", "AUTOMATION_STRATEGY", "EXECUTION", "CONTROL_BOUNDARY", "EVIDENCE", "OUTCOME", "ACTOR"]
+  },
+  "_binding_rule": "BOUND = a core slot holds the concept without being redefined. ESCAPE = representable only by importing a runtime- or platform-specific concept into the core, which BENCH-0001 counts as a boundary violation. The same criterion is applied to both schemas.",
+  "bindings": {
+    "STEP_SEQUENCE":        {"A": "STEP",     "B": "EXECUTION"},
+    "EXECUTION_TARGET":     {"A": "RUN",      "B": "EXECUTION"},
+    "WORKFLOW_DEFINITION":  {"A": "PLAN",     "B": "AUTOMATION_STRATEGY"},
+    "EXTERNAL_SYSTEM_CALL": {"A": "TOOL",     "B": "EXECUTION"},
+    "INPUT_PARAMETER":      {"A": "RUN",      "B": "WORK"},
+    "BRANCH_CONDITION":     {"A": "PLAN",     "B": "AUTOMATION_STRATEGY"},
+    "DYNAMIC_FANOUT":       {"A": "PLAN",     "B": "AUTOMATION_STRATEGY"},
+    "DEPENDENCY_RELATION":  {"A": "PLAN",     "B": "AUTOMATION_STRATEGY"},
+    "LLM_INVOCATION":       {"A": "AGENT",    "B": "AUTOMATION_STRATEGY"},
+    "TOOL_BINDING":         {"A": "TOOL",     "B": "AUTOMATION_STRATEGY"},
+    "STATE_INSPECTION":     {"A": "MEMORY",   "B": "EVIDENCE"},
+    "EVENT_SIGNAL":         {"A": "MESSAGE",  "B": "ESCAPE"},
+    "PROMPT_CONTENT":       {"A": "PROMPT",   "B": "ESCAPE"},
+    "STATE_PERSISTENCE":    {"A": "MEMORY",   "B": "ESCAPE"},
+    "STATE_SCHEMA":         {"A": "MEMORY",   "B": "ESCAPE"},
+    "CONFIGURATION":        {"A": "ESCAPE",   "B": "AUTOMATION_STRATEGY"},
+    "PERMISSION_SCOPE":     {"A": "ESCAPE",   "B": "CONTROL_BOUNDARY"},
+    "HUMAN_APPROVAL":       {"A": "ESCAPE",   "B": "CONTROL_BOUNDARY"},
+    "SCHEDULE":             {"A": "ESCAPE",   "B": "AUTOMATION_STRATEGY"},
+    "CLASSIFICATION":       {"A": "ESCAPE",   "B": "WORK"},
+    "ARTIFACT_OUTPUT":      {"A": "ESCAPE",   "B": "EVIDENCE"},
+    "DOCUMENTATION":        {"A": "ESCAPE",   "B": "WORK"},
+    "FAILURE_HANDLER":      {"A": "ESCAPE",   "B": "OUTCOME"},
+    "CONCURRENCY_CONTROL":  {"A": "ESCAPE",   "B": "ESCAPE"},
+    "TIMEOUT":              {"A": "ESCAPE",   "B": "ESCAPE"},
+    "RETRY_POLICY":         {"A": "ESCAPE",   "B": "ESCAPE"}
+  }
+}
