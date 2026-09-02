@@ -18,7 +18,7 @@
 - Constitution: v0.1 candidate/foundation
 - Master Session Prompt: v0.3 operating protocol
 - Research Asset Ledger: initialized; no accepted assets yet
-- Claim Inventory: v0.1 established; initial claims CLM-0001 through CLM-0010
+- Claim Inventory: v0.1 established; CLM-0001 through CLM-0011; state index at `docs/research/claims/README.md`
 - Claim Reconciliation Protocol: v0.1 established
 - Research Corpus Map: v0.1 established; `CORPUS_RECONCILIATION = PARTIAL`
 - Claim Cold Review: v0.1 established; wording/causal-overreach issues identified
@@ -147,7 +147,7 @@ Recorded as gaps rather than filled by inference, per the Master Session Prompt 
 2. Run E2b Stage 2 once model pinning and credentials are in place.
 3. Take the next queued benchmark, complete its claim record as part of preparation (DEC-0002), predeclare falsifiers and baseline controls, then execute and preserve raw results.
 4. Continue recovering individual external-source findings into explicit `ASSET-*` records; mark reference-only / duplicate / out-of-scope / insufficient where applicable.
-5. Mark CLM-0003, CLM-0005, CLM-0008, and CLM-0010 as `INSUFFICIENT` rather than leaving their records blank (DEC-0002 §5).
+5. Keep `docs/research/claims/README.md` current — it is the single index of claim state and record status.
 6. Rewrite CLM-0011 to the scope Round 3 actually tested (k ≤ 5, edge-coverage-bound, control cost), at its next benchmark preparation per DEC-0002.
 7. Only then consider architecture candidate promotion, via a separate decision record per DEC-0001 §4.
 
