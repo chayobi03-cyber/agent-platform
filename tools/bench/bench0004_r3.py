@@ -204,7 +204,19 @@ def minmax(scores: dict[str, float]) -> dict[str, float]:
 # --------------------------------------------------------------------------
 
 def load_corpus() -> dict[str, str]:
-    return {d: (REPO / p).read_text(encoding="utf-8") for d, p in CORPUS.items()}
+    """Read each document at FROZEN_COMMIT rather than from the working tree.
+
+    Corpus documents are ordinary repository files and keep changing after the
+    benchmark runs. Reading them from the frozen commit is what makes the
+    recorded numbers reproducible at any later HEAD.
+    """
+    out = {}
+    for doc_id, path in CORPUS.items():
+        out[doc_id] = subprocess.run(
+            ["git", "show", f"{FROZEN_COMMIT}:{path}"],
+            cwd=REPO, capture_output=True, text=True, check=True,
+        ).stdout
+    return out
 
 
 def metadata_text(doc_id: str, body: str) -> str:
