@@ -141,6 +141,73 @@ These are intentionally hypotheses, not accepted APF invariants.
 
 **Benchmark direction:** Same corpus and questions; compare flat semantic retrieval with relationship/provenance-aware retrieval.
 
+**Current state:** `FALSIFIED at tested scope` — see BENCH-0004 Round 3
+(`docs/research/executions/BENCH-0004_R3_2026-09-02.md`).
+
+The statement above is preserved verbatim as the original wording, per
+`P0_BENCHMARK_CASES` cross-case execution rule 5. It has been **split** into
+CLM-0004a/b/c below, as required by `FALSIFICATION_BENCHMARK` §9 for a claim
+containing multiple independent mechanisms. The split was predeclared before
+execution and does not depend on the outcome.
+
+**Evidence trail:**
+
+| Round | Design | Result |
+|---|---|---|
+| BENCH-0004 R1 | document-level recall, 4 docs | no gain over baseline |
+| BENCH-0004 R2 | cross-document chains, 7 docs, **hand-specified** graph | +0.208 coverage@2 |
+| BENCH-0004 R3 | mechanism decomposition, 21 docs, **derived** graph, null models | **−0.135** coverage@3 |
+
+Round 3 changed the graph from operator-drawn to mechanically derived and the
+Round 2 advantage reversed. Round 2's provisional `SUPPORTED` state is therefore
+superseded; its result is best explained by operator construction of the graph.
+Contradictory evidence remains linked here rather than averaged away, per
+`CLAIM_RECONCILIATION` anti-drift rule 7.
+
+#### CLM-0004a — Temporal awareness improves engineering retrieval
+
+**Statement:** Retrieval that weights chronology and commit/revision order
+recovers engineering evidence better than an equivalent retriever without
+temporal weighting.
+
+**State:** `UNSUPPORTED at tested scope`. Zero change in mean chain coverage at
+k=2 and k=3 despite the temporal gate firing on 6/16 queries and reordering 5/16
+top-3 sets; below the 95th percentile of a random-commit-order null model.
+Temporal weighting moved documents without recovering evidence.
+
+#### CLM-0004b — Provenance awareness improves engineering retrieval
+
+**Statement:** Retrieval that matches on provenance and configuration metadata
+recovers engineering evidence better than an equivalent retriever without it.
+
+**State:** `UNSUPPORTED at tested scope`. +0.021, below the predeclared +0.05
+threshold; not distinguishable from randomly reassigned provenance text; its only
+measured gain fell on temporal questions rather than provenance questions.
+
+**Scope note:** This concerns provenance for *retrieval ranking*. It is a
+different claim from CLM-0006, which concerns provenance for *evidence reuse and
+reproduction*. Round 3 says nothing about CLM-0006.
+
+#### CLM-0004c — Relationship awareness improves engineering retrieval
+
+**Statement:** Retrieval that propagates relevance across declared relationships
+between engineering records recovers evidence better than an equivalent retriever
+without relationship propagation.
+
+**State:** `CONTRADICTED at tested scope`. −0.104 mean chain coverage@3,
+consistent across every tested weight and degrading monotonically as the weight
+increases. It also damaged the neutral control class by −0.25 — questions
+answerable from a single obvious document, which no structural mechanism should
+affect.
+
+**Retained positive observation:** the mechanically derived graph is *not* noise.
+It beat its own degree-preserving shuffle at the 99.5th percentile, and it helped
+exactly the claim→benchmark→execution chain questions it was predicted to help.
+The failure is in consumption, not in the structure: one-step score propagation
+amplifies hubs, and in a governance corpus the best-connected documents are
+indexes rather than answers. A hub-penalised or set-expansion consumption
+strategy is a separate, narrower hypothesis requiring its own predeclaration.
+
 ### CLM-0005 — Failed attempts are first-class engineering evidence
 
 **Statement:** Preserving rejected hypotheses, failed experiments, and superseded decisions improves future engineering decisions by preventing repeated dead ends and clarifying decision history.
@@ -228,12 +295,24 @@ claim record
 P0 claims should be tested first where failure would invalidate broad portions of the platform thesis:
 
 ```text
-CLM-0001  Work-centric generality
-CLM-0002  Capture value
-CLM-0004  Structured retrieval value
-CLM-0006  Provenance trust
-CLM-0007  Human boundary value
-CLM-0009  Measured automation value
+CLM-0001  Work-centric generality          UNTESTED
+CLM-0002  Capture value                    UNTESTED
+CLM-0004  Structured retrieval value       FALSIFIED at tested scope (R3)
+          CLM-0004a temporal               UNSUPPORTED at tested scope
+          CLM-0004b provenance (ranking)   UNSUPPORTED at tested scope
+          CLM-0004c relationship           CONTRADICTED at tested scope
+CLM-0006  Provenance trust (reuse)         UNTESTED — next in execution order
+CLM-0007  Human boundary value             UNTESTED
+CLM-0009  Measured automation value        UNTESTED
 ```
 
 The inventory should remain editable. New evidence may split one claim into narrower claims rather than forcing a single broad claim to survive.
+
+CLM-0004 is the first claim to complete that path. It was split into three
+mechanism claims and none survived at the tested scope. A falsified P0 claim is a
+successful use of this inventory, not a failure of it: the alternative was
+adopting relationship-aware retrieval as an architecture contract on the strength
+of a result that a null model has now shown to be operator-constructed.
+
+State labels above are scoped to the executed benchmarks. `UNTESTED` means no
+falsification attempt has been run, not that the claim is doubted.
