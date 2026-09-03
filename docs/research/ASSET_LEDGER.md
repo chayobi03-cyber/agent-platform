@@ -134,12 +134,12 @@ finding: an image is the right output of an inspection and the wrong input to on
 counter_evidence: raster is representation-agnostic and still shows copper a parser failed to understand; the pattern only holds because that virtue is preserved as the XOR cross-check
 apf_relevance: generalises beyond PCB - any check where a human-readable artefact is confused with the measurement substrate
 architectural_impact: none yet
-recommendation: hold as a candidate pattern; it has not been executed even once
+recommendation: hold as a candidate pattern; a prototype now executes it end to end on synthetic jobs, but not against a real job or a second renderer
 adoption: DEFER
-confidence: medium - the cost and detectability arithmetic is reproducible, but the pattern is untested end to end
+confidence: medium - arithmetic reproducible and the pattern runs; the XOR self-validation half is still unexecuted
 related_assets: ASSET-0001, ASSET-0003
 related_decisions: none
-evidence_links: docs/research/PCB_ODB_SHIELDING_INSPECTION_METHODOLOGY.md, tools/research/pcb_shield_budget.py
+evidence_links: docs/research/PCB_ODB_SHIELDING_INSPECTION_METHODOLOGY.md, tools/research/pcb_shield_budget.py, tools/pcbshield/
 ```
 
 ### ASSET-0003
@@ -156,17 +156,17 @@ relationships: injected defect -> expected finding; clean board -> expected sile
 lifecycle: predeclare measures and falsifier -> inject -> run -> score -> record raw results
 control: the injection specification is the ground truth and must be frozen before the run
 execution: paired runs over injected and clean corpora
-evidence: none yet - the pattern is proposed, not executed
+evidence: executed once - tools/tests/test_pcbshield.py injects five defect classes at known coordinates; all five detected and located, clean-board null control silent. The null control failed on the first run and caught two real defects in the checker plus one physically invalid fixture
 ownership: whoever predeclares the falsifier
-failure_mode: injected defects drawn from the same assumptions as the checker, so the test confirms the implementation rather than testing it; and recall reported without a false-positive rate
+failure_mode: injected defects drawn from the same assumptions as the checker, so the test confirms the implementation rather than testing it; recall reported without a false-positive rate; and - observed on the first run - a fixture that is physically invalid, so the checker's correct answer looks like a false positive
 security_boundary: none beyond the source data
 finding: the null control, not the detection rate, is what makes this a falsification test
 counter_evidence: injection cannot produce the defect classes nobody thought to inject, so a passing score bounds nothing about unknown classes
 apf_relevance: same shape as the falsification-benchmark protocol already used in this repository, applied to a geometric rather than a retrieval checker
 architectural_impact: none
-recommendation: predeclare before executing, using docs/research/executions/BENCH-0004_R3_PREDECLARATION.md as the template
+recommendation: predeclare before executing, using docs/research/executions/BENCH-0004_R3_PREDECLARATION.md as the template. This run was not predeclared, so it demonstrates the pattern rather than testing a claim with it
 adoption: DEFER
-confidence: low - untested
+confidence: medium - executed once, on a fixture whose writer shares assumptions with the reader under test
 related_assets: ASSET-0002
 related_decisions: none
 evidence_links: docs/research/PCB_ODB_SHIELDING_INSPECTION_METHODOLOGY.md

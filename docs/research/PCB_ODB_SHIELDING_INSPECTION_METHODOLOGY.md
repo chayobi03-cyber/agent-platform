@@ -54,6 +54,7 @@ findings that cannot be triaged. **Recommendation: implement six named checks
 | Source | Type | Used for | Reachable |
 |---|---|---|---|
 | ODB++ Design Format Specification (Siemens, rel. 8.1 u4) | primary | record syntax, symbols, surfaces | **No** — `odbplusplus.com` is refused by this session's egress policy (HTTP 403) |
+| KiCad ODB++ **writer** (`pcbnew/pcb_io/odbpp/`) | independent generator | exact record syntax for L/A/P/S, `OB/OS/OC/OE`, `UNITS=`, `$n`, and `eda/data`'s `LYR`/`NET`/`SNT`/`FID` — read from the code that emits them | Yes |
 | `ulikoehler/ODBPy` source | independent implementation | surface/polygon/unit record syntax, verified by reading the parsing regexes | Yes |
 | `sjgallagher2/ODBplusplus-Parser` documentation | independent implementation | feature model, symbol semantics, EDA-data-to-net mapping, matrix contents | Yes |
 | `nam20485/OdbDesign` | independent implementation | evidence that full-archive parsing is a solved problem in C++ (AGPL-3.0) | Yes |
@@ -63,7 +64,9 @@ findings that cannot be triaged. **Recommendation: implement six named checks
 
 **Limitation to carry forward:** the normative specification could not be read in
 this session. Everything stated about the ODB++ file format below is inferred from
-two independent implementations that agree with each other. Agreement between two
+independent implementations that agree with each other — a reader and, more
+usefully, a *writer*, since a generator's code fixes the exact byte-level form a
+consumer must accept. Agreement between two
 implementations is weaker evidence than the specification, and both were written
 against ODB++ v7/v8.1 and both document gaps (barcode/text unhandled, blind/buried
 vias assumed thru-hole in one of them). **Any adoption decision should re-verify
@@ -454,3 +457,89 @@ Registered in `docs/research/ASSET_LEDGER.md`:
 - `ASSET-0003` — injected-defect validation pattern for geometric checkers
 
 Each is `ASSET_CANDIDATE`. None is accepted.
+
+---
+
+## 15. Execution — what building it changed
+
+Sections 1–14 were written before anything ran. A prototype now exists at
+`tools/pcbshield/` (see its README), implementing checks S1, S2, S3, S4 and S6
+over shapely geometry, with `tools/tests/test_pcbshield.py` running the §10
+validation plan against jobs carrying injected defects. All five defect classes
+are detected and located; the clean-board null control is silent. Three things
+were only visible once it ran.
+
+**15.1 The null control failed first, exactly where §9 predicted.** The first
+clean board produced four false positives — two plane "breaks" and two
+"floating" guard rails. Both had the same root cause and neither was a coding
+slip:
+
+- The anti-pad classifier tested containment on the void *after clipping it to
+  the signal footprint*. A clipped anti-pad no longer contains its drill, so it
+  was reported as a plane break. Classification has to happen on the plane's own
+  void components, before any clipping. F3 was the first thing to break, as
+  predicted, and it broke in a way the F3 description did not anticipate.
+- The connectivity check found the guard rails islanded because the fixture gave
+  every ground stitching via a full anti-pad in the ground plane. That is not a
+  check bug; it is a board that genuinely does not connect. **The model was
+  right and the test board was wrong**, which is a failure mode §10 did not
+  list: an injected-defect corpus can be *physically invalid*, and then the
+  checker's correct answer looks like a false positive.
+
+**15.2 An honest classifier has a third answer.** A void that touches an
+anti-pad merges with it into one component. Accepting the merged component as
+expected hides a real void completely — a silent false negative, strictly worse
+than the false positive the classifier exists to remove. The check now reports
+oversized drill-containing voids and says in the finding that the sizes are not
+separable there. Neither "defect" nor "expected" was the right answer; "reported,
+with the ambiguity named" was.
+
+**15.3 Quantization has to travel with the measurement.** S1 samples along the
+trace, so a reported gap length is a station count times the pitch. A 3.0 mm
+injected break measures 2.6 mm — the line caps at each end of the surviving
+guard shorten the true copper gap to about 2.7 mm, and sampling rounds it down
+by one station. Every S1 finding therefore carries `station_pitch_mm`. A bare
+millimetre figure would have implied a precision the method does not have.
+
+### What this does not establish
+
+The fixture's writer and the reader share assumptions, so these results
+validate the **checks**, not the reader's fidelity to real CAM output. The
+renderer XOR cross-check of §10.3 has not been run against a second
+implementation, and no real ODB++ job has been read. Both remain open, and
+`mcix/odbpp` is the obvious counterparty for the first.
+
+---
+
+## 16. The Python tooling landscape
+
+Asked directly whether Python tools exist for this, the answer is: for KiCad
+files, many and good; for ODB++ input, essentially none, and the gap is
+structural rather than incidental.
+
+| Tool | Language | Takes ODB++ in? | Use here |
+|---|---|---|---|
+| `mcix/odbpp` (Delta ODB++) | Java | **yes** — full model, SVG/PNG render, ODB++ → Gerber X2 + Excellon, web viewer | the independent renderer for the §10.3 XOR check, and a usable viewer |
+| `nam20485/OdbDesign` | C++ (AGPL-3.0) | yes, via REST/gRPC | parser alternative; the licence is a decision, not a detail |
+| `ulikoehler/ODBPy` | Python | partial | reference for record syntax; not a complete model |
+| `sjgallagher2/ODBplusplus-Parser` | Python | yes, v7 subset | closest prior art — parses to shapely, unions traces, exports STEP |
+| `kicad-tools`, `kicad-assistant`, `kicad-happy`, KiCad MCP servers | Python | **no** | they consume `.kicad_pcb` |
+| `gerbonara`, `pcb-tools` | Python | no (Gerber) | usable *after* an ODB++ → Gerber conversion |
+| SignalIntegrity, pyBERT | Python | no | S-parameter and link simulation, a different problem |
+
+The structural point: **KiCad exports ODB++ and does not import it.** So an
+"ODB++ → KiCad → Python DFM tools" route does not exist for a job that arrives
+as ODB++; the KiCad-based tools are only reachable for designs authored in
+KiCad. Going through Gerber instead reaches good Python libraries, but Gerber
+carries net attribution only as optional X2 attributes, and §3.4 says net
+attribution is the whole basis of the check.
+
+That leaves two workable shapes, and the prototype takes the first:
+
+1. **Read ODB++ in Python directly** for the subset the checks need. This is
+   smaller than it sounds — the record syntax is a few line formats — and it
+   keeps net attribution, which is the one thing that cannot be recovered later.
+2. **Use `mcix/odbpp` as a service** for rendering and for Gerber conversion,
+   and difference its raster against the Python model. This is the §4
+   self-validation, using an existing implementation rather than writing a
+   second renderer.

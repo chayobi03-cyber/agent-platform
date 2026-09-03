@@ -2,7 +2,7 @@
 
 **Session:** BENCH-0004 mechanism decomposition, then structure refactor
 **Status:** Active working state
-**Last updated:** 2026-09-03 (PCB/ODB++ shielding inspection methodology research)
+**Last updated:** 2026-09-03 (PCB/ODB++ shielding methodology, then a working prototype)
 
 ## Repository Evidence
 
@@ -83,9 +83,24 @@ lists the five points that require a human decision, including whether this doma
 becomes an APF test case at all.
 
 **Limitation on the record:** the normative ODB++ specification host is refused by
-this session's egress policy, so the format details are inferred from two
-independent open-source parsers that agree with each other. That is weaker than
-the specification and is flagged in the document as a re-verification task.
+this session's egress policy, so the format details are inferred from independent
+open-source implementations that agree with each other — including KiCad's ODB++
+*writer*, which fixes the exact byte-level form a reader must accept. That is
+weaker than the specification and is flagged in the document as a re-verification
+task.
+
+**Executed, not only proposed.** A prototype at `tools/pcbshield/` implements
+checks S1, S2, S3, S4 and S6 over shapely geometry and renders evidence images
+from findings; `tools/tests/test_pcbshield.py` runs the injected-defect
+validation. All five defect classes are detected and located and the clean-board
+null control is silent — but only after the null control failed on the first run
+and exposed two real defects in the checker and one physically invalid fixture.
+Section 15 of the methodology document records what execution changed; section 16
+records why the Python KiCad tooling does not apply here (KiCad exports ODB++ and
+does not import it).
+
+Still unexecuted: the renderer XOR cross-check against a second implementation,
+and any run against a real ODB++ job.
 
 ## Current Working Model
 
