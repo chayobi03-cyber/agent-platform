@@ -2,13 +2,13 @@
 
 **Session:** BENCH-0004 mechanism decomposition, then structure refactor
 **Status:** Active working state
-**Last updated:** 2026-09-02 (Round 3 execution + DEC-0001 consolidation)
+**Last updated:** 2026-09-03 (PCB/ODB++ shielding inspection methodology research)
 
 ## Repository Evidence
 
 - Repository: `chayobi03-cyber/agent-platform`
 - Default branch: `main`
-- Working branch: `claude/session-start-continue-03cik7`
+- Working branch: `claude/pcb-odb-shielding-inspection-uzazqx`
 - Foundation bootstrap committed
 - Claim inventory, traceability protocol, corpus map, cold review and benchmark
   register are committed; four superseded documents remain as stubs so that
@@ -21,7 +21,7 @@
 
 - Constitution: v0.1 candidate/foundation
 - Master Session Prompt: v0.3 operating protocol
-- Research Asset Ledger: initialized; no accepted assets yet
+- Research Asset Ledger: three `ASSET_CANDIDATE` records (ASSET-0001..0003); no accepted assets yet
 - Claim Inventory: v0.1 established; initial claims CLM-0001 through CLM-0010
 - Research Corpus Map: corpus reconciliation is explicitly partial
 - Claim Cold Review: v0.1 established; wording/causal-overreach issues identified
@@ -56,6 +56,36 @@ Two guards were added and both pass:
 - `tools/tests/test_docs_integrity.py` — dangling references, citation artifacts,
   duplicate order declarations and retired identifiers now fail a test instead of
   surviving unnoticed.
+
+### Domain research probe — PCB/ODB++ shielding inspection (2026-09-03)
+
+First research in this repository against an **external engineering domain** rather
+than APF's own governance corpus: how to inspect an ODB++ job for breaks and
+overlaps in a signal's shielding, given a request to capture the board at real
+viewer fidelity.
+
+Recorded in `docs/research/PCB_ODB_SHIELDING_INSPECTION_METHODOLOGY.md`, with three
+`ASSET_CANDIDATE` records added to `docs/research/ASSET_LEDGER.md` (the ledger's
+first entries) and reproducible arithmetic in `tools/research/pcb_shield_budget.py`,
+pinned by `tools/tests/test_pcb_shield_budget.py`.
+
+Principal finding: the request's stated order — capture, then inspect — inverts the
+dependency. A raster capture discards the net attribution that defines which copper
+is the shield, cannot see an electrically floating shield at all, and is either
+blind to the defect sizes in question or costs ~9 GB per copper stack to measure
+them. Capture belongs downstream as evidence, and sideways as a cross-check that
+falsifies the parse. Recommended method is vector-exact verdicts with rendered
+evidence; six named checks replace the single ambiguous one, because "break" and
+"overlap" each denote several physically distinct defects.
+
+Nothing here is accepted, and no benchmark was registered — §12 of the document
+lists the five points that require a human decision, including whether this domain
+becomes an APF test case at all.
+
+**Limitation on the record:** the normative ODB++ specification host is refused by
+this session's egress policy, so the format details are inferred from two
+independent open-source parsers that agree with each other. That is weaker than
+the specification and is flagged in the document as a re-verification task.
 
 ## Current Working Model
 
