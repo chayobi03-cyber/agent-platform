@@ -27,12 +27,12 @@ status=$?
 if [ $status -eq 0 ]; then
   echo "APF guards: $(echo "$output" | grep -oE 'Ran [0-9]+ tests') passed."
   echo "Divergence ledger: $(python3 - <<'PY' 2>/dev/null || echo 'unreadable'
-import json, pathlib
-d = json.loads(pathlib.Path("tools/apfguard/divergence_ledger.json").read_text())
-rows = {s: len(d.get(s, {})) for s in
-        ("decision_id_collisions", "untested_but_executed",
-         "execution_collisions", "divergent_refs")}
-print(", ".join(f"{k.replace('_', ' ')}: {v}" for k, v in rows.items()))
+import sys
+sys.path.insert(0, "tools")
+from apfguard import ledger
+d = ledger.load()
+print(", ".join(f"{s.replace(chr(95), chr(32))}: {len(d.get(s, {}))}"
+                for s in ledger.SECTIONS))
 PY
 )"
 else

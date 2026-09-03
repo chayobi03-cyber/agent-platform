@@ -133,5 +133,36 @@
       "disposition": "PR_OPEN",
       "note": "PR #1, open since 2026-08-30, 27 commits behind main. Carries the apf-living-spec-vnext-0.1 set and the architecture asset candidates."
     }
+  },
+  "subject_ownership": {
+    "claude/handover-eu02yk": {
+      "refs": {
+        "claude/handover-eu02yk": "9bacd7055d6744a42c78ff676f7a7a113f484ddf"
+      },
+      "claimants": [
+        "benchmark execution order <- docs/handoff/SESSION_STATE.md",
+        "benchmark execution order <- docs/research/P0_BENCHMARK_CASES_v0.1.md",
+        "benchmark execution order <- docs/research/P0_FALSIFICATION_BENCHMARK_MATRIX.md",
+        "claim and result state vocabulary <- docs/research/P0_FALSIFICATION_BENCHMARK_MATRIX.md",
+        "corpus reconciliation exit criterion <- docs/research/RESEARCH_TO_CLAIM_RECONCILIATION_STATUS.md"
+      ],
+      "disposition": "AWAITING_HUMAN_DECISION",
+      "note": "PR #3. Three documents declare the benchmark execution order, including SESSION_STATE.md, and the corpus exit criterion sits in a document DEC-0001 retired to a stub. The branch predates DEC-0001, so this is not new damage — it is the consolidation not having reached here. Merging PR #3 as-is returns F2/F3 to main."
+    },
+    "claude/session-governance-decisions-6fi9vf": {
+      "refs": {
+        "claude/session-governance-decisions-6fi9vf": "4da49dfa249b16ce9d63a3d5611f98bc39448c71"
+      },
+      "claimants": [
+        "benchmark execution order <- docs/research/P0_BENCHMARK_CASES_v0.1.md",
+        "benchmark execution order <- docs/research/P0_FALSIFICATION_BENCHMARK_MATRIX.md",
+        "claim and result state vocabulary <- docs/research/P0_FALSIFICATION_BENCHMARK_MATRIX.md",
+        "claim and result state vocabulary <- docs/research/claims/CLM-0011.md",
+        "claim and result state vocabulary <- docs/research/claims/README.md",
+        "corpus reconciliation exit criterion <- docs/research/RESEARCH_TO_CLAIM_RECONCILIATION_STATUS.md"
+      ],
+      "disposition": "AWAITING_HUMAN_DECISION",
+      "note": "PR #4. Two documents declare the execution order and four declare the claim state vocabulary, two of them the per-claim record files introduced on this branch (claims/CLM-0011.md, claims/README.md) — a record template DEC-0001 did not consider. Merging PR #4 as-is returns F2/F3 to main and adds a second claim-record scheme alongside CLAIM_INVENTORY."
+    }
   }
 }

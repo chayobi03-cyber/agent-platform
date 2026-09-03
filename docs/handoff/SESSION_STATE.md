@@ -47,10 +47,16 @@ different decisions carried the identifier `DEC-0001`, two different experiments
 carried the name `BENCH-0004 Round 3` with opposite results, and `BENCH-0006`
 sat recorded `UNTESTED` after another ref had executed it.
 
-Three guards now read every ref rather than the filesystem, and two triggers run
+Four guards now read every ref rather than the filesystem, and two triggers run
 them without anyone remembering to: `.claude/hooks/session-start.sh` reports into
 session context, `.github/workflows/apf-guards.yml` refuses a push or pull
 request. Before this there was no CI and no hook on any ref.
+
+Subject ownership is now declared in `tools/apfguard/subject_manifest.json` and
+enforced rather than conventional. `DEC-0001` restored one-subject-one-document
+by editing documents, and it held on `main` alone: PR #3 has three documents
+declaring the execution order and PR #4 has four declaring the claim state
+vocabulary. Both are recorded in the divergence ledger, not resolved.
 
 Detail is in `docs/decisions/DEC-0003-cross-ref-guards-and-session-gate.md`.
 

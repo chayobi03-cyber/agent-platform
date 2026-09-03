@@ -32,6 +32,7 @@ SECTIONS = (
     "untested_but_executed",
     "execution_collisions",
     "divergent_refs",
+    "subject_ownership",
 )
 
 

@@ -1,0 +1,56 @@
+{
+  "_readme": "Which document owns which subject. Checked by tools/tests/test_subject_ownership.py, on every ref. A subject declared anywhere but its owner fails, unless the ref is recorded in divergence_ledger.json. Detector kinds are implemented in subjects.py; a subject with no detector cannot be enforced and is rejected by the suite. Exemptions are narrow on purpose: execution records are append-only evidence and decision records must be able to name what they retired. Handoff documents are not exempt — SESSION_STATE on PR #3 declares an execution order, and that is a finding, not an allowance.",
+  "exempt_globs": [
+    "docs/research/executions/*",
+    "docs/decisions/*"
+  ],
+  "subjects": {
+    "benchmark execution order": {
+      "owner": "docs/research/BENCHMARK_REGISTER.md",
+      "why": "Three documents declared three different orders 14 minutes apart on 2026-08-31; the first two were violated by what actually ran.",
+      "detector": {
+        "kind": "fenced_distinct_matches",
+        "pattern": "BENCH-\\d{4}",
+        "minimum": 4
+      }
+    },
+    "claim and result state vocabulary": {
+      "owner": "docs/research/CLAIM_INVENTORY.md",
+      "why": "Three vocabularies were in force at once; recording CLM-0004 after R3 required mixing two of them.",
+      "detector": {
+        "kind": "fenced_token_set",
+        "tokens": [
+          "SUPPORTED",
+          "WEAKENED",
+          "FALSIFIED",
+          "CONTRADICTED",
+          "INCONCLUSIVE",
+          "REJECTED",
+          "SPLIT",
+          "UNTESTED",
+          "UNDER_TEST",
+          "DISCOVERED",
+          "FORMULATED",
+          "TESTABLE"
+        ],
+        "minimum": 3
+      }
+    },
+    "benchmark identity and state table": {
+      "owner": "docs/research/BENCHMARK_REGISTER.md",
+      "why": "Two identifier schemes named the same benchmarks; RESEARCH_TO_CLAIM_MAP used both in one table row.",
+      "detector": {
+        "kind": "line_pattern",
+        "pattern": "^\\|\\s*BENCH-\\d{4}\\s*\\|(?:[^|\\n]*\\|){5,}"
+      }
+    },
+    "corpus reconciliation exit criterion": {
+      "owner": "docs/research/RESEARCH_CORPUS_MAP.md",
+      "why": "Two documents carried an exit criterion; R1-R3 all ran while it said PARTIAL.",
+      "detector": {
+        "kind": "line_pattern",
+        "pattern": "^\\s*CORPUS_RECONCILIATION\\s*="
+      }
+    }
+  }
+}

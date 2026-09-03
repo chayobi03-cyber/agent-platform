@@ -34,11 +34,12 @@ jobs:
         if: always()
         run: |
           python3 - <<'PY' >> "$GITHUB_STEP_SUMMARY"
-          import json, pathlib
-          d = json.loads(pathlib.Path("tools/apfguard/divergence_ledger.json").read_text())
+          import sys
+          sys.path.insert(0, "tools")
+          from apfguard import ledger
+          d = ledger.load()
           print("## Divergence ledger\n")
-          for section in ("decision_id_collisions", "untested_but_executed",
-                          "execution_collisions", "divergent_refs"):
+          for section in ledger.SECTIONS:
               rows = d.get(section, {})
               print(f"### {section.replace('_', ' ')} ({len(rows)})\n")
               for key, body in sorted(rows.items()):

@@ -1,4 +1,4 @@
-"""The four cross-ref disagreements this repository has actually produced.
+"""The cross-ref disagreements this repository has actually produced.
 
 Each function below corresponds to a defect verified in git history, not a
 hypothetical one. None of them is visible from a single working tree, which is
@@ -10,7 +10,7 @@ from __future__ import annotations
 import re
 from collections import defaultdict
 
-from . import refs
+from . import refs, subjects
 
 MAIN = "refs/remotes/origin/main"
 DECISIONS = "docs/decisions/"
@@ -168,7 +168,7 @@ def observed() -> dict[str, dict]:
 
     out: dict[str, dict] = {s: {} for s in (
         "decision_id_collisions", "untested_but_executed",
-        "execution_collisions", "divergent_refs")}
+        "execution_collisions", "divergent_refs", "subject_ownership")}
     for key, rows in decision_id_collisions().items():
         out["decision_id_collisions"][key] = {
             "refs": pin(r for r, _, _ in rows),
@@ -185,4 +185,14 @@ def observed() -> dict[str, dict]:
         out["divergent_refs"][key] = {
             "refs": pin([key]), "claimants": [key],
             "commits_ahead": ahead, "last_commit": when}
+    for ref in refs.branch_refs():
+        found = subjects.violations(ref)
+        if not found:
+            continue
+        name = refs.short(ref)
+        out["subject_ownership"][name] = {
+            "refs": pin([name]),
+            "claimants": sorted(f"{subject} <- {path}"
+                                for subject, paths in found.items()
+                                for path in paths)}
     return out

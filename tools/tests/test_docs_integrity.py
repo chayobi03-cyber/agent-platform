@@ -5,6 +5,13 @@ Each check corresponds to a real defect that was present in `main`, not a
 hypothetical one. The point is that the next occurrence fails a test instead of
 surviving until someone reads all the documents side by side.
 
+The execution-order check that was here moved to
+`apfguard/subject_manifest.json` and `test_subject_ownership.py`. Keeping it in
+both places would have declared one rule twice, which is the defect the rule
+exists to prevent. Equivalence was tested in both directions before removing it:
+a duplicate order declaration and an owner that stops declaring its own subject
+each fail the new check exactly where they failed this one.
+
 Historical records are exempt from the checks a fix would require editing them
 into falsehood. Execution records under `docs/research/executions/` are
 append-only evidence, and decision records under `docs/decisions/` must be able
@@ -76,25 +83,6 @@ class DocsIntegrityTest(unittest.TestCase):
             if CITATION_ARTIFACT_RE.search(path.read_text(encoding="utf-8")):
                 found.append(str(path.relative_to(REPO)))
         self.assertEqual(found, [], f"unresolved citation artifacts in: {found}")
-
-    def test_execution_order_is_declared_in_exactly_one_place(self) -> None:
-        """Three documents once declared three different execution orders.
-
-        A fenced block enumerating four or more distinct benchmark ids is an
-        order declaration. Only the register may contain one.
-        """
-        declaring = []
-        for path in markdown_files(include_historical=False):
-            text = path.read_text(encoding="utf-8")
-            for block in FENCED_BLOCK_RE.findall(text):
-                if len(set(BENCH_ID_RE.findall(block))) >= 4:
-                    declaring.append(str(path.relative_to(REPO)))
-                    break
-        self.assertEqual(
-            declaring, [str(REGISTER.relative_to(REPO))],
-            "the execution order must be declared only in BENCHMARK_REGISTER.md; "
-            f"found declarations in: {declaring}",
-        )
 
     def test_retired_order_headings_are_gone(self) -> None:
         found = []

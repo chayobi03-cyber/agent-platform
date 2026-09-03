@@ -138,6 +138,18 @@ Changes to the session protocol:
 - Divergence is no longer resolved by noticing it. It is recorded with a ref, a
   SHA and a disposition, all verified against git, or the suite fails.
 
+Subject ownership becomes a constraint rather than a convention:
+
+- `apfguard/subject_manifest.json` declares which document owns the benchmark
+  execution order, the claim state vocabulary, the benchmark identity table and
+  the corpus exit criterion. A document declaring a subject it does not own
+  fails, on disk before it is committed and on every other ref afterwards.
+- `DEC-0001` restored one-subject-one-document by editing the documents, and it
+  held on `main` and nowhere else. PR #3 has three documents declaring the
+  execution order, `SESSION_STATE.md` among them; PR #4 has four declaring the
+  claim state vocabulary, two of which are a per-claim record scheme `DEC-0001`
+  did not consider. Both are recorded, not resolved.
+
 Changes to the benchmark contract:
 
 - An executed benchmark must declare, per declared primary measure, whether it
@@ -151,17 +163,22 @@ Changes to the benchmark contract:
 ```text
 tools/apfguard/__init__.py            scope rationale
 tools/apfguard/refs.py                reading every ref, not the working tree
-tools/apfguard/divergence.py          the four cross-ref disagreements
+tools/apfguard/divergence.py          the cross-ref disagreements
 tools/apfguard/ledger.py              why the ledger cannot rot
 tools/apfguard/measures.py            declared vs measured
-tools/apfguard/divergence_ledger.json 10 recorded rows, 5 refs pinned
+tools/apfguard/subjects.py            who owns which subject
+tools/apfguard/subject_manifest.json  the ownership declaration itself
+tools/apfguard/divergence_ledger.json 12 recorded rows, 5 refs pinned
 tools/tests/test_cross_ref_integrity.py
 tools/tests/test_declared_measures.py
 tools/tests/test_session_state_freshness.py
+tools/tests/test_subject_ownership.py
 .claude/hooks/session-start.sh        reports into session context
 .claude/settings.json                 registers the hook
 .github/workflows/apf-guards.yml      refuses a push or PR
 docs/research/BENCHMARK_REGISTER.md   BENCH-0004 measurement status block
+tools/tests/test_docs_integrity.py    execution-order check retired into the
+                                      manifest, after testing equivalence
 ```
 
 Standard library only, matching `apfbench`: a guard that needs an install step
@@ -181,11 +198,23 @@ Each guard was tested for what it rejects, not only for passing. All pass:
 | a new execution appears on another ref | fail | fails |
 | a clone that can see one ref | fail | fails rather than passing blind |
 | freshness guard replayed at `0d27769` | fail | names `d412e45` and `0d27769` |
+| a second document declares the execution order | fail | fails, uncommitted |
+| a second document declares the state vocabulary | fail | fails, uncommitted |
+| an owner stops declaring its own subject | fail | fails |
+| a manifest subject names an unimplemented detector | fail | fails |
+| a violation appears on a new ref | fail | fails |
 
 The last row is the load-bearing one: run against the repository state the
 2026-09-02 session actually opened, the guard reports the two execution commits
 that `SESSION_STATE` predated. Had it existed on 08-31, that session would have
 opened to a failure instead of a stale plan.
+
+Two defects in the guards were found this way rather than by review. The
+subject-ownership check first read the committed ref, so an uncommitted edit
+passed it — one commit later than criterion 2 of the brief allows. An
+equivalence test against the check it was replacing caught it: the older check
+read the filesystem and failed where the newer one passed. It now reads the
+filesystem, and the equivalence holds in both directions.
 
 An earlier version of the cross-ref guard passed case 2 — it compared ledger
 keys and not who was in them, so a row already marked known absorbed new
