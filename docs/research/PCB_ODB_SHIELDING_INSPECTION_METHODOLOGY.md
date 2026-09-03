@@ -511,35 +511,71 @@ implementation, and no real ODB++ job has been read. Both remain open, and
 
 ---
 
-## 16. The Python tooling landscape
+## 16. Routes from an ODB++ job to a verdict
 
-Asked directly whether Python tools exist for this, the answer is: for KiCad
-files, many and good; for ODB++ input, essentially none, and the gap is
-structural rather than incidental.
+An earlier draft of this section said Python tooling for ODB++ input "essentially
+does not exist, and the gap is structural." That was wrong, and wrong in the
+direction that closes off options: **PyEDB imports ODB++ archives directly and is
+a pure-Python API.** The corrected survey below enumerates every route found,
+scores each against the three capabilities of §16.1, and states where a route
+stops rather than using a stopping point to dismiss it.
 
-| Tool | Language | Takes ODB++ in? | Use here |
-|---|---|---|---|
-| `mcix/odbpp` (Delta ODB++) | Java | **yes** — full model, SVG/PNG render, ODB++ → Gerber X2 + Excellon, web viewer | the independent renderer for the §10.3 XOR check, and a usable viewer |
-| `nam20485/OdbDesign` | C++ (AGPL-3.0) | yes, via REST/gRPC | parser alternative; the licence is a decision, not a detail |
-| `ulikoehler/ODBPy` | Python | partial | reference for record syntax; not a complete model |
-| `sjgallagher2/ODBplusplus-Parser` | Python | yes, v7 subset | closest prior art — parses to shapely, unions traces, exports STEP |
-| `kicad-tools`, `kicad-assistant`, `kicad-happy`, KiCad MCP servers | Python | **no** | they consume `.kicad_pcb` |
-| `gerbonara`, `pcb-tools` | Python | no (Gerber) | usable *after* an ODB++ → Gerber conversion |
-| SignalIntegrity, pyBERT | Python | no | S-parameter and link simulation, a different problem |
+### 16.1 The three capabilities that decide everything
 
-The structural point: **KiCad exports ODB++ and does not import it.** So an
-"ODB++ → KiCad → Python DFM tools" route does not exist for a job that arrives
-as ODB++; the KiCad-based tools are only reachable for designs authored in
-KiCad. Going through Gerber instead reaches good Python libraries, but Gerber
-carries net attribution only as optional X2 attributes, and §3.4 says net
-attribution is the whole basis of the check.
+| Capability | Why it decides |
+|---|---|
+| **Net attribution** | `eda/data` maps features to nets. It is the only thing that says *which copper is the shield*; §3.4. |
+| **Exact geometry** | Polygon booleans carry no quantization error. A raster carries ±s at pitch s and guarantees only `⌈w/s⌉ − 1` samples in a gap of width w. |
+| **Human-viewable image** | A finding is a coordinate; a reviewer needs a picture. Render the picture *from* the finding. |
 
-That leaves two workable shapes, and the prototype takes the first:
+### 16.2 The route catalogue
 
-1. **Read ODB++ in Python directly** for the subset the checks need. This is
-   smaller than it sounds — the record syntax is a few line formats — and it
-   keeps net attribution, which is the one thing that cannot be recovered later.
-2. **Use `mcix/odbpp` as a service** for rendering and for Gerber conversion,
-   and difference its raster against the Python model. This is the §4
-   self-validation, using an existing implementation rather than writing a
-   second renderer.
+Family A keeps net attribution end to end and can therefore run all six checks,
+including the floating-shield check that no image-based route can perform.
+
+| # | Route | Stack | Net | Geometry | Image | Where it stops |
+|---|---|---|---|---|---|---|
+| A1 | Direct Python reader of the ODB++ subset | Python + shapely | yes | exact | own renderer | text/barcode/user symbols, blind-buried vias, step-and-repeat — all surfaced as `Q` findings rather than dropped |
+| A2 | **PyEDB / PyAEDT (Ansys EDB)** | Python (OSS) + AEDT engine | yes | exact | indirect | **requires a licensed AEDT install**; the library is open source, the engine is not |
+| A3 | OdbDesign as a service (REST/gRPC) | C++ server + Python client | yes | exact | none | AGPL-3.0; and it removes the parsing work, not the check logic |
+| A4 | delta-odbpp as a service | Java (Spring Boot) ↔ Python | yes | exact | SVG/PNG | JVM dependency, no Python API — wrap over HTTP or JPype |
+| A5 | Switch the input to IPC-2581 | Python + lxml | yes | exact | none | needs a re-export from the original ECAD; free ODB++→IPC-2581 converters are scarce |
+| A6 | Script the original ECAD (Allegro SKILL, Altium, Xpedition) | vendor scripting | yes | exact | native | needs the design and its licence; unavailable when only ODB++ was received. The one route where *design intent* is readable rather than supplied |
+| B1 | High-resolution render → OpenCV morphology | Python + OpenCV | no | ±s | yes | cannot say whether a gap is the shield's; blind to a floating shield |
+| B2 | Renderer XOR cross-check | own raster ⊕ independent raster | yes | exact | yes | only as good as the renderers' independence; **unexecuted** |
+| B3 | Viewer screenshot automation | GUI automation | no | not possible | best | no coordinate frame or scale inside the image; review material, not measurement |
+| C1 | ODB++ → Gerber X2 → gerbonara / pygerber | Python | conditional | exact | indirect | depends on the converter emitting `%TO.N,<net>*%`; otherwise join Gerber geometry to ODB++ `eda/data` by feature index |
+| C2 | ODB++ → Gerber → KiCad Pcbnew → KiCad Python tooling | GerbView export | no | degraded | yes | flashes become round vias, Excellon is ignored, no nets, meanders in a plane fill solid — a reference, not the artefact under test |
+| D1 | Valor NPI, HyperLynx DRC, Allegro, SIwave (PyAEDT-scriptable) | commercial | yes | exact | yes | licence cost, and rule internals are not editable to a house threshold |
+
+None of the commercial tools in D1 works from images. That is corroboration for
+§4, not a coincidence.
+
+### 16.3 Combination, not selection
+
+The routes are not exclusive, and the working arrangement splits them by role:
+nets from ODB++ `eda/data`; geometry from a verified parser (A1, or A2/A3 where
+available); the verdict in vector; the evidence rendered from finding
+coordinates; and parse confidence from an independent-renderer XOR (B2, via A4).
+A1 already runs in that shape. What remains is attaching B2 and passing one real
+job through it.
+
+### 16.4 What is genuinely closed, and why
+
+Stated as reasons, not as reasons to stop looking.
+
+1. **KiCad has no ODB++ import.** Not implemented — the file dialog answers
+   "File format not supported"; KiCad 9 exports only. Reachable instead through
+   Gerber (C2, lossy) or IPC-2581 (A5).
+2. **Net names cannot be recovered from Gerber geometry alone.** Without X2 `.N`
+   attributes, connectivity can be inferred from shapes but *which* net is the
+   shield is design intent and is not in the geometry. Joining to ODB++
+   `eda/data` recovers it (C1).
+3. **A viewer screenshot cannot be measured.** No coordinate frame or scale
+   travels with the image, and anti-aliasing makes an edge pixel a fraction.
+   A deterministic render with the transform recorded replaces it (A1).
+4. **A floating shield is invisible to every image method.** All the copper is
+   present and in place. Only a connectivity graph finds it.
+5. **The ODB++ specification host is refused by this session's egress policy.**
+   Worked around by reading KiCad's ODB++ *writer*: a generator's code fixes the
+   byte-level form a consumer must accept, cross-checked against two parsers.
