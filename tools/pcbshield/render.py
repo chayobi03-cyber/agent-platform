@@ -69,11 +69,17 @@ def _draw(geom: BaseGeometry, drw: ImageDraw.ImageDraw, tr: Transform,
 def render_window(job: Job, layer: str, params: Params,
                   bbox_mm: Tuple[float, float, float, float],
                   scale_um_px: float,
-                  board: Optional[BaseGeometry] = None) -> Image.Image:
-    """One layer over a board-coordinate window, at a stated pixel pitch."""
+                  board: Optional[BaseGeometry] = None,
+                  max_edge_px: int = MAX_EDGE_PX) -> Image.Image:
+    """One layer over a board-coordinate window, at a stated pixel pitch.
+
+    `max_edge_px` caps evidence crops at a sane size. A caller that must match
+    another render's pixel grid exactly — the cross-check — raises it, because
+    silently clamping and resizing would compare two different rasters.
+    """
     x0, y0, x1, y1 = bbox_mm
-    w = max(1, min(MAX_EDGE_PX, math.ceil((x1 - x0) * 1000.0 / scale_um_px)))
-    h = max(1, min(MAX_EDGE_PX, math.ceil((y1 - y0) * 1000.0 / scale_um_px)))
+    w = max(1, min(max_edge_px, math.ceil((x1 - x0) * 1000.0 / scale_um_px)))
+    h = max(1, min(max_edge_px, math.ceil((y1 - y0) * 1000.0 / scale_um_px)))
     img = Image.new("RGB", (w, h), BACKGROUND)
     drw = ImageDraw.Draw(img)
     tr = Transform(x0, y1, scale_um_px)

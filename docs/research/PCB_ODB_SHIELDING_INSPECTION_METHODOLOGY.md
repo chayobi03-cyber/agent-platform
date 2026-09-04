@@ -121,10 +121,18 @@ discards all of this.** It is the single strongest argument against an image-fir
 method: an image cannot distinguish a ground pour from an unrelated copper flood,
 and the entire question being asked is about *which net's* copper is where.
 
-**3.5 Units are mixed by design.** The `U` record gives the file unit (`MM`,
-`IN`); symbol parameters are frequently in mil or µm. Unit normalisation belongs
-at the parse boundary, once, or it becomes a silent 25.4× error somewhere
-downstream.
+**3.5 Coordinates and symbol dimensions use different units.** `UNITS=` (or
+the `U` record) gives the file unit for coordinates. **Standard-symbol
+dimensions are in thousandths of that unit** — microns in an MM job, mils in an
+INCH job — so `r200` in an MM file is a 0.2 mm round, not a 200 mm one. Two
+independent implementations agree: KiCad's writer scales symbol values by
+`1/PL_IU_PER_MM` (1e3) out of nanometre internal units, and delta-odbpp reads
+them with `symbolToMm = features.isMillimeters() ? 0.001 : 0.0254`.
+
+Reading the two with one factor is a silent **1000×** error on every trace width
+and pad, and it is the error this method's own reader shipped with until an
+independent renderer contradicted it (§15.4). Unit normalisation belongs at the
+parse boundary, once, with the two scales kept apart.
 
 ---
 
@@ -501,13 +509,60 @@ guard shorten the true copper gap to about 2.7 mm, and sampling rounds it down
 by one station. Every S1 finding therefore carries `station_pitch_mm`. A bare
 millimetre figure would have implied a precision the method does not have.
 
+**15.4 The independent renderer found a 1000× error the whole suite missed.**
+§10.3's XOR cross-check was executed by building `mcix/odbpp` (Java) and
+rendering the same synthetic job. It disagreed before a single pixel was
+compared: every trace came out with `stroke-width="0"`, and the reference
+resolved the job in inches.
+
+Both symptoms were real defects, one on each side of the comparison.
+
+- The zero widths were **ours**. Standard-symbol dimensions are thousandths of
+  the file unit (§3.5); the reader took them as file units, so every trace and
+  pad was a thousand times too large. The fixture wrote them the same wrong way,
+  so all 36 tests passed on geometry that was uniformly wrong by three orders of
+  magnitude. This is precisely the limitation the previous section named — "the
+  fixture's writer and the reader share assumptions" — arriving as a concrete
+  defect rather than a caveat.
+- The inch fallback was the **fixture's**. The synthetic job had no `misc/info`,
+  which carries the job-level `UNITS` directive and is a required file; the
+  reference renderer fell back to inches in its absence.
+
+After both fixes the two implementations agree structurally — no feature present
+on one side and missing on the other — and the residual is a sub-pixel boundary
+band that shrinks with resolution:
+
+| pixel pitch | disagreement, % of union |
+|---|---|
+| 16.2 µm/px | 4.64 |
+| 8.1 µm/px | 1.46 |
+| 4.05 µm/px | 1.10 |
+| 2.03 µm/px | 0.76 |
+
+A raster comparison has a boundary floor by construction — one side counts any
+partially covered pixel, the other counts pixels past a coverage threshold — so
+the residual is a property of the comparison, not of the models. Driving it to
+zero means comparing vector geometry rather than rasters, which is the next
+version of this check rather than a defect in this one.
+
+Two further facts fell out of the exercise. The reference implementation's
+Gerber writer emits `.FileFunction` file attributes and **no `.N` net object
+attributes**, which settles the open question on the Gerber route (§16.2, C1):
+that route needs the `eda/data` join, or a contribution upstream. And the
+comparison arithmetic itself failed twice before it worked — once on a
+non-existent 1-bit packer, once on a brightness threshold that classified every
+mid-tone copper role as background and reported a flat 100% disagreement as
+though it were a measurement. A cross-check that silently reports nonsense is
+worse than no cross-check, so that arithmetic is now pinned by its own tests.
+
 ### What this does not establish
 
-The fixture's writer and the reader share assumptions, so these results
-validate the **checks**, not the reader's fidelity to real CAM output. The
-renderer XOR cross-check of §10.3 has not been run against a second
-implementation, and no real ODB++ job has been read. Both remain open, and
-`mcix/odbpp` is the obvious counterparty for the first.
+The XOR cross-check has now been run (§15.4), so the geometry model is no
+longer validated only against itself — but it has been validated against one
+other implementation, on one synthetic job, at one scale. **No real ODB++ job
+has been read.** Symbol coverage beyond the standard round/square/rect/oval set
+is untested on both sides, and agreement between two implementations is not the
+specification.
 
 ---
 

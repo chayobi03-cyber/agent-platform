@@ -64,12 +64,15 @@ class _FeatureFile:
         self.nets.append(net)
         return len(self.lines) - 1
 
-    def line(self, x0, y0, x1, y1, width, net, polarity="P") -> int:
-        s = self.symbol(f"r{width:g}")
+    # Coordinates are in the file unit (mm here); standard-symbol dimensions
+    # are in thousandths of it. Writing both with the same number is the
+    # 1000x error an independent renderer caught in the reader.
+    def line(self, x0, y0, x1, y1, width_mm, net, polarity="P") -> int:
+        s = self.symbol(f"r{width_mm * 1000:g}")
         return self._add(f"L {x0:g} {y0:g} {x1:g} {y1:g} {s} {polarity} 0", net)
 
-    def pad(self, x, y, dia, net, polarity="P") -> int:
-        s = self.symbol(f"r{dia:g}")
+    def pad(self, x, y, dia_mm, net, polarity="P") -> int:
+        s = self.symbol(f"r{dia_mm * 1000:g}")
         return self._add(f"P {x:g} {y:g} {s} {polarity} 0 8 0", net)
 
     def rect_surface(self, x0, y0, x1, y1, net, polarity="P",
@@ -228,6 +231,13 @@ def build_job(root: Path, defects: Optional[Defects] = None
 
     (root / "matrix").mkdir(parents=True, exist_ok=True)
     (root / "matrix" / "matrix").write_text(MATRIX.format(), encoding="utf-8")
+
+    # misc/info carries the job-level UNITS directive. It is required, and
+    # omitting it made an independent renderer fall back to inches.
+    (root / "misc").mkdir(parents=True, exist_ok=True)
+    (root / "misc" / "info").write_text(
+        "JOB_NAME=pcbshield-synth\nUNITS=MM\nODB_VERSION_MAJOR=8\n"
+        "ODB_VERSION_MINOR=1\nODB_SOURCE=pcbshield.synth\n", encoding="utf-8")
 
     order = ["top", "l2", "drill"]
     eda = ["# synthetic", "HDR pcbshield synth", "UNITS=MM",

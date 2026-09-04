@@ -154,6 +154,25 @@ class ModelCorrectnessTest(unittest.TestCase):
         with self.assertRaises(ValueError):
             layer_copper(layer, 0.001)
 
+    def test_symbol_dimensions_are_thousandths_of_the_file_unit(self) -> None:
+        """The reader read symbol numbers in the file unit, making every trace
+        width and pad 1000x too large. Both KiCad's writer (symbol values
+        scaled by 1/PL_IU_PER_MM out of nanometres) and delta-odbpp
+        (`symbolToMm = 0.001` for MM) write microns; an independent render
+        caught the disagreement. This pins the corrected convention."""
+        from pcbshield.odb import SYMBOL_TO_MM, read_job
+        self.assertEqual(SYMBOL_TO_MM["MM"], 0.001)
+        self.assertAlmostEqual(SYMBOL_TO_MM["INCH"], 0.0254)
+
+        root = Path(tempfile.mkdtemp())
+        build_job(root, Defects())
+        job = read_job(root)
+        trace = next(f for f in job.layers["top"].features
+                     if f.kind == "L" and job.net_of("top", f.index) == "SIG")
+        self.assertEqual(trace.symbol.name, "r200")
+        self.assertAlmostEqual(trace.symbol.dims[0], 0.2, places=9)
+        self.assertEqual(job.warnings, [])
+
     def test_arc_tolerance_is_honoured(self) -> None:
         """The contract is the sagitta bound, not the area. Asserting area
         against pi*r^2 would assert the bias away instead of measuring it."""
@@ -184,7 +203,7 @@ class ModelCorrectnessTest(unittest.TestCase):
         build_job(root, Defects())
         features = root / "steps" / "pcb" / "layers" / "top" / "features"
         text = features.read_text(encoding="utf-8")
-        features.write_text(text.replace("$0 r0.2", "$0 thermal_rounded_x"),
+        features.write_text(text.replace("$0 r200", "$0 thermal_rounded_x"),
                             encoding="utf-8")
         job = read_job(root)
         findings = run_all(job, Params(**PARAMS), "top")
@@ -226,3 +245,68 @@ class EvidenceTest(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+@requires_deps
+class CrossCheckTest(unittest.TestCase):
+    """The XOR comparison itself, pinned.
+
+    Both of its failure modes so far were in this arithmetic rather than in
+    the geometry: a raw packer that does not exist for 1-bit images, and a
+    brightness threshold that classified every mid-tone copper role as
+    background and reported a perfect 100% disagreement as if it were data. A
+    cross-check that silently reports nonsense is worse than none.
+    """
+
+    def setUp(self) -> None:
+        from PIL import Image
+        from pcbshield.render import BACKGROUND
+        self.Image = Image
+        self.BACKGROUND = BACKGROUND
+
+    def _ours(self, box):
+        img = self.Image.new("RGB", (100, 100), self.BACKGROUND)
+        from PIL import ImageDraw
+        ImageDraw.Draw(img).rectangle(box, fill=(110, 110, 116))
+        return img
+
+    def _reference(self, box):
+        img = self.Image.new("RGB", (100, 100), (255, 255, 255))
+        from PIL import ImageDraw
+        ImageDraw.Draw(img).rectangle(box, fill=(0, 0, 0))
+        return img
+
+    def test_identical_geometry_disagrees_nowhere(self) -> None:
+        from pcbshield.crosscheck import compare
+        stats, _ = compare(self._ours((10, 10, 39, 39)),
+                           self._reference((10, 10, 39, 39)))
+        self.assertEqual(stats.ours_px, 30 * 30)
+        self.assertEqual(stats.theirs_px, 30 * 30)
+        self.assertEqual(stats.xor_px, 0)
+        self.assertEqual(stats.fraction_of_union, 0.0)
+
+    def test_a_real_difference_is_counted_exactly(self) -> None:
+        """Shift the reference by 10 px: the symmetric difference is two
+        30x10 bands, and nothing else."""
+        from pcbshield.crosscheck import compare
+        stats, _ = compare(self._ours((10, 10, 39, 39)),
+                           self._reference((20, 10, 49, 39)))
+        self.assertEqual(stats.xor_px, 2 * 30 * 10)
+        self.assertEqual(stats.intersection_px, 30 * 20)
+        self.assertEqual(stats.union_px, 30 * 40)
+        self.assertAlmostEqual(stats.fraction_of_union, 0.5)
+
+    def test_mid_tone_copper_is_not_read_as_background(self) -> None:
+        """The regression that made the first run report 100% disagreement."""
+        from pcbshield.crosscheck import _mask_ours, _count
+        self.assertEqual(_count(_mask_ours(self._ours((0, 0, 9, 9)))), 100)
+
+    def test_viewbox_is_read_from_the_reference(self) -> None:
+        from pcbshield.crosscheck import read_viewbox
+        svg = Path(tempfile.mkdtemp()) / "ref.svg"
+        svg.write_text('<?xml version="1.0"?>\n<svg xmlns="http://www.w3.org/'
+                       '2000/svg" width="65" height="20" '
+                       'viewBox="0.0354 0.1614 0.6772 0.2165">\n</svg>\n',
+                       encoding="utf-8")
+        self.assertEqual(read_viewbox(svg),
+                         (0.0354, 0.1614, 0.6772, 0.2165))

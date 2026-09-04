@@ -45,9 +45,17 @@ from typing import Dict, Iterable, List, Optional, Sequence, Tuple
 
 MM_PER_INCH = 25.4
 
-# A standard-symbol dimension larger than this is almost certainly a unit
-# misreading rather than a real pad. See Job.warnings.
-IMPLAUSIBLE_SYMBOL_MM = 25.4
+# Standard-symbol dimensions are written in thousandths of the file unit:
+# microns in an MM file, mils in an INCH file. Verified against two independent
+# implementations — KiCad's ODB++ writer scales symbol values by
+# 1/PL_IU_PER_MM (1e3) out of nanometre internal units, and delta-odbpp reads
+# them with `symbolToMm = features.isMillimeters() ? 0.001 : 0.0254`.
+SYMBOL_TO_MM = {"MM": 0.001, "INCH": 0.0254, "IN": 0.0254}
+
+# A standard-symbol dimension below this is almost certainly the other
+# convention (a decimal in file units) rather than a real feature: it would be
+# a thousandth of its intended size. See Job.warnings.
+IMPLAUSIBLE_SYMBOL_MM = 0.005
 
 
 @dataclass(frozen=True)
@@ -136,12 +144,14 @@ _OVAL_RE = re.compile(r"^oval([\d.]+)x([\d.]+)$", re.I)
 
 
 def parse_symbol(name: str, to_mm: float) -> Symbol:
-    """Parse a standard symbol name. `to_mm` scales the file unit to mm.
+    """Parse a standard symbol name. `to_mm` scales the symbol number to mm.
 
-    Dimensions are read in the file's own unit, which is what KiCad's writer
-    emits. Some tools instead write thousandths of the unit; that convention
-    produces dimensions three orders too large here, which is what the
-    implausibility warning in `read_features` is looking for.
+    Pass `SYMBOL_TO_MM[unit]`, not the coordinate scale: symbol dimensions are
+    in thousandths of the file unit while coordinates are in the unit itself,
+    so `r200` in an MM file is a 0.2 mm round, not a 200 mm one. Reading the
+    two with the same factor is a silent 1000x error on every trace width and
+    pad, which is exactly what a cross-check against an independent renderer
+    caught here.
     """
     n = name.strip()
     m = _ROUND_RE.match(n)
@@ -171,6 +181,7 @@ def _strip_attrs(line: str) -> str:
 def read_features(path: Path, warnings: List[str]) -> List[Feature]:
     """Parse one layer's `features` file into mm-normalised features."""
     to_mm = 1.0
+    symbol_to_mm = SYMBOL_TO_MM["MM"]
     symbols: Dict[int, Symbol] = {}
     raw_symbol_names: Dict[int, str] = {}
     features: List[Feature] = []
@@ -192,6 +203,7 @@ def read_features(path: Path, warnings: List[str]) -> List[Feature]:
         if line.upper().startswith("UNITS="):
             unit = line.split("=", 1)[1].strip().upper()
             to_mm = MM_PER_INCH if unit in ("INCH", "IN") else 1.0
+            symbol_to_mm = SYMBOL_TO_MM.get(unit, SYMBOL_TO_MM["MM"])
             continue
 
         if line.startswith("$"):
@@ -199,16 +211,17 @@ def read_features(path: Path, warnings: List[str]) -> List[Feature]:
             if head.isdigit():
                 idx = int(head)
                 raw_symbol_names[idx] = name.strip()
-                symbols[idx] = parse_symbol(name, to_mm)
+                symbols[idx] = parse_symbol(name, symbol_to_mm)
                 if not symbols[idx].resolved:
                     warnings.append(
                         f"{path.name}: unsupported symbol '{name.strip()}' "
                         f"(#{idx}) — features using it are unresolved")
-                elif max(symbols[idx].dims or (0.0,)) > IMPLAUSIBLE_SYMBOL_MM:
+                elif 0 < max(symbols[idx].dims or (0.0,)) < IMPLAUSIBLE_SYMBOL_MM:
                     warnings.append(
                         f"{path.name}: symbol '{name.strip()}' resolves to "
-                        f"{max(symbols[idx].dims):.1f} mm — check whether this "
-                        f"job writes symbol sizes in thousandths of the unit")
+                        f"{max(symbols[idx].dims) * 1000:.3f} um — implausibly "
+                        f"small; this job may write symbol sizes as decimals in "
+                        f"the file unit rather than in thousandths of it")
             continue
 
         body = _strip_attrs(line)

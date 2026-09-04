@@ -49,10 +49,8 @@ of it is guessed: the CLI requires `--signal` and `--shield`.
   more than one; the reader refuses instead of defaulting.
 - **Negative matrix polarity** is handled only when a board outline is
   available, and raises otherwise rather than guessing.
-- **No renderer XOR cross-check yet.** `mcix/odbpp` (Java, AGPL) renders ODB++
-  independently and is the obvious second implementation to difference against;
-  until that runs, the geometry model is unvalidated against anything but
-  itself.
+- **Symbol coverage is the standard round/square/rect/oval set.** Thermals,
+  butterflies and the rest resolve to `Q2` findings rather than to geometry.
 
 ## Validating it
 
@@ -63,5 +61,20 @@ that matters — a checker that flags everything scores perfect recall.
 
 The honest limit: the fixture's writer and the reader share assumptions, so a
 passing run validates the checks, not the reader's fidelity to real CAM output.
-Record syntax was taken from KiCad's ODB++ writer and cross-checked against
-`ulikoehler/ODBPy`, but only a real job settles it.
+That limit was not theoretical — it hid a 1000x error in symbol units through 36
+green tests until an independent renderer contradicted it.
+
+## Cross-checking against another implementation
+
+```bash
+# render the same job with a second implementation (mcix/odbpp, Java), then
+python3 -m pcbshield.crosscheck JOB_DIR --layer top \
+    --ref-svg ref/top.svg --ref-png ref/top.png --unit-scale 25.4 --out xor/
+```
+
+It reports how much copper one side draws and the other does not, and writes a
+diff image: orange where only this model has copper, blue where only the
+reference does. Against `mcix/odbpp` the two agree structurally, with a residual
+boundary band of 4.64% of union at 16.2 um/px falling to 0.76% at 2.03 um/px --
+a raster comparison has a coverage-threshold floor by construction, so the
+residual is a property of the comparison rather than of the models.
